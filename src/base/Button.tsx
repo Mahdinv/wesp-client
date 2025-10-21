@@ -21,7 +21,7 @@ const Button: React.FC<{
             ],
           }}
           transition={{ duration: 2.5, ease: "easeInOut", repeat: Infinity }}
-          className={`${props.classes} xs:text-[14px] sm:text-xs md:text-sm lg:text-base leading-none duration-300 py-2`}
+          className={`${props.classes} xs:text-[14px] sm:text-xs md:text-sm lg:text-base leading-none duration-300 py-2 outline-none`}
           onClick={props.onClick}
         >
           {props.title}
@@ -30,7 +30,7 @@ const Button: React.FC<{
 
       {!props.motion && (
         <button
-          className={`${props.classes} xs:text-[14px] sm:text-xs md:text-sm lg:text-base leading-none duration-300 py-2`}
+          className={`${props.classes} xs:text-[14px] sm:text-xs md:text-sm lg:text-base leading-none duration-300 py-2 outline-none`}
           onClick={props.onClick}
         >
           {props.title}
