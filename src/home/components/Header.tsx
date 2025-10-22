@@ -14,10 +14,10 @@ const navLinks = [
 
 const Header: React.FC<{
   isScrolled: boolean;
+  elementName: string;
   mainSectionRef: React.RefObject<HTMLDivElement | null>;
 }> = (props) => {
   const userProgressContext = useContext(UserProgressContext);
-  const [activeNavIndex, setActiveNavIndex] = useState<number>();
   const [menuIsOpen, setMenuIsOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement | null>(null);
   if (menuIsOpen) {
@@ -45,6 +45,8 @@ const Header: React.FC<{
       },
     });
   }
+
+  console.log(props.elementName);
 
   return (
     <>
@@ -81,10 +83,9 @@ const Header: React.FC<{
                 <li
                   key={index}
                   className={`${
-                    activeNavIndex === index ? "nav-active" : undefined
+                    props.elementName === link.id ? "nav-active" : undefined
                   }`}
                   onClick={() => {
-                    setActiveNavIndex(index);
                     setMenuIsOpen(false);
                     smoothScrollToSection(link.id);
                   }}
