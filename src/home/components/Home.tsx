@@ -7,19 +7,10 @@ import Landing from "./Landing";
 const Home = () => {
   return (
     <>
-      {/* Landing */}
       <Landing />
-
-      {/* About Project */}
       <AboutProject />
-
-      {/* Road Map */}
       <RoadMap />
-
-      {/* Our Team */}
       <Members />
-
-      {/* Contact Us */}
       <ContactUs />
     </>
   );
