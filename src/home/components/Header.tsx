@@ -4,6 +4,7 @@ import classes from "./Header.module.css";
 import Button from "../../base/Button";
 import UserProgressContext from "../../store/userProgressContext";
 import { animate } from "framer-motion";
+import { Link } from "react-router-dom";
 
 const navLinks = [
   { id: "about-project", title: "درباره پروژه" },
@@ -97,16 +98,20 @@ const Header: React.FC<{
           </div>
           <div className="flex flex-row items-center gap-4">
             <div className="flex flex-row gap-2">
-              <Button
-                classes="btn px-4"
-                title="ورود"
-                onClick={() => userProgressContext.showLogin()}
-              />
-              <Button
-                classes="btn btn-primary px-6 md:px-7"
-                title="ثبت‌نام"
-                onClick={() => userProgressContext.showRegister()}
-              />
+              <Link to="?mode=login">
+                <Button
+                  classes="btn px-4"
+                  title="ورود"
+                  onClick={() => userProgressContext.showLogin()}
+                />
+              </Link>
+              <Link to="?mode=register">
+                <Button
+                  classes="btn btn-primary px-6 md:px-7"
+                  title="ثبت‌نام"
+                  onClick={() => userProgressContext.showRegister()}
+                />
+              </Link>
             </div>
             <FaBars
               className="text-colorTitleBold xs:text-xs sm:text-sm md:hidden"

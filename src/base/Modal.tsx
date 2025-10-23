@@ -2,6 +2,7 @@ import React, { useEffect, useRef, type ReactNode } from "react";
 import { createPortal } from "react-dom";
 import { FaXmark } from "react-icons/fa6";
 import { animate } from "framer-motion";
+import { Link, useSearchParams } from "react-router-dom";
 
 export interface ModalContentConfig {
   imageUrl: string;
@@ -20,22 +21,23 @@ interface AuthModalProps {
 }
 
 const Modal: React.FC<AuthModalProps> = (props) => {
+  const [searchParams] = useSearchParams();
+  const isLogin = searchParams.get("mode") === "login";
   const dialog = useRef<HTMLDialogElement>(null);
 
   useEffect(() => {
     const dialogEl = dialog.current;
     if (!dialogEl) return;
+
     if (props.open && dialogEl) {
       dialogEl.showModal();
-
-      requestAnimationFrame(() => {
-        animate(
-          dialogEl,
-          { opacity: [0, 0.3, 0.5, 0.7, 0.9, 1], y: [30, 20, 10, 0] },
-          { duration: 0.4, ease: "easeOut" }
-        );
-      });
+      animate(
+        dialogEl,
+        { opacity: [0, 0.3, 0.5, 0.7, 0.9, 1], y: [30, 20, 10, 0] },
+        { duration: 0.4, ease: "easeOut" }
+      );
     }
+
     return () => dialogEl?.close();
   }, [props.open]);
 
@@ -47,10 +49,12 @@ const Modal: React.FC<AuthModalProps> = (props) => {
     >
       <div className="relative flex flex-col items-center justify-center w-full h-full">
         <div className="absolute left-4 top-4 z-50 bg-gray-300 rounded-full p-2 duration-300 hover:scale-110 hover:bg-gray-200">
-          <FaXmark
-            className="text-colorHeaderTitle duration-300 hover:scale-110"
-            onClick={props.onClose}
-          />
+          <Link to="..">
+            <FaXmark
+              className="text-colorHeaderTitle duration-300 hover:scale-110"
+              onClick={props.onClose}
+            />
+          </Link>
         </div>
         <div className="absolute w-96 h-96 bg-[#169C89] rounded-full right-0 top-0 transform translate-x-32 -translate-y-44 opacity-40"></div>
         <header className="bg-gradient-to-b from-emerald-100 to-transparent w-full px-2">
@@ -72,7 +76,9 @@ const Modal: React.FC<AuthModalProps> = (props) => {
               onClick={props.config.onFooterActionTextClick}
               className="hover:cursor-pointer font-bold duration-300 hover:underline underline-offset-4 decoration-2"
             >
-              {props.config.footerActionText}
+              <Link to={`?mode=${isLogin ? "register" : "login"}`}>
+                {props.config.footerActionText}
+              </Link>
             </span>
           </small>
         </footer>
