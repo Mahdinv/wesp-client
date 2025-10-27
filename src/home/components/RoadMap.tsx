@@ -1,4 +1,4 @@
-import { toPersianDigits } from "../../utils/util";
+import { toPersianDigits } from "../../utils/persian-digit";
 
 const RoadMap = () => {
   return (

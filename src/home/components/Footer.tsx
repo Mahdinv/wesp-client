@@ -1,5 +1,5 @@
 import { FaInstagram, FaTelegram, FaXTwitter } from "react-icons/fa6";
-import { toPersianDigits } from "../../utils/util";
+import { toPersianDigits } from "../../utils/persian-digit";
 
 const Footer = () => {
   return (
