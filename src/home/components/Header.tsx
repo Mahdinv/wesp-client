@@ -47,8 +47,6 @@ const Header: React.FC<{
     });
   }
 
-  console.log(props.elementName);
-
   return (
     <>
       <header

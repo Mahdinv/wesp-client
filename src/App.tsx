@@ -3,12 +3,14 @@ import "./App.css";
 import Home from "./home/components/Home";
 import Index from "./home/Index";
 import { UserProgressContextProvider } from "./store/userProgressContext";
+import { action as authAction } from "./home/actions/auth-action";
 
 function App() {
   const router = createBrowserRouter([
     {
       path: "/",
       element: <Index />,
+      action: authAction,
       children: [{ index: true, element: <Home /> }],
     },
   ]);

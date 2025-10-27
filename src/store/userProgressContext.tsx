@@ -1,11 +1,32 @@
-import React, { createContext, useState, type ReactNode } from "react";
+import React, {
+  createContext,
+  useCallback,
+  useState,
+  type ReactNode,
+} from "react";
 
-const UserProgressContext = createContext({
-  progress: "" /* register Or login */,
+type UserProgressContext = {
+  progress: string;
+  showRegister: () => void;
+  hiddenRegister: () => void;
+  showLogin: () => void;
+  hiddenLogin: () => void;
+  showForgetPassword: () => void;
+  hiddenForgetPassword: () => void;
+  showResetPassword: () => void;
+  hiddenResetPassword: () => void;
+};
+
+const UserProgressContext = createContext<UserProgressContext>({
+  progress: "" /* register || login || forget-password */,
   showRegister: () => {},
   hiddenRegister: () => {},
   showLogin: () => {},
   hiddenLogin: () => {},
+  showForgetPassword: () => {},
+  hiddenForgetPassword: () => {},
+  showResetPassword: () => {},
+  hiddenResetPassword: () => {},
 });
 
 export const UserProgressContextProvider: React.FC<{ children: ReactNode }> = (
@@ -13,18 +34,30 @@ export const UserProgressContextProvider: React.FC<{ children: ReactNode }> = (
 ) => {
   const [userProgress, setUserProgress] = useState("");
 
-  function showRegister() {
+  const showRegister = useCallback(() => {
     setUserProgress("register");
-  }
-  function hiddenRegister() {
+  }, []);
+  const hiddenRegister = useCallback(() => {
     setUserProgress("");
-  }
-  function showLogin() {
+  }, []);
+  const showLogin = useCallback(() => {
     setUserProgress("login");
-  }
-  function hiddenLogin() {
+  }, []);
+  const hiddenLogin = useCallback(() => {
     setUserProgress("");
-  }
+  }, []);
+  const showForgetPassword = useCallback(() => {
+    setUserProgress("forget-password");
+  }, []);
+  const hiddenForgetPassword = useCallback(() => {
+    setUserProgress("");
+  }, []);
+  const showResetPassword = useCallback(() => {
+    setUserProgress("reset-password");
+  }, []);
+  const hiddenResetPassword = useCallback(() => {
+    setUserProgress("");
+  }, []);
 
   const contextValue = {
     progress: userProgress,
@@ -32,6 +65,10 @@ export const UserProgressContextProvider: React.FC<{ children: ReactNode }> = (
     hiddenRegister,
     showLogin,
     hiddenLogin,
+    showForgetPassword,
+    hiddenForgetPassword,
+    showResetPassword,
+    hiddenResetPassword,
   };
 
   return (

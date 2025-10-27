@@ -1,14 +1,27 @@
 import { Outlet } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import Register from "./components/Register";
-import Login from "./components/Login";
 import { useEffect, useRef, useState } from "react";
+import Authentication from "./components/Authentication";
+import logout, { checkTokenExpiration } from "../utils/auth";
 
 const Index = () => {
   const mainSectionRef = useRef<HTMLDivElement | null>(null);
   const [isScrolled, setIsScrolled] = useState(false);
   const [elementName, setElementName] = useState("");
+
+  useEffect(() => {
+    const tokenExpiration: string | number = checkTokenExpiration();
+    if (tokenExpiration === "EXPIRED") {
+      console.log("Expired");
+      logout();
+    } else {
+      setTimeout(() => {
+        console.log("logout");
+        logout();
+      }, Number(tokenExpiration));
+    }
+  }, []);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -53,6 +66,7 @@ const Index = () => {
     mainSection?.addEventListener("scroll", scrollHandler);
     return () => mainSection?.removeEventListener("scroll", scrollHandler);
   });
+
   return (
     <div
       ref={mainSectionRef}
@@ -63,8 +77,7 @@ const Index = () => {
         mainSectionRef={mainSectionRef}
         elementName={elementName}
       />
-      <Register />
-      <Login />
+      <Authentication />
       <Outlet />
       <Footer />
     </div>
