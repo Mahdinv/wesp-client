@@ -83,13 +83,15 @@ export async function action({ request }: ActionFunctionArgs) {
 
   if (mode === "login") {
     const expiration = new Date();
-    expiration.setMinutes(expiration.getMinutes() + 1);
+    expiration.setMinutes(expiration.getMinutes() + 5);
     localStorage.setItem("accessToken", response.data.access);
     localStorage.setItem("expiration", expiration.toString());
   }
 
   return {
-    response,
+    data: response.data,
+    status: response.status,
+    success: response.status === 200 || response.status === 201 ? true : false,
     mode,
   };
 }

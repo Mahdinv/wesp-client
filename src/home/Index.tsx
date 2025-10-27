@@ -1,27 +1,36 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import Authentication from "./components/Authentication";
-import logout, { checkTokenExpiration } from "../utils/auth";
+import logout, { checkTokenExpiration, getAccessToken } from "../utils/auth";
+import UserProgressContext from "../store/userProgressContext";
 
 const Index = () => {
+  const navigate = useNavigate();
+  const { token, setAccessToken, setProgress } =
+    useContext(UserProgressContext);
   const mainSectionRef = useRef<HTMLDivElement | null>(null);
   const [isScrolled, setIsScrolled] = useState(false);
   const [elementName, setElementName] = useState("");
 
   useEffect(() => {
+    if (!token || token === "") return;
     const tokenExpiration: string | number = checkTokenExpiration();
     if (tokenExpiration === "EXPIRED") {
-      console.log("Expired");
       logout();
     } else {
+      const token = getAccessToken();
+      if (!token || token === "") return;
+      setAccessToken(token);
       setTimeout(() => {
-        console.log("logout");
         logout();
+        setAccessToken("");
+        setProgress("login");
+        navigate("?mode=login");
       }, Number(tokenExpiration));
     }
-  }, []);
+  }, [token, setAccessToken, navigate, setProgress]);
 
   useEffect(() => {
     if (typeof window === "undefined") return;

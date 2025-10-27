@@ -16,16 +16,18 @@ const loginModalConfig: ModalContentConfig = {
 
 const Login = () => {
   const navigate = useNavigate();
-  const { progress, setProgress } = useContext(UserProgressContext);
-  const data = useActionData();
+  const { progress, setProgress, setAccessToken } =
+    useContext(UserProgressContext);
+  const res = useActionData();
   useEffect(() => {
-    if (!!data || (data !== undefined && data.mode === "login")) {
-      if (data.response.status === 200) {
+    if (!!res || (res !== undefined && res.mode === "login")) {
+      if (res.success) {
         navigate("/", { replace: true });
-        setProgress("login");
+        setProgress("");
+        setAccessToken(res.data.access);
       }
     }
-  }, [data, setProgress, navigate]);
+  }, [res, setProgress, navigate, setAccessToken]);
   return (
     <Modal
       open={progress === "login"}

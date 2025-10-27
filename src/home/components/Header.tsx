@@ -18,7 +18,7 @@ const Header: React.FC<{
   elementName: string;
   mainSectionRef: React.RefObject<HTMLDivElement | null>;
 }> = (props) => {
-  const { setProgress } = useContext(UserProgressContext);
+  const { token, setProgress } = useContext(UserProgressContext);
   const [menuIsOpen, setMenuIsOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement | null>(null);
   if (menuIsOpen) {
@@ -96,20 +96,26 @@ const Header: React.FC<{
           </div>
           <div className="flex flex-row items-center gap-4">
             <div className="flex flex-row gap-2">
-              <Link to="?mode=login">
-                <Button
-                  classes="btn px-4"
-                  title="ورود"
-                  onClick={() => setProgress("login")}
-                />
-              </Link>
-              <Link to="?mode=register">
-                <Button
-                  classes="btn btn-primary px-6 md:px-7"
-                  title="ثبت‌نام"
-                  onClick={() => setProgress("register")}
-                />
-              </Link>
+              {(!token || token === "") && (
+                <>
+                  <Link to="?mode=login">
+                    <Button
+                      classes="btn px-4"
+                      title="ورود"
+                      onClick={() => setProgress("login")}
+                    />
+                  </Link>
+                  <Link to="?mode=register">
+                    <Button
+                      classes="btn btn-primary px-6 md:px-7"
+                      title="ثبت‌نام"
+                      onClick={() => setProgress("register")}
+                    />
+                  </Link>
+                </>
+              )}
+
+              {!!token && <p>خوش اومدی</p>}
             </div>
             <FaBars
               className="text-colorTitleBold xs:text-xs sm:text-sm md:hidden"

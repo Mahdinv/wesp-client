@@ -6,9 +6,8 @@ export function getAccessToken() {
 
 export function calcTokenDuration() {
   const expirationDate = localStorage.getItem("expiration");
-  if (!expirationDate) {
-    return null;
-  }
+  if (!expirationDate) return;
+
   const expiration = new Date(expirationDate);
   const currentTime = new Date();
 
