@@ -17,8 +17,7 @@ const resetPasswordModalConfig: ModalContentConfig = {
 
 const ResetPassword = () => {
   const navigate = useNavigate();
-  const { progress, hiddenResetPassword, showForgetPassword, showLogin } =
-    useContext(UserProgressContext);
+  const { progress, setProgress } = useContext(UserProgressContext);
   const data = useActionData();
   useEffect(() => {
     if (
@@ -26,18 +25,19 @@ const ResetPassword = () => {
       data.response.status === 200 &&
       progress === "reset-password"
     ) {
-      debugger;
-      showLogin();
+      setProgress("login");
       navigate("?mode=login");
     }
   }, [data, progress]);
   return (
     <Modal
       open={progress === "reset-password"}
-      onClose={progress === "reset-password" ? hiddenResetPassword : undefined}
+      onClose={
+        progress === "reset-password" ? () => setProgress("") : undefined
+      }
       config={{
         ...resetPasswordModalConfig,
-        onFooterActionTextClick: () => showForgetPassword(),
+        onFooterActionTextClick: () => setProgress("forget-password"),
       }}
     >
       <Form method="post" className="flex flex-col gap-3 my-4 w-full">

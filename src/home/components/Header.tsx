@@ -18,7 +18,7 @@ const Header: React.FC<{
   elementName: string;
   mainSectionRef: React.RefObject<HTMLDivElement | null>;
 }> = (props) => {
-  const userProgressContext = useContext(UserProgressContext);
+  const { setProgress } = useContext(UserProgressContext);
   const [menuIsOpen, setMenuIsOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement | null>(null);
   if (menuIsOpen) {
@@ -100,14 +100,14 @@ const Header: React.FC<{
                 <Button
                   classes="btn px-4"
                   title="ورود"
-                  onClick={() => userProgressContext.showLogin()}
+                  onClick={() => setProgress("login")}
                 />
               </Link>
               <Link to="?mode=register">
                 <Button
                   classes="btn btn-primary px-6 md:px-7"
                   title="ثبت‌نام"
-                  onClick={() => userProgressContext.showRegister()}
+                  onClick={() => setProgress("register")}
                 />
               </Link>
             </div>

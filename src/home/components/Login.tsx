@@ -16,24 +16,23 @@ const loginModalConfig: ModalContentConfig = {
 
 const Login = () => {
   const navigate = useNavigate();
-  const { progress, hiddenLogin, showRegister, showForgetPassword } =
-    useContext(UserProgressContext);
+  const { progress, setProgress } = useContext(UserProgressContext);
   const data = useActionData();
   useEffect(() => {
     if (!!data || (data !== undefined && data.mode === "login")) {
       if (data.response.status === 200) {
         navigate("/", { replace: true });
-        hiddenLogin();
+        setProgress("login");
       }
     }
-  }, [data, hiddenLogin, navigate]);
+  }, [data, setProgress, navigate]);
   return (
     <Modal
       open={progress === "login"}
-      onClose={progress === "login" ? hiddenLogin : undefined}
+      onClose={progress === "login" ? () => setProgress("") : undefined}
       config={{
         ...loginModalConfig,
-        onFooterActionTextClick: () => showRegister(),
+        onFooterActionTextClick: () => setProgress("register"),
       }}
     >
       <Form method="post" className="flex flex-col gap-3 my-4">
@@ -43,7 +42,7 @@ const Login = () => {
           <small
             className="hover:cursor-pointer font-bold duration-300 hover:underline underline-offset-4 decoration-2"
             onClick={() => {
-              showForgetPassword();
+              setProgress("forget-password");
             }}
           >
             رمز عبور رو فراموش کردی؟

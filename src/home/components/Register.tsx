@@ -18,26 +18,25 @@ const registerModalConfig: ModalContentConfig = {
 
 const Register = () => {
   const navigate = useNavigate();
-  const { progress, showLogin, hiddenRegister } =
-    useContext(UserProgressContext);
+  const { progress, setProgress } = useContext(UserProgressContext);
 
   const data = useActionData();
   useEffect(() => {
     if (!!data || (data !== undefined && data.mode === "register")) {
       if (data.response.status === 201) {
-        showLogin();
+        setProgress("login");
         navigate("?mode=login");
       }
     }
-  }, [data, showLogin, navigate]);
+  }, [data, setProgress, navigate]);
 
   return (
     <Modal
       open={progress === "register"}
-      onClose={progress === "register" ? hiddenRegister : undefined}
+      onClose={progress === "register" ? () => setProgress("") : undefined}
       config={{
         ...registerModalConfig,
-        onFooterActionTextClick: () => showLogin(),
+        onFooterActionTextClick: () => setProgress("login"),
       }}
     >
       <Form method="post" className="flex flex-col gap-3 my-4">
