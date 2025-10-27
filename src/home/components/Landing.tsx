@@ -3,7 +3,7 @@ import Button from "../../base/Button";
 import UserProgressContext from "../../store/userProgressContext";
 
 const Landing = () => {
-  const userProgressContext = useContext(UserProgressContext);
+  const { setProgress } = useContext(UserProgressContext);
   return (
     <div className="relative xs:h-[calc(100dvh-68px)] sm:h-[calc(100dvh-82.8px)] md:h-[calc(100dvh-88px)] bg-gradient-to-br from-green-50 to-emerald-100">
       <img
@@ -23,7 +23,7 @@ const Landing = () => {
         <Button
           classes="btn btn-gradient px-8"
           title="ماجراجویی رو شروع کن"
-          onClick={() => userProgressContext.showLogin()}
+          onClick={() => setProgress("login")}
           motion
         />
       </div>
