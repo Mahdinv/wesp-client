@@ -7,6 +7,7 @@ const PasswordBox: React.FC<{
   classes?: string;
   type?: "password" | "text";
   placeHolder: string;
+  name: string;
 }> = (props) => {
   const [type, setType] = useState<"password" | "text">("password");
   return (
@@ -26,6 +27,7 @@ const PasswordBox: React.FC<{
           type={type}
           placeholder={props.placeHolder}
           className={`flex-1 w-full ${props.classes} px-2 rounded-s-xl font-noto outline-none text-[16px]`}
+          name={props.name}
         />
         <span className={`${props.classes} text-colorHeaderTitle`}>
           {type === "password" ? (

@@ -5,6 +5,7 @@ const EmailBox: React.FC<{
   hasIcon?: boolean;
   classes?: string;
   placeHolder: string;
+  name: string;
 }> = (props) => {
   return (
     <div className="flex flex-col items-center">
@@ -25,6 +26,7 @@ const EmailBox: React.FC<{
           type="email"
           placeholder={props.placeHolder}
           className={`flex-1 w-full px-2 rounded-s-xl font-noto outline-none text-[16px]`}
+          name={props.name}
         />
       </div>
     </div>

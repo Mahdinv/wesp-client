@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 
-const TextBox: React.FC<{
+const NumberBox: React.FC<{
   label?: string;
   icon?: ReactNode;
   classes?: string;
@@ -19,7 +19,7 @@ const TextBox: React.FC<{
       >
         {props.icon && <span className="opacity-60">{props.icon}</span>}
         <input
-          type="text"
+          type="number"
           placeholder={props.placeHolder}
           className={`flex-1 w-full px-2 rounded-s-xl font-noto outline-none xl:text-[16px]`}
           name={props.name}
@@ -29,4 +29,4 @@ const TextBox: React.FC<{
   );
 };
 
-export default TextBox;
+export default NumberBox;
