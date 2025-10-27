@@ -36,9 +36,9 @@ const Modal: React.FC<AuthModalProps> = (props) => {
         { opacity: [0, 0.3, 0.5, 0.7, 0.9, 1], y: [30, 20, 10, 0] },
         { duration: 0.4, ease: "easeOut" }
       );
+    } else {
+      dialogEl?.close();
     }
-
-    return () => dialogEl?.close();
   }, [props.open]);
 
   return createPortal(
