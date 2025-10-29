@@ -6,7 +6,14 @@ import EmailBox from "../../base/EmailBox";
 import TextBox from "../../base/TextBox";
 import { FaUser } from "react-icons/fa6";
 import Button from "../../base/Button";
-import { Form, useActionData, useNavigate } from "react-router-dom";
+import {
+  Form,
+  useActionData,
+  useNavigate,
+  useNavigation,
+  useSearchParams,
+} from "react-router-dom";
+import { toast } from "react-toastify";
 
 const registerModalConfig: ModalContentConfig = {
   imageUrl: "/images/register-image.png",
@@ -18,17 +25,22 @@ const registerModalConfig: ModalContentConfig = {
 
 const Register = () => {
   const navigate = useNavigate();
+  const navigation = useNavigation();
   const { progress, setProgress } = useContext(UserProgressContext);
-
-  const data = useActionData();
+  const [searchParams] = useSearchParams();
+  const res = useActionData();
+  const isSubmitting = navigation.state === "submitting";
   useEffect(() => {
-    if (!!data || (data !== undefined && data.mode === "register")) {
-      if (data.response.status === 201) {
+    if (searchParams.get("mode") === "register") {
+      if (!!res && !!res.success) {
         setProgress("login");
         navigate("?mode=login");
+        toast.success("عملیات ثبت‌نام با موفقیت انجام شد");
+      } else if (!!res && !res.success) {
+        toast.error(res.message);
       }
     }
-  }, [data, setProgress, navigate]);
+  }, [res, setProgress, navigate, searchParams]);
 
   return (
     <Modal
@@ -53,7 +65,8 @@ const Register = () => {
         <PasswordBox placeHolder="تکرار رمز عبور" hasIcon name="re-password" />
         <Button
           classes="btn btn-gradient !rounded-md mx-1 mt-2"
-          title="ثبت‌نام"
+          title={`${isSubmitting ? "در حال ثبت‌نام..." : "ثبت‌نام"}`}
+          disable={isSubmitting}
         />
       </Form>
     </Modal>

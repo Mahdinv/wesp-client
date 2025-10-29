@@ -5,6 +5,9 @@ const Button: React.FC<{
   classes: string;
   isGradient?: boolean;
   title: string;
+  name?: string;
+  value?: string;
+  disable?: boolean;
   motion?: boolean;
   onClick?: () => void;
 }> = (props) => {
@@ -32,6 +35,9 @@ const Button: React.FC<{
         <button
           className={`${props.classes} xs:text-[14px] sm:text-xs md:text-sm lg:text-base leading-none duration-300 py-2 outline-none`}
           onClick={props.onClick}
+          disabled={props.disable}
+          name={props.name}
+          value={props.value}
         >
           {props.title}
         </button>

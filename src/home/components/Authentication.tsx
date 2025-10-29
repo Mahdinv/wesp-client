@@ -1,5 +1,4 @@
 import { useContext } from "react";
-import ForgetPassword from "./ForgetPassword";
 import Login from "./Login";
 import Register from "./Register";
 import ResetPassword from "./ResetPassword";
@@ -10,7 +9,6 @@ const Authentication = () => {
 
   if (progress === "register") return <Register />;
   if (progress === "login") return <Login />;
-  if (progress === "forget-password") return <ForgetPassword />;
   if (progress === "reset-password") return <ResetPassword />;
 
   return null;

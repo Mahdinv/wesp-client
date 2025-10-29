@@ -4,6 +4,7 @@ import Home from "./home/components/Home";
 import Index from "./home/Index";
 import { UserProgressContextProvider } from "./store/userProgressContext";
 import { action as authAction } from "./home/actions/auth-action";
+import HotToaster from "./base/Toaster";
 
 function App() {
   const router = createBrowserRouter([
@@ -15,9 +16,12 @@ function App() {
     },
   ]);
   return (
-    <UserProgressContextProvider>
-      <RouterProvider router={router} />
-    </UserProgressContextProvider>
+    <>
+      <UserProgressContextProvider>
+        <RouterProvider router={router} />
+      </UserProgressContextProvider>
+      <HotToaster />
+    </>
   );
 }
 

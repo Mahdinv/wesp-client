@@ -196,7 +196,7 @@ small {
 }
 
 .modal::backdrop {
-  @apply bg-black opacity-70;
+  @apply bg-black opacity-70 fixed;
 }
 
 .nav-active {

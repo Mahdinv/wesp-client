@@ -5,6 +5,7 @@ import Button from "../../base/Button";
 import UserProgressContext from "../../store/userProgressContext";
 import { animate } from "framer-motion";
 import { Link } from "react-router-dom";
+import logout from "../../utils/auth";
 
 const navLinks = [
   { id: "about-project", title: "درباره پروژه" },
@@ -18,7 +19,8 @@ const Header: React.FC<{
   elementName: string;
   mainSectionRef: React.RefObject<HTMLDivElement | null>;
 }> = (props) => {
-  const { token, setProgress } = useContext(UserProgressContext);
+  const { token, setAccessToken, setProgress } =
+    useContext(UserProgressContext);
   const [menuIsOpen, setMenuIsOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement | null>(null);
   if (menuIsOpen) {
@@ -115,7 +117,24 @@ const Header: React.FC<{
                 </>
               )}
 
-              {!!token && <p>خوش اومدی</p>}
+              {!!token && (
+                <div className="flex flex-row gap-4 items-center">
+                  <Link
+                    to="/dashboard"
+                    className="font-noto text-textDark font-bold duration-300 hover:text-primary"
+                  >
+                    داشبورد
+                  </Link>
+                  <Button
+                    classes="btn btn-primary px-6 md:px-7"
+                    title="خروج"
+                    onClick={() => {
+                      setAccessToken("");
+                      logout();
+                    }}
+                  />
+                </div>
+              )}
             </div>
             <FaBars
               className="text-colorTitleBold xs:text-xs sm:text-sm md:hidden"
