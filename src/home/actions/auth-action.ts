@@ -104,10 +104,14 @@ export async function action({ request }: ActionFunctionArgs) {
       model.mode === "register" ||
       model.mode === "forgot-password"
     ) {
-      const response = await api.post(`/auth/${model.mode}/`, model.getData(), {
-        headers: { "Content-Type": "application/json" },
-        withCredentials: true,
-      });
+      const response = await api.post(
+        `/auth/${model.mode}/`,
+        model.toServer(),
+        {
+          headers: { "Content-Type": "application/json" },
+          withCredentials: true,
+        }
+      );
       if (model.mode === "login") {
         const expiration = new Date();
         expiration.setMinutes(expiration.getMinutes() + 5);
