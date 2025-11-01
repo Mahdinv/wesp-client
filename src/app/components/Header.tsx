@@ -57,7 +57,9 @@ const Header: React.FC<{
     <>
       <header
         className={`sticky top-0 right-0 ${
-          props.isScrolled ? "border-b-[3px] border-green-400" : undefined
+          props.isScrolled
+            ? "border-b-[3px] border-green-400"
+            : "border-b-[2px] border-green-300"
         } w-full z-20 xs:py-4 xs:px-6 bg-gradient-to-br from-green-50 to-emerald-100`}
       >
         <nav className="flex flex-row w-full items-center justify-between">
