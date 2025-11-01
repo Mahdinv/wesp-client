@@ -93,7 +93,7 @@ const Index = () => {
   return (
     <div
       ref={mainSectionRef}
-      className="h-[100vh] overflow-y-auto overflow-x-hidden"
+      className="sm:h-[100vh] md:min-h-screen flex flex-col overflow-y-auto overflow-x-hidden"
     >
       <Header
         isScrolled={isScrolled}
@@ -101,7 +101,9 @@ const Index = () => {
         elementName={elementName}
       />
       <Authentication />
-      <Outlet />
+      <div className="flex-grow">
+        <Outlet />
+      </div>
       <Footer />
     </div>
   );
