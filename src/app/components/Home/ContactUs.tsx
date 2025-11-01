@@ -1,6 +1,6 @@
-import Button from "../../base/Button";
-import EmailBox from "../../base/EmailBox";
-import TextareaBox from "../../base/TextareaBox";
+import Button from "../../../base/Button";
+import EmailBox from "../../../base/EmailBox";
+import TextareaBox from "../../../base/TextareaBox";
 
 const ContactUs = () => {
   return (

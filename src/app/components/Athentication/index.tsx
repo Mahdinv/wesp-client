@@ -2,7 +2,7 @@ import { useContext } from "react";
 import Login from "./Login";
 import Register from "./Register";
 import ResetPassword from "./ResetPassword";
-import UserProgressContext from "../../store/userProgressContext";
+import UserProgressContext from "../../../store/userProgressContext";
 
 const Authentication = () => {
   const { progress } = useContext(UserProgressContext);

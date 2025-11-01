@@ -10,10 +10,6 @@ export async function action({ request }: ActionFunctionArgs) {
   const data = await request.formData();
   const entries = Object.fromEntries(data.entries()) as Record<string, any>;
 
-  // let enteredValue: Record<string, FormDataEntryValue | null | undefined> = {
-  //   email: data.get("email"),
-  // };
-
   model.mode = url.searchParams.get("mode") ?? "";
   model.firstName = entries.firstName;
   model.lastName = entries.lastName;

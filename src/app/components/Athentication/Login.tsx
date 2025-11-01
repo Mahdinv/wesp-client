@@ -1,9 +1,9 @@
 import { useContext, useEffect } from "react";
-import Modal, { type ModalContentConfig } from "../../base/Modal";
-import UserProgressContext from "../../store/userProgressContext";
-import EmailBox from "../../base/EmailBox";
-import PasswordBox from "../../base/PasswordBox";
-import Button from "../../base/Button";
+import Modal, { type ModalContentConfig } from "../../../base/Modal";
+import UserProgressContext from "../../../store/userProgressContext";
+import EmailBox from "../../../base/EmailBox";
+import PasswordBox from "../../../base/PasswordBox";
+import Button from "../../../base/Button";
 import {
   Form,
   Link,

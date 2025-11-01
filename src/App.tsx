@@ -1,9 +1,9 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./App.css";
-import Home from "./home/components/Home";
-import Index from "./home/Index";
+import Home from "./app/components/Home";
+import Index from "./app/Index";
 import { UserProgressContextProvider } from "./store/userProgressContext";
-import { action as authAction } from "./home/actions/auth-action";
+import { action as authAction } from "./app/actions/auth-action";
 import HotToaster from "./base/Toaster";
 
 function App() {

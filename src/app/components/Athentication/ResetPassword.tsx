@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
-import Modal, { type ModalContentConfig } from "../../base/Modal";
-import UserProgressContext from "../../store/userProgressContext";
+import Modal, { type ModalContentConfig } from "../../../base/Modal";
+import UserProgressContext from "../../../store/userProgressContext";
 import {
   Form,
   useActionData,
@@ -8,12 +8,12 @@ import {
   useNavigation,
   useSearchParams,
 } from "react-router-dom";
-import EmailBox from "../../base/EmailBox";
-import NumberBox from "../../base/NumberBox";
-import Button from "../../base/Button";
-import PasswordBox from "../../base/PasswordBox";
+import EmailBox from "../../../base/EmailBox";
+import NumberBox from "../../../base/NumberBox";
+import Button from "../../../base/Button";
+import PasswordBox from "../../../base/PasswordBox";
 import { toast } from "react-toastify";
-import Timer from "../../base/Timer";
+import Timer from "../../../base/Timer";
 
 const resetPasswordModalConfig: ModalContentConfig = {
   imageUrl: "/images/login-image.png",

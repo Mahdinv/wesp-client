@@ -2,7 +2,7 @@ import { Outlet, useNavigate } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import { useContext, useEffect, useRef, useState } from "react";
-import Authentication from "./components/Authentication";
+import Authentication from "./components/Athentication";
 import logout, { checkTokenExpiration, getAccessToken } from "../utils/auth";
 import UserProgressContext from "../store/userProgressContext";
 
