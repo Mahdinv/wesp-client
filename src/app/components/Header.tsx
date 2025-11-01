@@ -3,13 +3,12 @@ import { FaBars, FaEarthAsia, FaXmark } from "react-icons/fa6";
 import classes from "./Header.module.css";
 import Button from "../../base/Button";
 import UserProgressContext from "../../store/userProgressContext";
-import { animate } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import logout from "../../utils/auth";
 
 const navLinks = [
   {
-    id: "home-page",
+    id: "home",
     title: "خانه",
     subLinks: [
       { id: "about-project", title: "درباره پروژه" },
@@ -42,32 +41,14 @@ const Header: React.FC<{
     menuRef.current?.classList.add("-translate-x-[102%]");
   }
 
-  function smoothScrollToSection(sectionId: string) {
-    const container = props.mainSectionRef.current;
-    if (!container) return;
-
-    const target = document.getElementById(sectionId);
-    if (!target) return;
-
-    const targetTop = target.offsetTop;
-
-    animate(container.scrollTop, targetTop - 120, {
-      duration: 0.8,
-      ease: "easeInOut",
-      onUpdate: (latest) => {
-        container.scrollTo({ top: latest });
-      },
-    });
-  }
-
   function handleNavEnter(id: string) {
-    if (id === "home-page") {
+    if (id === "home") {
       subNavRef.current?.classList.remove("hidden");
     }
   }
 
   function handleNavLeave(id: string) {
-    if (id === "home-page") {
+    if (id === "home") {
       subNavRef.current?.classList.add("hidden");
     }
   }
@@ -115,7 +96,10 @@ const Header: React.FC<{
                   onMouseEnter={() => handleNavEnter(link.id)}
                   onMouseLeave={() => handleNavLeave(link.id)}
                 >
-                  <a href={`#${link.id}`}>{link.title}</a>
+                  <NavLink to={link.id === "home" ? "/" : link.id}>
+                    {link.title}
+                  </NavLink>
+
                   {link.subLinks?.length > 0 && (
                     <div
                       ref={subNavRef}
@@ -130,10 +114,11 @@ const Header: React.FC<{
                             className="cursor-pointer"
                             onClick={() => {
                               setMenuIsOpen(false);
-                              smoothScrollToSection(subLink.id);
                             }}
                           >
-                            {subLink.title}
+                            <NavLink to={`/#${subLink.id}`}>
+                              {subLink.title}
+                            </NavLink>
                           </li>
                         ))}
                       </ul>

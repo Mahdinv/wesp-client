@@ -1,13 +1,14 @@
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import { useContext, useEffect, useRef, useState } from "react";
-import Authentication from "./components/Athentication";
+import Authentication from "./components/authentication";
 import logout, { checkTokenExpiration, getAccessToken } from "../utils/auth";
 import UserProgressContext from "../store/userProgressContext";
 
 const Index = () => {
   const navigate = useNavigate();
+  const { pathname, hash } = useLocation();
   const { token, setAccessToken, setProgress } =
     useContext(UserProgressContext);
   const mainSectionRef = useRef<HTMLDivElement | null>(null);
@@ -33,6 +34,19 @@ const Index = () => {
   }, [token, setAccessToken, navigate, setProgress]);
 
   useEffect(() => {
+    if (hash) {
+      const element = document.querySelector(hash);
+      if (element) {
+        setTimeout(() => {
+          element.scrollIntoView({ behavior: "smooth" });
+        }, 0);
+      }
+    } else {
+      window.scrollTo(0, 0);
+    }
+  }, [pathname, hash]);
+
+  useEffect(() => {
     if (typeof window === "undefined") return;
     const mainSection = mainSectionRef.current;
     const sections = document.querySelectorAll(".container");
@@ -47,7 +61,7 @@ const Index = () => {
       const scrollTop = mainSection!.scrollTop;
       const scrollHeight = mainSection!.scrollHeight;
       const clientHeight = mainSection!.clientHeight;
-      sections.forEach((section, i) => {
+      sections.forEach((section) => {
         const el = section as HTMLElement;
         const top = el.offsetTop - 200;
         const bottom = top + el.offsetHeight;
@@ -60,21 +74,21 @@ const Index = () => {
         ) {
           setElementName(el.id);
         }
-        const isNearBottom = scrollTop + clientHeight >= scrollHeight - 100;
-        if (isNearBottom && i - 1 && elementName !== "contact-us") {
-          setElementName("contact-us");
-        }
-        if (scrollTop < 100 && elementName !== "") {
-          setElementName("");
-        }
       });
+      const isNearBottom = scrollTop + clientHeight >= scrollHeight - 100;
+      if (isNearBottom && elementName !== "contact-us") {
+        setElementName("contact-us");
+      }
+      if (scrollTop < 100 && elementName !== "") {
+        setElementName("");
+      }
     }
 
     scrollHandler();
 
     mainSection?.addEventListener("scroll", scrollHandler);
     return () => mainSection?.removeEventListener("scroll", scrollHandler);
-  });
+  }, [isScrolled, elementName]);
 
   return (
     <div
