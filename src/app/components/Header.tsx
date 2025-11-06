@@ -1,7 +1,7 @@
 import { useContext, useRef, useState } from "react";
 import { FaBars, FaEarthAsia, FaXmark } from "react-icons/fa6";
 import classes from "./Header.module.css";
-import Button from "../../base/Button";
+import Button from "../../base/inputs/Button";
 import UserProgressContext from "../../store/userProgressContext";
 import { Link, NavLink } from "react-router-dom";
 import logout from "../../utils/auth";

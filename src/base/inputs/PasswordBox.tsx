@@ -17,19 +17,19 @@ const PasswordBox: React.FC<{
           {props.label}
         </label>
       )}
-      <div className="flex flex-row items-center w-full justify-between rounded-xl border-2 py-3 px-2 border-gray-300 group focus-within:border-gray-400">
+      <div className="flex flex-row items-center w-full justify-between rounded-xl border-2 border-gray-300 group focus-within:border-gray-400">
         {props.hasIcon && (
-          <span className={`${props.classes}`}>
+          <span className="px-2 pr-3">
             <FaLock className="opacity-60" />
           </span>
         )}
         <input
           type={type}
           placeholder={props.placeHolder}
-          className={`flex-1 w-full ${props.classes} px-2 rounded-s-xl font-noto outline-none text-[16px]`}
+          className={`flex-1 w-full ${props.classes} px-2 py-3 bg-transparent rounded-s-xl font-noto outline-none text-[16px]`}
           name={props.name}
         />
-        <span className={`${props.classes} text-colorHeaderTitle`}>
+        <span className={`${props.classes} px-2 pl-3 text-colorHeaderTitle`}>
           {type === "password" ? (
             <FaEyeSlash onClick={() => setType("text")} />
           ) : (

@@ -40,6 +40,13 @@
   background: #666666;
 }
 
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px transparent inset !important;
+  box-shadow: 0 0 0 1000px transparent inset !important;
+  -webkit-text-fill-color: inherit !important;
+  transition: background-color 9999s ease-in-out 0s !important;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -215,3 +222,11 @@ small {
   background-color: #10b981 !important;
   opacity: 1;
 }
+
+/* input[type="range"]::-webkit-slider-runnable-track {
+  @apply bg-red-300 rounded-lg;
+}
+
+input[type="range"]::-moz-range-track {
+  @apply bg-red-300 rounded-lg;
+} */

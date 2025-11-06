@@ -1,11 +1,11 @@
 import { useContext, useEffect } from "react";
 import Modal, { type ModalContentConfig } from "../../../base/Modal";
 import UserProgressContext from "../../../store/userProgressContext";
-import PasswordBox from "../../../base/PasswordBox";
-import EmailBox from "../../../base/EmailBox";
-import TextBox from "../../../base/TextBox";
+import PasswordBox from "../../../base/inputs/PasswordBox";
+import EmailBox from "../../../base/inputs/EmailBox";
+import TextBox from "../../../base/inputs/TextBox";
 import { FaUser } from "react-icons/fa6";
-import Button from "../../../base/Button";
+import Button from "../../../base/inputs/Button";
 import {
   Form,
   useActionData,

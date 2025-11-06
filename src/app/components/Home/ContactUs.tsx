@@ -1,6 +1,6 @@
-import Button from "../../../base/Button";
-import EmailBox from "../../../base/EmailBox";
-import TextareaBox from "../../../base/TextareaBox";
+import Button from "../../../base/inputs/Button";
+import EmailBox from "../../../base/inputs/EmailBox";
+import TextareaBox from "../../../base/inputs/TextareaBox";
 
 const ContactUs = () => {
   return (
@@ -18,6 +18,7 @@ const ContactUs = () => {
         <EmailBox
           classes="bg-green-50 border-green-300 group focus-within:border-green-400"
           placeHolder="ایمیل شما"
+          name="email"
         />
         <TextareaBox
           classes="bg-green-50 border-green-300"

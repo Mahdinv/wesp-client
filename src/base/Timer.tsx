@@ -1,6 +1,6 @@
 import React, { memo, useEffect, useState } from "react";
 import { formatTime } from "../utils/public";
-import Button from "./Button";
+import Button from "./inputs/Button";
 
 const Timer: React.FC<{ initialTime: number | null; onFinish: () => void }> =
   memo((props) => {

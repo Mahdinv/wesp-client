@@ -1,9 +1,13 @@
-import { BaseModel } from "../base/base.model";
+import { BaseModel } from "./base.model";
 
 export default class User extends BaseModel {
   id!: number;
   firstName = "";
   lastName = "";
+  age!: number;
+  height!: number;
+  weight!: number;
+  gender!: "male" | "female" | "other";
   email = "";
   password = "";
   newPassword = "";

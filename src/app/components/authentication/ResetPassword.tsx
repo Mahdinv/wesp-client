@@ -8,10 +8,10 @@ import {
   useNavigation,
   useSearchParams,
 } from "react-router-dom";
-import EmailBox from "../../../base/EmailBox";
-import NumberBox from "../../../base/NumberBox";
-import Button from "../../../base/Button";
-import PasswordBox from "../../../base/PasswordBox";
+import EmailBox from "../../../base/inputs/EmailBox";
+import NumberBox from "../../../base/inputs/NumberBox";
+import Button from "../../../base/inputs/Button";
+import PasswordBox from "../../../base/inputs/PasswordBox";
 import { toast } from "react-toastify";
 import Timer from "../../../base/Timer";
 

@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import Button from "../../../base/Button";
+import Button from "../../../base/inputs/Button";
 import UserProgressContext from "../../../store/userProgressContext";
 
 const Landing = () => {

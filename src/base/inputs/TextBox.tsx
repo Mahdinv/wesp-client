@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import type { ChangeEvent, ReactNode } from "react";
 
 const TextBox: React.FC<{
   label?: string;
@@ -6,6 +6,7 @@ const TextBox: React.FC<{
   classes?: string;
   placeHolder: string;
   name: string;
+  onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
 }> = (props) => {
   return (
     <div className="flex flex-col items-center">
@@ -15,14 +16,17 @@ const TextBox: React.FC<{
         </label>
       )}
       <div
-        className={`${props.classes} flex flex-row items-center w-full justify-between rounded-xl border-2 py-3 px-2 border-gray-300 group focus-within:border-gray-400`}
+        className={`${props.classes} flex flex-row items-center w-full justify-between rounded-xl border-2 border-gray-300 group focus-within:border-gray-400`}
       >
-        {props.icon && <span className="opacity-60">{props.icon}</span>}
+        {props.icon && (
+          <span className="opacity-60 px-2 pr-3">{props.icon}</span>
+        )}
         <input
           type="text"
           placeholder={props.placeHolder}
-          className={`flex-1 w-full px-2 rounded-s-xl font-noto outline-none xl:text-[16px]`}
+          className={`flex-1 w-full px-2 py-3 bg-transparent rounded-xl font-noto outline-none xl:text-[16px]`}
           name={props.name}
+          onChange={props.onChange}
         />
       </div>
     </div>
