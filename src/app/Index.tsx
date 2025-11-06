@@ -93,7 +93,7 @@ const Index = () => {
   return (
     <div
       ref={mainSectionRef}
-      className="sm:h-[100vh] md:min-h-screen flex flex-col overflow-y-auto overflow-x-hidden"
+      className="index-container sm:h-[100vh] md:min-h-screen flex flex-col overflow-y-auto overflow-x-hidden"
     >
       <Header
         isScrolled={isScrolled}
