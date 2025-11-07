@@ -25,11 +25,30 @@ export default {
         toGradientTitle: "#22C560",
         fromGradientBtn: "#86efac",
         toGradientBtn: "#83EEAA",
-        textDark: '#052e16ab'
+        textDark: '#052e16ab',
+        ['green-50']: '#e6f6ec',
+        ['green-100']: '#b0e3c3',
+        ['green-200']: '#8ad6a6',
+        ['green-300']: '#54c37e',
+        ['green-400']: '#33b865',
+        ['green-500']: '#00a63e',
+        ['green-600']: '#009738',
+        ['green-700']: '#00762c',
+        ['green-800']: '#005b22',
+        ['green-900']: '#00461a',
+        ['emerald-50']: '#e6edeb',
+        ['emerald-100']: '#b0c7c1',
+        ['emerald-200']: '#8aaca3',
+        ['emerald-300']: '#548678',
+        ['emerald-400']: '#336e5e',
+        ['emerald-500']: '#004a36',
+        ['emerald-600']: '#004331',
+        ['emerald-700']: '#003526',
+        ['emerald-800']: '#00291e',
+        ['emerald-900']: '#001f17',
       },
       fontFamily: {
-        lalezar: ['"Lalezar Local"', 'cursive'],
-        noto: ['"Noto Sans Arabic Local"', 'sans-serif']
+        inter: ['Inter', 'sans-serif']
       },
       fontSize: {
         xs: ['18px', { lineHeight: '1.6' }],

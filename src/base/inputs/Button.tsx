@@ -8,6 +8,7 @@ const Button: React.FC<{
   icon?: ReactNode;
   iconClasses?: string;
   iconFirst?: boolean;
+  itemsGap?: number;
   type?: "button" | "submit" | "reset";
   title: string;
   name?: string;
@@ -39,7 +40,7 @@ const Button: React.FC<{
       {!props.motion && (
         <button
           type={props.type}
-          className={`${props.classes} xs:text-[14px] sm:text-xs md:text-sm lg:text-base leading-none duration-300 py-2 outline-none`}
+          className={`${props.classes} xs:text-[14px] sm:text-xs md:text-sm lg:text-base leading-none duration-300 py-1 outline-none pb-2`}
           onClick={props.onClick}
           disabled={props.disable}
           name={props.name}
@@ -48,7 +49,8 @@ const Button: React.FC<{
           <div
             className={`flex ${
               props.iconFirst ? "flex-row-reverse" : "flex-row"
-            } justify-center items-center gap-1`}
+            } justify-center items-center px-4`}
+            style={{ gap: props.icon ? props.itemsGap : 0 }}
           >
             {props.title}
             <span className={`${props.iconClasses}`}>{props.icon}</span>
