@@ -3,7 +3,7 @@ import { LuUserRound } from "react-icons/lu";
 import TextBox from "./inputs/TextBox";
 import NumberBox from "./inputs/NumberBox";
 import Radio from "./inputs/Radio";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { AnimatePresence, easeInOut, motion } from "framer-motion";
 import { toPersianDigits } from "../utils/public";
 
@@ -29,6 +29,10 @@ const TablemateAccordion: React.FC<{
   onRemoveClick: () => void;
 }> = (props) => {
   const [open, setOpen] = useState(props.isOpen);
+
+  useEffect(() => {
+    setOpen(props.isOpen);
+  }, [props.isOpen]);
   return (
     <div className="flex flex-col justify-center rounded-xl bg-gray-50 border border-gray-300 px-4 py-3 gap-4">
       <div className="flex flex-row w-full items-center justify-between">
@@ -62,41 +66,40 @@ const TablemateAccordion: React.FC<{
         </div>
       </div>
       <AnimatePresence initial={false}>
-        {open && (
-          <motion.div
-            key="accordion"
-            initial={{ scaleY: 0, opacity: 0, height: 0 }}
-            animate={{ scaleY: 1, opacity: 1, height: "auto" }}
-            exit={{ scaleY: 0, opacity: 0, height: 0 }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="flex flex-col gap-8"
-          >
-            <TextBox
-              label="نام"
-              placeHolder="اینجا بنویس"
-              name={`tablemates[${props.index}][name]`}
+        <motion.div
+          initial={false}
+          animate={{
+            height: open ? "auto" : 0,
+            opacity: open ? 1 : 0,
+          }}
+          transition={{ duration: 0.3, ease: "easeInOut" }}
+          className="flex flex-col gap-8 overflow-hidden origin-top"
+        >
+          <TextBox
+            label="نام"
+            placeHolder="اینجا بنویس"
+            name={`tablemates[${props.index}][name]`}
+          />
+          <div className="w-1/4">
+            <NumberBox
+              label="تعداد وعده‌های مشترک"
+              name={`tablemates[${props.index}][sharedMealQuantity]`}
+              defaultValue={1}
             />
-            <div className="w-1/4">
-              <NumberBox
-                label="تعداد وعده‌های مشترک"
-                name={`tablemates[${props.index}][sharedMealQuantity]`}
-                defaultValue={1}
-              />
-            </div>
-            <Radio
-              label="سطح ارتباط"
-              gridColClasses="xs:grid-cols-2 md:grid-cols-3 gap-4 xl:grid-cols-4 2xl:grid-cols-5"
-              options={communicationLevelOptions}
-              name={`tablemates[${props.index}][communicationLevel]`}
-            />
-            <Radio
-              label="به نظر شما، این فرد چقدر بر روی رژیم شما تاثیر می‌گذارد"
-              gridColClasses="xs:grid-cols-2 md:grid-cols-3 gap-4 xl:grid-cols-4 2xl:grid-cols-5"
-              options={dietImpactOptions}
-              name={`tablemates[${props.index}][dietImpact]`}
-            />
-          </motion.div>
-        )}
+          </div>
+          <Radio
+            label="سطح ارتباط"
+            gridColClasses="xs:grid-cols-2 md:grid-cols-3 gap-4 xl:grid-cols-4 2xl:grid-cols-5"
+            options={communicationLevelOptions}
+            name={`tablemates[${props.index}][communicationLevel]`}
+          />
+          <Radio
+            label="به نظر شما، این فرد چقدر بر روی رژیم شما تاثیر می‌گذارد"
+            gridColClasses="xs:grid-cols-2 md:grid-cols-3 gap-4 xl:grid-cols-4 2xl:grid-cols-5"
+            options={dietImpactOptions}
+            name={`tablemates[${props.index}][dietImpact]`}
+          />
+        </motion.div>
       </AnimatePresence>
     </div>
   );

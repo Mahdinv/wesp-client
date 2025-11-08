@@ -302,7 +302,7 @@ const Questionnaire = () => {
           transition={{ duration: 0.5 }}
         >
           {/* ------------ STEP 4 ---------- */}
-          <Tablemates />
+          <Tablemates step={step} />
         </motion.div>
         <div className="flex flex-row gap-2 items-center justify-center w-full">
           {step > 1 && (
