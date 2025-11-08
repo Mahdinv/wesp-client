@@ -5,7 +5,6 @@ import NumberBox from "./inputs/NumberBox";
 import Radio from "./inputs/Radio";
 import React, { useEffect, useState } from "react";
 import { AnimatePresence, easeInOut, motion } from "framer-motion";
-import { toPersianDigits } from "../utils/public";
 
 const communicationLevelOptions = [
   { title: "خانواده", value: "family" },
@@ -29,10 +28,26 @@ const TablemateAccordion: React.FC<{
   onRemoveClick: () => void;
 }> = (props) => {
   const [open, setOpen] = useState(props.isOpen);
-
+  const titles = [
+    "اول",
+    "دوم",
+    "سوم",
+    "چهارم",
+    "پنجم",
+    "ششم",
+    "هفتم",
+    "هشتم",
+    "نهم",
+    "دهم",
+  ];
+  const title = props.tablematesNumber
+    ? titles[props.tablematesNumber - 1]
+    : "";
+    
   useEffect(() => {
     setOpen(props.isOpen);
   }, [props.isOpen]);
+
   return (
     <div className="flex flex-col justify-center rounded-xl bg-gray-50 border border-gray-300 px-4 py-3 gap-4">
       <div className="flex flex-row w-full items-center justify-between">
@@ -43,9 +58,7 @@ const TablemateAccordion: React.FC<{
           <div className="text-xl p-4 rounded-full bg-[#e6f6ec] text-[#1f7e5a] cursor-pointer">
             <LuUserRound />
           </div>
-          <p className="cursor-pointer">
-            همسفره شماره {toPersianDigits(Number(props.tablematesNumber))}
-          </p>
+          <p className="cursor-pointer">همسفره {title}</p>
         </div>
         <div className="flex flex-row gap-4 items-center">
           <span
