@@ -18,7 +18,7 @@ const Footer = () => {
           </div>
           <p className=" w-full">همراه شما در مسیر سلامتی و تغذیه بهتر</p>
         </div>
-        <div className="w-full flex xs:flex-col sm:flex-row xs:gap-6 md:gap-10 justify-end">
+        <div className="w-full flex xs:flex-col sm:flex-row xs:gap-6 lg:gap-10 justify-end">
           <ul className="xs:w-auto sm:w-full flex flex-col gap-2 xs:items-center sm:items-start md:items-end text-xs">
             <Link to="/">
               <li className=" duration-200 hover:text-emerald-200">خانه</li>
@@ -38,7 +38,7 @@ const Footer = () => {
               <li className=" duration-200 hover:text-emerald-200">پادکست</li>
             </Link>
           </ul>
-          <div className="xs:w-auto sm:w-full flex flex-col items-start self-start gap-2">
+          <div className="flex flex-col items-start self-start gap-2">
             <div className="flex flex-row gap-2 items-center">
               <AiOutlineMail className="text-2xl" />
               <Link to="" className="text-sm">
