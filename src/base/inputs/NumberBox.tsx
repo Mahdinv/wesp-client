@@ -6,12 +6,12 @@ const NumberBox: React.FC<{
   classes?: string;
   placeHolder?: string;
   name: string;
-  defaultValue?: number;
+  defaultValue?: number | string;
 }> = (props) => {
   return (
     <div className="flex flex-col items-center">
       {props.label && (
-        <label className="xs:text-xs sm:text-sm font-lalezar self-start mr-1 text-colorHeaderTitle text-nowrap">
+        <label className="xs:text-xs sm:text-sm self-start mr-1 text-[#004B1C] mb-2 text-nowrap">
           {props.label}
         </label>
       )}

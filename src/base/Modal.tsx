@@ -50,7 +50,7 @@ const Modal: React.FC<AuthModalProps> = (props) => {
             <div className="absolute left-4 top-4 z-50 bg-gray-300 rounded-full p-2 duration-300 hover:scale-110 hover:bg-gray-200">
               <Link to="..">
                 <FaXmark
-                  className="text-colorHeaderTitle duration-300 hover:scale-110"
+                  className="text-green-800 duration-300 hover:scale-110"
                   onClick={props.onClose}
                 />
               </Link>
@@ -65,7 +65,7 @@ const Modal: React.FC<AuthModalProps> = (props) => {
                 className="relative w-64 h-auto mx-auto my-auto"
               />
               <h6 className="px-2">{props.config.headline}</h6>
-              <small className="px-2 text-textDark font-semibold inline-block">
+              <small className="px-2 text-green-950 font-semibold inline-block">
                 {props.config.title}
               </small>
             </header>
@@ -73,7 +73,7 @@ const Modal: React.FC<AuthModalProps> = (props) => {
             <section className="flex-1 w-full px-4">{props.children}</section>
 
             <footer className="bg-[#E8F3F2] flex items-center justify-center w-full py-4">
-              <small className="text-textDark inline-flex items-center gap-1">
+              <small className="text-green-950 inline-flex items-center gap-1">
                 {props.config.footerText}{" "}
                 <span
                   onClick={props.config.onFooterActionTextClick}

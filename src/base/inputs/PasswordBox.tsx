@@ -13,7 +13,7 @@ const PasswordBox: React.FC<{
   return (
     <div className="flex flex-col items-center gap-1">
       {props.label && (
-        <label className="text-[16px] mr-1 self-start font-lalezar text-colorHeaderTitle">
+        <label className="text-[16px] mr-1 self-start text-[#004B1C] mb-2">
           {props.label}
         </label>
       )}
@@ -29,7 +29,7 @@ const PasswordBox: React.FC<{
           className={`flex-1 w-full ${props.classes} px-2 py-3 bg-transparent rounded-s-xl font-noto outline-none text-[16px]`}
           name={props.name}
         />
-        <span className={`${props.classes} px-2 pl-3 text-colorHeaderTitle`}>
+        <span className={`${props.classes} px-2 pl-3 text-green-800`}>
           {type === "password" ? (
             <FaEyeSlash onClick={() => setType("text")} />
           ) : (

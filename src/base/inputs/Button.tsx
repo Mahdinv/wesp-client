@@ -40,7 +40,7 @@ const Button: React.FC<{
       {!props.motion && (
         <button
           type={props.type}
-          className={`${props.classes} xs:text-[14px] sm:text-xs md:text-sm lg:text-base leading-none duration-300 py-1 outline-none pb-2`}
+          className={`${props.classes} xs:text-[14px] sm:text-xs lg:text-base leading-none duration-300 py-1 outline-none pb-2`}
           onClick={props.onClick}
           disabled={props.disable}
           name={props.name}
@@ -53,7 +53,9 @@ const Button: React.FC<{
             style={{ gap: props.icon ? props.itemsGap : 0 }}
           >
             {props.title}
-            <span className={`${props.iconClasses}`}>{props.icon}</span>
+            <span className={`${props.iconClasses} self-center`}>
+              {props.icon}
+            </span>
           </div>
         </button>
       )}

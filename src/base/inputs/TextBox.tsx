@@ -6,12 +6,13 @@ const TextBox: React.FC<{
   classes?: string;
   placeHolder: string;
   name: string;
+  defaultValue?: any;
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
 }> = (props) => {
   return (
     <div className="flex flex-col items-center">
       {props.label && (
-        <label className="xs:text-xs sm:text-sm font-lalezar self-start mr-1 text-colorHeaderTitle">
+        <label className="xs:text-xs sm:text-sm font-lalezar self-start mr-1 text-[#004B1C] mb-2">
           {props.label}
         </label>
       )}
@@ -27,6 +28,7 @@ const TextBox: React.FC<{
           className={`flex-1 w-full px-2 py-3 bg-transparent rounded-xl font-noto outline-none xl:text-[16px]`}
           name={props.name}
           onChange={props.onChange}
+          defaultValue={props.defaultValue}
         />
       </div>
     </div>

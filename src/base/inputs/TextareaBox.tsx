@@ -7,7 +7,7 @@ const TextareaBox: React.FC<{
   return (
     <>
       {props.label && (
-        <label className="xs:text-xs sm:text-sm mr-1 text-right font-lalezar text-colorHeaderTitle">
+        <label className="xs:text-xs sm:text-sm mr-1 text-right text-[#004B1C] mb-2">
           {props.label}
         </label>
       )}
