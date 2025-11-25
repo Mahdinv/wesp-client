@@ -1,6 +1,5 @@
 import { useContext, useRef, useState } from "react";
 import { FaBars, FaXmark } from "react-icons/fa6";
-import classes from "./Header.module.css";
 import Button from "../../base/inputs/Button";
 import UserProgressContext from "../../store/userProgressContext";
 import { Link, NavLink } from "react-router-dom";
@@ -9,32 +8,18 @@ import { LuUserRound } from "react-icons/lu";
 import { PiPlantLight } from "react-icons/pi";
 
 const navLinks = [
-  {
-    id: "home",
-    title: "خانه",
-    subLinks: [
-      { id: "about-project", title: "درباره پروژه" },
-      { id: "road-map", title: "چطور کار میکند؟" },
-      { id: "members", title: "اعضای تیم" },
-      { id: "contact-us", title: "تماس" },
-    ],
-  },
-  { id: "diets", title: "رژیم‌های غذایی", subLinks: [] },
-  { id: "news", title: "اخبار", subLinks: [] },
-  { id: "articles", title: "مقالات", subLinks: [] },
-  { id: "podcasts", title: "پادکست", subLinks: [] },
+  { id: "home", title: "خانه" },
+  { id: "diets", title: "رژیم‌های غذایی" },
+  { id: "news", title: "اخبار" },
+  { id: "articles", title: "مقالات" },
+  { id: "podcasts", title: "پادکست" },
 ];
 
-const Header: React.FC<{
-  isScrolled: boolean;
-  elementName: string;
-  mainSectionRef: React.RefObject<HTMLDivElement | null>;
-}> = (props) => {
+const Header = () => {
   const { token, setAccessToken, setProgress } =
     useContext(UserProgressContext);
   const [menuIsOpen, setMenuIsOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement | null>(null);
-  const subNavRef = useRef<HTMLDivElement | null>(null);
   if (menuIsOpen) {
     menuRef.current?.classList.remove("-translate-x-[102%]");
     menuRef.current?.classList.add("translate-x-0");
@@ -43,140 +28,98 @@ const Header: React.FC<{
     menuRef.current?.classList.add("-translate-x-[102%]");
   }
 
-  function handleNavEnter(id: string) {
-    if (id === "home") {
-      subNavRef.current?.classList.remove("hidden");
-    }
-  }
-
-  function handleNavLeave(id: string) {
-    if (id === "home") {
-      subNavRef.current?.classList.add("hidden");
-    }
-  }
-
   return (
     <>
-      <header
-        className={`sticky top-0 right-0 ${
-          props.isScrolled
-            ? "border-b-[3px] border-green-400"
-            : "border-b-[2px] border-green-300"
-        } w-full z-20 xs:py-4 xs:px-6 bg-[#F7f7f7]`}
-      >
-        <nav className="flex flex-row w-full items-center justify-between">
+      <header className="sticky top-0 right-0 w-full z-50 xs:py-4 xs:px-6 bg-[#F7f7f7]">
+        <nav className="flex flex-row w-full items-center justify-between font-peyda">
           <div className="flex flex-row gap-2 w-auto items-center">
             <PiPlantLight
               strokeWidth={4}
               className="xs:hidden sm:block text-green-500 sm:w-10 lg:w-12 xl:w-14 h-auto"
             />
-            <h6 className="text-pretty xs:text-[14px] sm:text-[18px] lg:text-[22px]">
-              رژیم سبز
-            </h6>
+            <h3>رژیم سبز</h3>
           </div>
-          <div className="flex flex-row gap-4">
-            <div
-              ref={menuRef}
-              className="fixed top-0 left-0 h-screen flex flex-col w-full xs:bg-gradient-to-b xs:from-colorTitleBold xs:to-primary py-4 px-4 gap-4 duration-700 transition-transform -translate-x-[102%] md:static md:h-auto md:flex-row  md:flex-1 md:duration-0 md:translate-x-0 md:w-auto md:bg-gradient-to-b md:from-transparent md:to-transparent z-50"
-            >
-              <div className="flex flex-row w-full items-center justify-between md:hidden">
-                <div className="flex flex-row gap-2 items-center">
-                  <PiPlantLight className="text-green-100 xs:w-8 h-auto" />
-                  <h6 className="text-green-100">رژیم سبز</h6>
-                </div>
-                <FaXmark
-                  className="text-green-100 text-sm"
-                  onClick={() => setMenuIsOpen(false)}
-                />
+          <div
+            ref={menuRef}
+            className="fixed top-0 left-0 h-screen flex flex-col w-full xs:bg-gradient-to-b xs:from-green-300 xs:to-green-500 py-4 px-4 gap-4 duration-700 transition-transform -translate-x-[102%] md:static md:h-auto md:flex-row  md:flex-1 md:duration-0 md:translate-x-0 md:w-auto md:bg-gradient-to-b md:from-transparent md:to-transparent z-50"
+          >
+            <div className="flex flex-row w-full items-center justify-between md:hidden">
+              <div className="flex flex-row gap-2 items-center">
+                <PiPlantLight className="text-green-100 xs:w-8 h-auto" />
+                <h6 className="text-green-100">رژیم سبز</h6>
               </div>
-              <ul
-                className={`${classes.navbar} font-noto flex flex-col h-screen md:flex-row md:h-auto md:w-full xs:justify-between md:justify-center xs:py-28 md:p-0 text-center md:gap-6 lg:gap-10 xl:gap-12 2xl:gap-14 duration-500 xs:text-green-100 md:text-emerald-400 font-bold`}
-              >
-                {navLinks.map((link) => (
-                  <li
-                    key={link.id}
-                    className={`relative z-30 w-auto text-center ${
-                      props.elementName === link.id ? "nav-active" : undefined
-                    }`}
-                    onClick={() => {
-                      setMenuIsOpen(false);
-                    }}
-                    onMouseEnter={() => handleNavEnter(link.id)}
-                    onMouseLeave={() => handleNavLeave(link.id)}
-                  >
-                    <NavLink to={link.id === "home" ? "/" : link.id}>
-                      {link.title}
-                    </NavLink>
-
-                    {link.subLinks?.length > 0 && (
-                      <div
-                        ref={subNavRef}
-                        className="hidden absolute left-1/2 top-full group-hover:block
-                   -translate-x-1/2 mt-2 w-40 bg-slate-200 text-center rounded-lg shadow-lg"
-                      >
-                        <div className="relative w-4 h-4 rotate-45 -top-1 right-1/2 translate-x-1/2 bg-slate-200 z-10"></div>
-                        <ul className="flex flex-col items-center justify-center gap-4 mb-4 px-4">
-                          {link.subLinks.map((subLink) => (
-                            <li
-                              key={subLink.id}
-                              className="cursor-pointer"
-                              onClick={() => {
-                                setMenuIsOpen(false);
-                              }}
-                            >
-                              <NavLink to={`/#${subLink.id}`}>
-                                {subLink.title}
-                              </NavLink>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div className="flex flex-row items-center gap-4">
-              <div className="flex flex-row gap-2">
-                {(!token || token === "") && (
-                  <>
-                    <Link to="?mode=login">
-                      <Button
-                        classes="btn btn-primary"
-                        title="ورود"
-                        icon={<LuUserRound strokeWidth={3} />}
-                        iconClasses="text-lg font-extrabold"
-                        itemsGap={40}
-                        onClick={() => setProgress("login")}
-                      />
-                    </Link>
-                  </>
-                )}
-
-                {!!token && (
-                  <div className="flex flex-row gap-4 items-center">
-                    <Link
-                      to="/dashboard"
-                      className="font-noto text-textDark font-bold duration-300 hover:text-primary"
-                    >
-                      داشبورد
-                    </Link>
-                    <Button
-                      classes="btn btn-primary px-6 md:px-7"
-                      title="خروج"
-                      onClick={() => {
-                        setAccessToken("");
-                        logout();
-                      }}
-                    />
-                  </div>
-                )}
-              </div>
-              <FaBars
-                className="text-colorTitleBold xs:text-xs sm:text-sm md:hidden"
-                onClick={() => setMenuIsOpen(true)}
+              <FaXmark
+                className="text-green-100 text-sm"
+                onClick={() => setMenuIsOpen(false)}
               />
             </div>
+            <ul className="flex flex-col h-screen md:flex-row md:h-auto md:w-full xs:justify-between md:justify-center xs:py-28 md:p-0 text-center md:gap-6 lg:gap-10 xl:gap-12 2xl:gap-14 duration-500 xs:text-green-100 md:text-emerald-400">
+              {navLinks.map((link) => (
+                <li
+                  key={link.id}
+                  className="w-auto text-center"
+                  onClick={() => {
+                    setMenuIsOpen(false);
+                  }}
+                >
+                  <h6>
+                    <NavLink
+                      to={link.id === "home" ? "/" : link.id}
+                      className={({ isActive }) =>
+                        `text-[#003a16] duration-300 ${
+                          isActive
+                            ? "opacity-100"
+                            : "opacity-60 hover:opacity-100"
+                        }`
+                      }
+                    >
+                      {link.title}
+                    </NavLink>
+                  </h6>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="flex flex-row items-center gap-4">
+            <div className="flex flex-row gap-2">
+              {(!token || token === "") && (
+                <>
+                  <Link to="?mode=login">
+                    <Button
+                      classes="btn btn-primary"
+                      title="ورود"
+                      icon={<LuUserRound strokeWidth={3} />}
+                      iconClasses="text-lg font-extrabold"
+                      itemsGap={40}
+                      onClick={() => setProgress("login")}
+                    />
+                  </Link>
+                </>
+              )}
+
+              {!!token && (
+                <div className="flex flex-row gap-4 items-center">
+                  <Link
+                    to="/dashboard"
+                    className="text-green-950 font-bold duration-300 hover:text-green-500"
+                  >
+                    داشبورد
+                  </Link>
+                  <Button
+                    classes="btn btn-primary px-6 md:px-7"
+                    title="خروج"
+                    onClick={() => {
+                      setAccessToken("");
+                      logout();
+                    }}
+                  />
+                </div>
+              )}
+            </div>
+            <FaBars
+              className="text-black xs:text-xs sm:text-sm md:hidden"
+              onClick={() => setMenuIsOpen(true)}
+            />
           </div>
         </nav>
       </header>
