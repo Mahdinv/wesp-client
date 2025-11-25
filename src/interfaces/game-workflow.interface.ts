@@ -1,4 +1,4 @@
-export interface IFormsCatalog {
+export interface IGameWorkflow {
   description: string;
   endpoint: string;
   key: string;
