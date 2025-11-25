@@ -18,6 +18,10 @@ export default function handleAxiosError(error: unknown) {
         message: "کاربری با ایمیل وارد شده، وجود ندارد",
       };
     }
+    return {
+      success: false,
+      message: "درخواست مورد نظر یافت نشد",
+    };
   }
   if (err.status === 400) {
     if (err.response?.data?.email?.some((e) => e.includes("already exists"))) {
