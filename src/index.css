@@ -72,12 +72,9 @@ input:-webkit-autofill {
   box-sizing: border-box;
 }
 
-html {
-  @apply overflow-x-hidden h-full;
-}
-
+html,
 body {
-  @apply h-full overflow-x-hidden bg-green-50;
+  @apply h-full overflow-x-hidden bg-green-50 font-yekan;
 }
 
 h1 {
@@ -262,17 +259,4 @@ small {
 
 .modal::backdrop {
   @apply bg-black opacity-70 fixed;
-}
-
-.swiper-pagination-bullet {
-  width: 10px !important;
-  height: 10px !important;
-  background-color: #10b981 !important; /* emerald-500 */
-  opacity: 0.5;
-  margin: 0 4px !important;
-}
-
-.swiper-pagination-bullet-active {
-  background-color: #10b981 !important;
-  opacity: 1;
 }
