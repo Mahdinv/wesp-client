@@ -1,8 +1,8 @@
 import { type ActionFunctionArgs } from "react-router-dom";
-import api from "../../api/axios";
-import handleAxiosError from "../../api/axios-error-handler";
-import isEmpty, { isNotEqual } from "../../utils/validation";
-import User from "../../models/user.model";
+import api from "../api/axios";
+import handleAxiosError from "../api/axios-error-handler";
+import isEmpty, { isNotEqual } from "../utils/validation";
+import User from "../models/user.model";
 
 export async function action({ request }: ActionFunctionArgs) {
   const model = new User();
@@ -100,14 +100,7 @@ export async function action({ request }: ActionFunctionArgs) {
       model.mode === "register" ||
       model.mode === "forgot-password"
     ) {
-      const response = await api.post(
-        `/auth/${model.mode}/`,
-        model.toServer(),
-        {
-          headers: { "Content-Type": "application/json" },
-          withCredentials: true,
-        }
-      );
+      const response = await api.post(`/auth/${model.mode}/`, model.toServer());
       if (model.mode === "login") {
         const expiration = new Date();
         expiration.setMinutes(expiration.getMinutes() + 5);
@@ -123,22 +116,14 @@ export async function action({ request }: ActionFunctionArgs) {
     }
 
     if (model.mode === "reset-password") {
-      const verifyOtpResponse = await api.post(
-        `/auth/verify-otp/`,
-        { email: model.email, otp: model.otp },
-        {
-          headers: { "Content-Type": "application/json" },
-          withCredentials: true,
-        }
-      );
+      const verifyOtpResponse = await api.post(`/auth/verify-otp/`, {
+        email: model.email,
+        otp: model.otp,
+      });
       if (verifyOtpResponse.status === 200) {
         const resetPasswordResponse = await api.post(
           `/auth/reset-password/`,
-          model.toServer(),
-          {
-            headers: { "Content-Type": "application/json" },
-            withCredentials: true,
-          }
+          model.toServer()
         );
 
         return {
