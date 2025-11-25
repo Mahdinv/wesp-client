@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom";
 
-const FormsCatalogRoot = () => {
+const GameWorkflowRoot = () => {
   return <Outlet />;
 };
 
-export default FormsCatalogRoot;
+export default GameWorkflowRoot;
