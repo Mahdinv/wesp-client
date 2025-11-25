@@ -1,19 +1,27 @@
 import { FaAngleUp, FaTrashCan } from "react-icons/fa6";
 import { LuUserRound } from "react-icons/lu";
-import TextBox from "./inputs/TextBox";
-import NumberBox from "./inputs/NumberBox";
-import Radio from "./inputs/Radio";
-import React, { useEffect, useState } from "react";
+import TextBox from "../../../../base/inputs/TextBox";
+import Radio from "../../../../base/inputs/Radio";
+import React, { memo, useEffect, useState } from "react";
 import { AnimatePresence, easeInOut, motion } from "framer-motion";
+import ComboBox from "../../../../base/inputs/ComboBox";
 
-const communicationLevelOptions = [
+const sharedMealsCount = [
+  { title: "یک وعده", value: 1 },
+  { title: "دو وعده", value: 2 },
+  { title: "سه وعده", value: 3 },
+  { title: "چهار وعده", value: 4 },
+  { title: "پنج وعده", value: 5 },
+];
+
+const relationshipLevel = [
   { title: "خانواده", value: "family" },
   { title: "دوست", value: "friend" },
   { title: "همکار", value: "colleague" },
   { title: "سایر", value: "other" },
 ];
 
-const dietImpactOptions = [
+const influenceLevel = [
   { title: "هیچ", value: "nothing" },
   { title: "کم", value: "low" },
   { title: "متوسط", value: "medium" },
@@ -43,7 +51,7 @@ const TablemateAccordion: React.FC<{
   const title = props.tablematesNumber
     ? titles[props.tablematesNumber - 1]
     : "";
-    
+
   useEffect(() => {
     setOpen(props.isOpen);
   }, [props.isOpen]);
@@ -89,28 +97,30 @@ const TablemateAccordion: React.FC<{
           className="flex flex-col gap-8 overflow-hidden origin-top"
         >
           <TextBox
+            classes="bg-[#F3F3F5] !border-gray-200 !rounded-2xl !px-4"
             label="نام"
             placeHolder="اینجا بنویس"
             name={`tablemates[${props.index}][name]`}
           />
-          <div className="w-1/4">
-            <NumberBox
+          <div className="w-2/5">
+            <ComboBox
               label="تعداد وعده‌های مشترک"
-              name={`tablemates[${props.index}][sharedMealQuantity]`}
-              defaultValue={1}
+              placeholder="لطفا انتخاب کنید"
+              name={`tablemates[${props.index}][sharedMealsCount]`}
+              options={sharedMealsCount}
             />
           </div>
           <Radio
             label="سطح ارتباط"
             gridColClasses="xs:grid-cols-2 md:grid-cols-3 gap-4 xl:grid-cols-4 2xl:grid-cols-5"
-            options={communicationLevelOptions}
-            name={`tablemates[${props.index}][communicationLevel]`}
+            options={relationshipLevel}
+            name={`tablemates[${props.index}][relationshipLevel]`}
           />
           <Radio
             label="به نظر شما، این فرد چقدر بر روی رژیم شما تاثیر می‌گذارد"
             gridColClasses="xs:grid-cols-2 md:grid-cols-3 gap-4 xl:grid-cols-4 2xl:grid-cols-5"
-            options={dietImpactOptions}
-            name={`tablemates[${props.index}][dietImpact]`}
+            options={influenceLevel}
+            name={`tablemates[${props.index}][influenceLevel]`}
           />
         </motion.div>
       </AnimatePresence>
@@ -118,4 +128,4 @@ const TablemateAccordion: React.FC<{
   );
 };
 
-export default TablemateAccordion;
+export default memo(TablemateAccordion);
