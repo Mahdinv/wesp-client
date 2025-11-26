@@ -31,7 +31,7 @@ const Button: React.FC<{
           } justify-center items-center px-4`}
           style={{ gap: props.icon ? props.itemsGap : 0 }}
         >
-          {props.title}
+          <label>{props.title}</label>
           <span className={`${props.iconClasses} self-center`}>
             {props.icon}
           </span>

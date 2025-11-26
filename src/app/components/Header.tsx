@@ -3,9 +3,9 @@ import { FaBars, FaXmark } from "react-icons/fa6";
 import Button from "../../base/inputs/Button";
 import UserProgressContext from "../../store/userProgressContext";
 import { Link, NavLink } from "react-router-dom";
-import logout from "../../utils/auth";
 import { LuUserRound } from "react-icons/lu";
 import { PiPlantLight } from "react-icons/pi";
+import Dropdown from "../../base/inputs/Dropdown";
 
 const navLinks = [
   { id: "home", title: "خانه" },
@@ -16,8 +16,7 @@ const navLinks = [
 ];
 
 const Header = () => {
-  const { token, setAccessToken, setProgress } =
-    useContext(UserProgressContext);
+  const { token, setProgress } = useContext(UserProgressContext);
   const [menuIsOpen, setMenuIsOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement | null>(null);
   if (menuIsOpen) {
@@ -30,7 +29,7 @@ const Header = () => {
 
   return (
     <>
-      <header className="sticky top-0 right-0 w-full z-50 xs:py-4 xs:px-6 bg-[#F7f7f7]">
+      <header className="sticky top-0 right-0 w-full z-50 xs:py-4 xs:px-6 bg-[#F7f7f7] shadow-md">
         <nav className="flex flex-row w-full items-center justify-between font-peyda">
           <div className="flex flex-row gap-2 w-auto items-center">
             <PiPlantLight
@@ -97,24 +96,7 @@ const Header = () => {
                 </>
               )}
 
-              {!!token && (
-                <div className="flex flex-row gap-4 items-center">
-                  <Link
-                    to="/dashboard"
-                    className="text-green-950 font-bold duration-300 hover:text-green-500"
-                  >
-                    داشبورد
-                  </Link>
-                  <Button
-                    classes="btn btn-primary px-6 md:px-7"
-                    title="خروج"
-                    onClick={() => {
-                      setAccessToken("");
-                      logout();
-                    }}
-                  />
-                </div>
-              )}
+              {!!token && <Dropdown />}
             </div>
             <FaBars
               className="text-black xs:text-xs sm:text-sm md:hidden"

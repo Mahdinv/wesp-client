@@ -105,6 +105,10 @@ p {
   @apply text-[12.6px] font-semibold text-pretty;
 }
 
+label {
+  @apply text-[14px] tracking-normal font-peyda font-bold;
+}
+
 small {
   @apply text-[7.9px] tracking-normal;
 }
@@ -131,6 +135,9 @@ small {
   }
   p {
     @apply text-[16px];
+  }
+  label {
+    @apply text-[15px];
   }
   small {
     @apply text-[10px];
@@ -159,6 +166,9 @@ small {
   p {
     @apply text-[14.4px];
   }
+  label {
+    @apply text-[16px];
+  }
   small {
     @apply text-[9.1px];
   }
@@ -185,6 +195,9 @@ small {
   }
   p {
     @apply text-[16.2px];
+  }
+  label {
+    @apply text-xs;
   }
   small {
     @apply text-[10.2px];
@@ -213,6 +226,9 @@ small {
   p {
     @apply text-xs;
   }
+  label {
+    @apply text-base;
+  }
   small {
     @apply text-[11.34px];
   }
@@ -240,13 +256,16 @@ small {
   p {
     @apply text-sm;
   }
+  label {
+    @apply text-[26px];
+  }
   small {
     @apply text-[12.5px];
   }
 }
 
 .btn {
-  @apply font-bold text-base border-2 border-green-500 rounded-lg text-green-500 hover:shadow-lg;
+  @apply font-peyda font-bold text-base border-2 border-green-500 rounded-lg text-green-500 hover:shadow-lg;
 }
 
 .btn.btn-primary {

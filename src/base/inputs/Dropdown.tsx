@@ -1,0 +1,102 @@
+import { AnimatePresence, motion } from "framer-motion";
+import { useContext, useEffect, useRef, useState } from "react";
+import { FaAngleUp } from "react-icons/fa6";
+import { IoIosLogOut } from "react-icons/io";
+import { IoSettingsOutline } from "react-icons/io5";
+import { PiSpeedometer, PiUserCircleLight } from "react-icons/pi";
+import UserProgressContext from "../../store/userProgressContext";
+import logout from "../../utils/auth";
+
+const Dropdown = () => {
+  const { setAccessToken } = useContext(UserProgressContext);
+  const [showDropdown, setShowDropdown] = useState(false);
+  const ref = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (ref.current && !ref.current.contains(e.target as Node))
+        setShowDropdown(false);
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  return (
+    <div
+      ref={ref}
+      className="relative flex flex-col items-center justify-center gap-2 w-full"
+    >
+      <div
+        className="w-full flex flex-row gap-10 bg-green-500 text-[#D9F2E2] py-2 px-3 rounded-lg duration-300 hover:bg-green-600"
+        onClick={() => setShowDropdown((prev) => !prev)}
+      >
+        <label>پارسا متینی</label>
+        <motion.span
+          initial={{ rotate: 0 }}
+          animate={{ rotate: showDropdown ? 180 : 0 }}
+          transition={{ duration: 0.2, ease: "easeOut" }}
+          className="w-auto self-center xs:text-xs md:text-xl px-2 cursor-pointer"
+        >
+          <FaAngleUp />
+        </motion.span>
+      </div>
+      <AnimatePresence initial={false}>
+        {showDropdown && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: showDropdown ? 1 : 0 }}
+            exit={{ display: "hidden", opacity: 0 }}
+            transition={{ duration: 0.2, ease: "easeOut" }}
+            className="absolute top-1/2 translate-y-10 w-full flex flex-col items-center bg-white shadow-lg rounded-lg"
+          >
+            <div className="flex flex-col items-center py-2">
+              <img
+                src="/images/user-profile.jpg"
+                alt="user-profile"
+                className="w-[60%] aspect-square rounded-full object-cover mb-2 xs:border-2 md:border-4 border-green-500"
+              />
+              <label className="xl:text-[16px] 2xl:text-xs font-bold !font-yekan">
+                پارسا متینی
+              </label>
+              <small>info@gmail.com</small>
+            </div>
+            <ul className="w-full flex flex-col items-center self-start border border-t-[#A8A8A8]">
+              <li className="w-full flex flex-row items-center gap-2 px-4 py-2 duration-300 bg-[#F3F3F5] hover:bg-[#D8D8D8]">
+                <PiSpeedometer className="text-xl" strokeWidth={2} />
+                <label className="xl:text-[14px] 2xl:text-[16px] font-medium !font-yekan">
+                  داشبورد
+                </label>
+              </li>
+              <li className="w-full flex flex-row items-center gap-2 px-4 py-2 duration-300 bg-[#F3F3F5] hover:bg-[#D8D8D8]">
+                <PiUserCircleLight className="text-xl" strokeWidth={2} />
+                <label className="xl:text-[14px] 2xl:text-[16px] font-medium !font-yekan">
+                  پروفایل
+                </label>
+              </li>
+              <li className="w-full flex flex-row items-center gap-2 px-4 py-2 duration-300 bg-[#F3F3F5] hover:bg-[#D8D8D8]">
+                <IoSettingsOutline className="text-xl" strokeWidth={2} />
+                <label className="xl:text-[14px] 2xl:text-[16px] font-medium !font-yekan">
+                  تنظیمات
+                </label>
+              </li>
+              <li
+                className="w-full flex flex-row items-center gap-2 px-4 py-2 duration-300 bg-[#F3F3F5] hover:bg-[#D8D8D8] text-red-800 rounded-b-lg"
+                onClick={() => {
+                  setAccessToken("");
+                  logout();
+                }}
+              >
+                <IoIosLogOut className="text-xl" strokeWidth={2} />
+                <label className="xl:text-[14px] 2xl:text-[16px] font-medium !font-yekan">
+                  خروج
+                </label>
+              </li>
+            </ul>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+};
+
+export default Dropdown;
