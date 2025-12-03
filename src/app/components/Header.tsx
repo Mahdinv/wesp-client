@@ -29,18 +29,18 @@ const Header = () => {
 
   return (
     <>
-      <header className="sticky top-0 right-0 w-full z-50 xs:py-4 xs:px-6 bg-[#F7f7f7] shadow-md">
+      <header className="sticky top-0 right-0 w-full z-50 xxs:px-4 xxs:py-3 xs:py-4 xs:px-6 bg-[#F7f7f7] shadow-md">
         <nav className="flex flex-row w-full items-center justify-between font-peyda">
           <div className="flex flex-row gap-2 w-auto items-center">
             <PiPlantLight
               strokeWidth={4}
-              className="xs:hidden sm:block text-green-500 sm:w-10 lg:w-12 xl:w-14 h-auto"
+              className="text-green-500 xxs:w-6 sm:w-10 lg:w-12 xl:w-14 h-auto"
             />
             <h3>رژیم سبز</h3>
           </div>
           <div
             ref={menuRef}
-            className="fixed top-0 left-0 h-screen flex flex-col w-full xs:bg-gradient-to-b xs:from-green-300 xs:to-green-500 py-4 px-4 gap-4 duration-700 transition-transform -translate-x-[102%] md:static md:h-auto md:flex-row  md:flex-1 md:duration-0 md:translate-x-0 md:w-auto md:bg-gradient-to-b md:from-transparent md:to-transparent z-50"
+            className="fixed top-0 left-0 h-screen flex flex-col w-full xs:bg-gradient-to-b xs:from-green-300 xs:to-green-500 py-4 px-4 gap-4 duration-700 transition-transform -translate-x-[102%] md:static md:h-auto md:flex-row md:flex-1 md:duration-0 md:translate-x-0 md:w-auto md:bg-gradient-to-b md:from-transparent md:to-transparent z-50"
           >
             <div className="flex flex-row w-full items-center justify-between md:hidden">
               <div className="flex flex-row gap-2 items-center">

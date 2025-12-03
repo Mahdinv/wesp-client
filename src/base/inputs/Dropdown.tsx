@@ -27,15 +27,15 @@ const Dropdown = () => {
       className="relative flex flex-col items-center justify-center gap-2 w-full"
     >
       <div
-        className="w-full flex flex-row gap-10 bg-green-500 text-[#D9F2E2] py-2 px-3 rounded-lg duration-300 hover:bg-green-600"
+        className="w-full flex flex-row xs:gap-9 sm:gap-6 bg-green-500 text-[#D9F2E2] xs:py-2 xs:px-3 sm:px-2 md:px-3 rounded-lg duration-300 hover:bg-green-600"
         onClick={() => setShowDropdown((prev) => !prev)}
       >
-        <label>پارسا متینی</label>
+        <h6 className="md:text-[12px] text-[#D9F2E2]">پارسا متینی</h6>
         <motion.span
           initial={{ rotate: 0 }}
           animate={{ rotate: showDropdown ? 180 : 0 }}
           transition={{ duration: 0.2, ease: "easeOut" }}
-          className="w-auto self-center xs:text-xs md:text-xl px-2 cursor-pointer"
+          className="w-auto self-center xs:text-xs md:text-xs cursor-pointer"
         >
           <FaAngleUp />
         </motion.span>
@@ -49,45 +49,57 @@ const Dropdown = () => {
             transition={{ duration: 0.2, ease: "easeOut" }}
             className="absolute top-1/2 translate-y-10 w-full flex flex-col items-center bg-white shadow-lg rounded-lg"
           >
-            <div className="flex flex-col items-center py-2">
+            <div className="flex flex-col md:gap-1 items-center py-2">
               <img
                 src="/images/user-profile.jpg"
                 alt="user-profile"
                 className="w-[60%] aspect-square rounded-full object-cover mb-2 xs:border-2 md:border-4 border-green-500"
               />
-              <label className="xl:text-[16px] 2xl:text-xs font-bold !font-yekan">
+              <label className="md:text-[12px] font-bold !font-yekan text-center">
                 پارسا متینی
               </label>
               <small>info@gmail.com</small>
             </div>
             <ul className="w-full flex flex-col items-center self-start border border-t-[#A8A8A8]">
-              <li className="w-full flex flex-row items-center gap-2 px-4 py-2 duration-300 bg-[#F3F3F5] hover:bg-[#D8D8D8]">
-                <PiSpeedometer className="text-xl" strokeWidth={2} />
-                <label className="xl:text-[14px] 2xl:text-[16px] font-medium !font-yekan">
+              <li className="w-full flex flex-row items-center gap-2 xs:px-2 xs:py-2 md:px-2 md:py-2 duration-300 bg-[#F3F3F5] hover:bg-[#D8D8D8]">
+                <PiSpeedometer
+                  className="xs:text-xs sm:text-sm"
+                  strokeWidth={2}
+                />
+                <label className="md:text-[12px] font-medium !font-yekan">
                   داشبورد
                 </label>
               </li>
-              <li className="w-full flex flex-row items-center gap-2 px-4 py-2 duration-300 bg-[#F3F3F5] hover:bg-[#D8D8D8]">
-                <PiUserCircleLight className="text-xl" strokeWidth={2} />
-                <label className="xl:text-[14px] 2xl:text-[16px] font-medium !font-yekan">
+              <li className="w-full flex flex-row items-center gap-2 xs:px-2 xs:py-2 md:px-2 md:py-2 duration-300 bg-[#F3F3F5] hover:bg-[#D8D8D8]">
+                <PiUserCircleLight
+                  className="xs:text-xs sm:text-sm"
+                  strokeWidth={2}
+                />
+                <label className="md:text-[12px] font-medium !font-yekan">
                   پروفایل
                 </label>
               </li>
-              <li className="w-full flex flex-row items-center gap-2 px-4 py-2 duration-300 bg-[#F3F3F5] hover:bg-[#D8D8D8]">
-                <IoSettingsOutline className="text-xl" strokeWidth={2} />
-                <label className="xl:text-[14px] 2xl:text-[16px] font-medium !font-yekan">
+              <li className="w-full flex flex-row items-center gap-2 xs:px-2 xs:py-2 md:px-2 md:py-2 duration-300 bg-[#F3F3F5] hover:bg-[#D8D8D8]">
+                <IoSettingsOutline
+                  className="xs:text-xs sm:text-sm"
+                  strokeWidth={2}
+                />
+                <label className="md:text-[12px] font-medium !font-yekan">
                   تنظیمات
                 </label>
               </li>
               <li
-                className="w-full flex flex-row items-center gap-2 px-4 py-2 duration-300 bg-[#F3F3F5] hover:bg-[#D8D8D8] text-red-800 rounded-b-lg"
+                className="w-full flex flex-row items-center gap-2 xs:px-2 xs:py-2 md:px-2 md:py-2 duration-300 bg-[#F3F3F5] hover:bg-[#D8D8D8] text-red-800 rounded-b-lg"
                 onClick={() => {
                   setAccessToken("");
                   logout();
                 }}
               >
-                <IoIosLogOut className="text-xl" strokeWidth={2} />
-                <label className="xl:text-[14px] 2xl:text-[16px] font-medium !font-yekan">
+                <IoIosLogOut
+                  className="xs:text-xs sm:text-sm"
+                  strokeWidth={2}
+                />
+                <label className="md:text-[12px] font-medium !font-yekan">
                   خروج
                 </label>
               </li>
