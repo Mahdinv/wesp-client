@@ -22,7 +22,7 @@ const relationshipLevel = [
 ];
 
 const influenceLevel = [
-  { title: "هیچ", value: "nothing" },
+  { title: "هیچ", value: "none" },
   { title: "کم", value: "low" },
   { title: "متوسط", value: "medium" },
   { title: "زیاد", value: "high" },
