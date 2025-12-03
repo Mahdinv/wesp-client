@@ -7,7 +7,7 @@
   font-style: normal;
   font-weight: 600;
   font-display: swap;
-  src: url("./fonts/PeydaWeb-SemiBold.woff2") format("opentype");
+  src: url("./assets/fonts/PeydaWeb-SemiBold.woff2") format("opentype");
 }
 
 @font-face {
@@ -15,7 +15,7 @@
   font-style: normal;
   font-weight: 700;
   font-display: swap;
-  src: url("./fonts/PeydaWeb-Bold.woff2") format("opentype");
+  src: url("./assets/fonts/PeydaWeb-Bold.woff2") format("opentype");
 }
 
 @font-face {
@@ -23,7 +23,7 @@
   font-style: normal;
   font-weight: 800;
   font-display: swap;
-  src: url("./fonts/PeydaWeb-ExtraBold.woff2") format("opentype");
+  src: url("./assets/fonts/PeydaWeb-ExtraBold.woff2") format("opentype");
 }
 
 @font-face {
@@ -31,12 +31,12 @@
   font-style: normal;
   font-weight: 100 900;
   font-display: swap;
-  src: url("./fonts/YekanBakh-VF.woff2") format("opentype");
+  src: url("./assets/fonts/YekanBakh-VF.woff2") format("opentype");
 }
 
 @font-face {
   font-family: "RokhFaNum";
-  src: url("./fonts/RokhFaNum-ExtraBold.otf") format("opentype");
+  src: url("./assets/fonts/RokhFaNum-ExtraBold.otf") format("opentype");
   font-weight: 800;
   font-style: normal;
 }
@@ -113,8 +113,8 @@ small {
   @apply text-[7.9px] tracking-normal;
 }
 
-@media (min-width: 414px) {
-  /*sm*/
+@media (min-width: 320px) {
+  /*xxs*/
   h1 {
     @apply text-4xl;
   }
@@ -143,8 +143,38 @@ small {
     @apply text-[10px];
   }
 }
-@media (min-width: 768px) {
-  /*md*/
+@media (min-width: 375px) {
+  /*xs*/
+  h1 {
+    @apply text-4xl;
+  }
+  h2 {
+    @apply text-base;
+  }
+  h3 {
+    @apply text-2xl;
+  }
+  h4 {
+    @apply text-xl;
+  }
+  h5 {
+    @apply text-lg;
+  }
+  h6 {
+    @apply text-[18px];
+  }
+  p {
+    @apply text-[16px];
+  }
+  label {
+    @apply text-[15px];
+  }
+  small {
+    @apply text-[10px];
+  }
+}
+@media (min-width: 550px) {
+  /*sm*/
   h1 {
     @apply text-[44.8px];
   }
@@ -173,8 +203,8 @@ small {
     @apply text-[9.1px];
   }
 }
-@media (min-width: 1024px) {
-  /*lg*/
+@media (min-width: 768px) {
+  /*md*/
   h1 {
     @apply text-[50.4px];
   }
@@ -203,8 +233,8 @@ small {
     @apply text-[10.2px];
   }
 }
-@media (min-width: 1280px) {
-  /*xl*/
+@media (min-width: 1024px) {
+  /*lg*/
   h1 {
     @apply text-6xl;
   }
@@ -231,6 +261,36 @@ small {
   }
   small {
     @apply text-[11.34px];
+  }
+}
+@media (min-width: 1280px) {
+  /*xl*/
+  h1 {
+    @apply text-[62px];
+  }
+  h2 {
+    @apply text-4xl;
+  }
+  h3 {
+    @apply text-2xl;
+  }
+  h4 {
+    @apply text-2xl;
+  }
+  h5 {
+    @apply text-[29px];
+  }
+  h6 {
+    @apply text-sm;
+  }
+  p {
+    @apply text-sm;
+  }
+  label {
+    @apply text-[26px];
+  }
+  small {
+    @apply text-[12.5px];
   }
 }
 @media (min-width: 1536px) {
