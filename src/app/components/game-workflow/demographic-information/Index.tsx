@@ -28,7 +28,6 @@ import NumberBox from "../../../../base/inputs/NumberBox";
 import { BsPercent } from "react-icons/bs";
 import { IoHomeOutline } from "react-icons/io5";
 import isEmpty from "../../../../utils/validation";
-import { toast } from "react-toastify";
 import api from "../../../../api/axios";
 import Intro from "../../../../base/Intro";
 import DemographicInformationModel from "../../../../models/demographic-information.model";
@@ -156,15 +155,15 @@ const DemographicInformation = () => {
 
     if (step < 3) {
       if (isEmpty(model.name)) {
-        toast.error("لطفا اسم بازیکن را وارد کنید");
+        // toast.error("لطفا اسم بازیکن را وارد کنید");
         return model.getData();
       }
       if (isEmpty(model.age)) {
-        toast.error("لطفا سن بازیکن را وارد کنید");
+        // toast.error("لطفا سن بازیکن را وارد کنید");
         return model.getData();
       }
       if (isEmpty(model.gender)) {
-        toast.error("لطفا جنسیت بازیکن را وارد کنید");
+        // toast.error("لطفا جنسیت بازیکن را وارد کنید");
         return model.getData();
       }
       handleNextStep();
@@ -175,12 +174,13 @@ const DemographicInformation = () => {
       try {
         const response = await api.post(`/forms/form1/`, model.toServer());
         if (response.status === 201) {
-          toast.success("فرم پرسشنامه با موفقیت تکمیل شد");
+          // toast.success("فرم پرسشنامه با موفقیت تکمیل شد");
           navigate("/game-workflow");
         }
       } catch (error) {
-        const errorRes = handleAxiosError(error);
-        toast.error(errorRes.message);
+        // const errorRes = handleAxiosError(error);
+        handleAxiosError(error);
+        // toast.error(errorRes.message);
         return model.getData();
       }
     }

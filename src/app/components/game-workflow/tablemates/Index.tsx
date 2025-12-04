@@ -4,7 +4,6 @@ import Button from "../../../../base/inputs/Button";
 import { AiOutlineUserAdd } from "react-icons/ai";
 import TablemateAccordion from "./TablemateAccordion";
 import { useCallback, useEffect, useState } from "react";
-import { toast } from "react-toastify";
 import Intro from "../../../../base/Intro";
 import { FaRegSquareCheck } from "react-icons/fa6";
 import { Form, useActionData, useNavigation } from "react-router-dom";
@@ -18,9 +17,9 @@ const Tablemates = () => {
   useEffect(() => {
     if (res) {
       if (res.success) {
-        toast.success(res.message);
+        // toast.success(res.message);
       } else {
-        toast.error(res.message);
+        // toast.error(res.message);
       }
     }
   }, [res]);
@@ -29,7 +28,7 @@ const Tablemates = () => {
     if (tablemateAccordion.length < 10) {
       setTablemateAccordion((prev) => [...prev, prev.length]);
     } else {
-      toast.error("شما تنها می‌توانید 10 همسفره به لیست خود اضافه کنید.");
+      // toast.error("شما تنها می‌توانید 10 همسفره به لیست خود اضافه کنید.");
       return;
     }
   }

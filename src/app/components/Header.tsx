@@ -9,14 +9,13 @@ import Dropdown from "../../base/inputs/Dropdown";
 
 const navLinks = [
   { id: "home", title: "خانه" },
-  { id: "diets", title: "رژیم‌های غذایی" },
-  { id: "news", title: "اخبار" },
-  { id: "articles", title: "مقالات" },
   { id: "podcasts", title: "پادکست" },
+  { id: "articles", title: "مجله‌سلامت" },
+  { id: "about-us", title: "درباره‌ما" },
 ];
 
 const Header = () => {
-  const { token, setProgress } = useContext(UserProgressContext);
+  const { token } = useContext(UserProgressContext);
   const [menuIsOpen, setMenuIsOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement | null>(null);
   if (menuIsOpen) {
@@ -83,14 +82,13 @@ const Header = () => {
             <div className="flex flex-row gap-2">
               {(!token || token === "") && (
                 <>
-                  <Link to="?mode=login">
+                  <Link to="/auth/login">
                     <Button
                       classes="btn btn-primary"
                       title="ورود"
                       icon={<LuUserRound strokeWidth={3} />}
                       iconClasses="text-lg font-extrabold"
                       itemsGap={40}
-                      onClick={() => setProgress("login")}
                     />
                   </Link>
                 </>
