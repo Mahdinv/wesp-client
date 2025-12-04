@@ -1,8 +1,7 @@
 import { Outlet, useNavigate } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import { useContext, useEffect, useRef } from "react";
-import Authentication from "./components/authentication";
+import { Suspense, useContext, useEffect, useRef } from "react";
 import logout, { checkTokenExpiration, getAccessToken } from "../utils/auth";
 import UserProgressContext from "../store/userProgressContext";
 
@@ -36,9 +35,10 @@ const Index = () => {
       className="index-container sm:h-[100vh] md:min-h-screen flex flex-col overflow-y-auto overflow-x-hidden"
     >
       <Header />
-      <Authentication />
       <div className="flex-grow">
-        <Outlet />
+        <Suspense fallback={<p>در حال بارگذاری...</p>}>
+          <Outlet />
+        </Suspense>
       </div>
       <Footer />
     </div>
