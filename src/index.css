@@ -78,96 +78,66 @@ body {
 }
 
 h1 {
-  @apply text-[39px] tracking-normal text-black font-yekan font-extrabold;
+  @apply text-lg tracking-normal text-black font-yekan font-extrabold;
 }
 
 h2 {
-  @apply text-sm tracking-tight text-black font-yekan font-black;
+  @apply text-lg tracking-normal text-black font-yekan font-extrabold;
 }
 
 h3 {
-  @apply text-[22.4px] tracking-normal text-green-500 font-peyda font-bold;
+  @apply text-sm tracking-normal text-green-500 font-peyda font-bold;
 }
 
 h4 {
-  @apply text-[19.6px] tracking-tight text-black font-yekan font-bold;
+  @apply text-sm tracking-tight text-black font-peyda font-bold;
 }
 
 h5 {
-  @apply text-[18.5px] tracking-normal text-black font-bold;
+  @apply text-xs tracking-normal text-black font-peyda font-medium;
 }
 
 h6 {
-  @apply text-[14px] tracking-normal text-green-100 font-peyda font-bold;
+  @apply text-xs tracking-normal text-green-100 font-peyda font-extrabold;
 }
 
 p {
-  @apply text-[12.6px] font-semibold text-pretty;
+  @apply text-xs tracking-normal text-primary-darker font-peyda font-medium text-pretty;
 }
 
 label {
-  @apply text-[14px] tracking-normal font-peyda font-bold;
+  @apply text-xs tracking-normal text-black font-peyda font-semibold;
 }
 
 small {
-  @apply text-[7.9px] tracking-normal;
+  @apply text-[8px] tracking-normal text-primary-darker font-medium;
 }
 
-@media (min-width: 320px) {
-  /*xxs*/
-  h1 {
-    @apply text-4xl;
-  }
-  h2 {
-    @apply text-base;
-  }
-  h3 {
-    @apply text-2xl;
-  }
-  h4 {
-    @apply text-xl;
-  }
-  h5 {
-    @apply text-lg;
-  }
-  h6 {
-    @apply text-[18px];
-  }
-  p {
-    @apply text-[16px];
-  }
-  label {
-    @apply text-[15px];
-  }
-  small {
-    @apply text-[10px];
-  }
-}
 @media (min-width: 375px) {
   /*xs*/
   h1 {
-    @apply text-4xl;
-  }
-  h2 {
-    @apply text-base;
-  }
-  h3 {
     @apply text-2xl;
   }
-  h4 {
-    @apply text-xl;
-  }
-  h5 {
+  h2 {
     @apply text-lg;
   }
+  h3 {
+    @apply text-sm;
+  }
+  h4 {
+    @apply text-sm;
+  }
+  h5 {
+    @apply text-xs;
+  }
   h6 {
-    @apply text-[18px];
+    @apply text-base;
   }
   p {
-    @apply text-[16px];
+    @apply text-xs;
   }
   label {
-    @apply text-[15px];
+    @apply text-xs;
   }
   small {
     @apply text-[10px];
@@ -175,80 +145,23 @@ small {
 }
 @media (min-width: 550px) {
   /*sm*/
-  h1 {
-    @apply text-[44.8px];
-  }
-  h2 {
-    @apply text-lg;
-  }
   h3 {
-    @apply text-[25.6px];
-  }
-  h4 {
-    @apply text-[22.4px];
-  }
-  h5 {
-    @apply text-[21.1px];
-  }
-  h6 {
-    @apply text-[16px];
-  }
-  p {
-    @apply text-[14.4px];
-  }
-  label {
-    @apply text-[16px];
-  }
-  small {
-    @apply text-[9.1px];
+    @apply text-2xl;
   }
 }
 @media (min-width: 768px) {
   /*md*/
   h1 {
-    @apply text-[50.4px];
-  }
-  h2 {
-    @apply text-xl;
-  }
-  h3 {
-    @apply text-[28.8px];
-  }
-  h4 {
-    @apply text-[25.2px];
-  }
-  h5 {
-    @apply text-[23.8px];
-  }
-  h6 {
-    @apply text-xs;
-  }
-  p {
-    @apply text-[16.2px];
-  }
-  label {
-    @apply text-xs;
-  }
-  small {
-    @apply text-[10.2px];
-  }
-}
-@media (min-width: 1024px) {
-  /*lg*/
-  h1 {
-    @apply text-6xl;
-  }
-  h2 {
-    @apply text-[37px];
-  }
-  h3 {
     @apply text-2xl;
   }
-  h4 {
+  h2 {
     @apply text-xl;
   }
+  h4 {
+    @apply text-xs;
+  }
   h5 {
-    @apply text-[26.43px];
+    @apply text-xs;
   }
   h6 {
     @apply text-sm;
@@ -257,16 +170,16 @@ small {
     @apply text-xs;
   }
   label {
-    @apply text-base;
+    @apply text-xs;
   }
   small {
-    @apply text-[11.34px];
+    @apply text-[10px];
   }
 }
 @media (min-width: 1280px) {
   /*xl*/
   h1 {
-    @apply text-[62px];
+    @apply text-5xl;
   }
   h2 {
     @apply text-4xl;
@@ -275,65 +188,35 @@ small {
     @apply text-2xl;
   }
   h4 {
-    @apply text-2xl;
+    @apply text-xl;
   }
   h5 {
-    @apply text-[29px];
-  }
-  h6 {
-    @apply text-sm;
-  }
-  p {
-    @apply text-sm;
-  }
-  label {
-    @apply text-[26px];
-  }
-  small {
-    @apply text-[12.5px];
-  }
-}
-@media (min-width: 1536px) {
-  /*2xl*/
-  h1 {
-    @apply text-[62px];
-  }
-  h2 {
-    @apply text-4xl;
-  }
-  h3 {
-    @apply text-3xl;
-  }
-  h4 {
-    @apply text-2xl;
-  }
-  h5 {
-    @apply text-[29px];
+    @apply text-lg;
   }
   h6 {
     @apply text-base;
   }
   p {
-    @apply text-sm;
+    @apply text-base;
   }
   label {
-    @apply text-[26px];
+    @apply text-sm;
   }
   small {
-    @apply text-[12.5px];
+    @apply text-xs;
   }
 }
 
 .btn {
-  @apply font-peyda font-bold text-base border-2 border-green-500 rounded-lg text-green-500 hover:shadow-lg;
+  @apply font-peyda font-bold text-base border-2 border-primary rounded-lg text-primary hover:shadow-lg;
 }
 
 .btn.btn-primary {
-  @apply bg-green-500 text-[#D9F2E2] hover:border-green-500 hover:bg-[#D9F2E2] hover:text-green-500;
+  @apply bg-primary text-white hover:border-primary hover:bg-white hover:text-primary;
 }
 
 .btn.btn-outline {
-  @apply bg-[#D9F2E2] hover:bg-green-500 hover:text-[#D9F2E2]  border-green-500;
+  @apply bg-white hover:bg-primary hover:text-white border-primary;
 }
 
 .modal::backdrop {
