@@ -159,6 +159,9 @@ small {
   h6 {
     @apply text-xs;
   }
+  small {
+    @apply text-xxs;
+  }
 }
 @media (min-width: 768px) {
   /*md*/
@@ -182,9 +185,6 @@ small {
   }
   label {
     @apply text-xs;
-  }
-  small {
-    @apply text-[10px];
   }
 }
 @media (min-width: 1024px) {
