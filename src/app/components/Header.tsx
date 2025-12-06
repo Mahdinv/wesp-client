@@ -1,11 +1,11 @@
 import { useContext, useRef, useState } from "react";
-import { FaBars, FaXmark } from "react-icons/fa6";
+import { FaXmark } from "react-icons/fa6";
 import Button from "../../base/inputs/Button";
 import UserProgressContext from "../../store/userProgressContext";
 import { Link, NavLink } from "react-router-dom";
-import { LuUserRound } from "react-icons/lu";
-import { PiPlantLight } from "react-icons/pi";
+import { PiPlantLight, PiUserBold } from "react-icons/pi";
 import Dropdown from "../../base/inputs/Dropdown";
+import { RxHamburgerMenu } from "react-icons/rx";
 
 const navLinks = [
   { id: "home", title: "خانه" },
@@ -28,14 +28,18 @@ const Header = () => {
 
   return (
     <>
-      <header className="sticky top-0 right-0 w-full z-50 xxs:px-4 xxs:py-3 xs:py-4 xs:px-6 bg-[#F7f7f7] shadow-md">
+      <header className="sticky top-0 right-0 w-full z-50 xxs:px-6 xxs:py-3 sm:py-3 xs:py-2 bg-[#F7f7f7] shadow-md">
         <nav className="flex flex-row w-full items-center justify-between font-peyda">
-          <div className="flex flex-row gap-2 w-auto items-center">
+          <RxHamburgerMenu
+            className="text-primary xxs:text-xl sm:text-5xl md:hidden"
+            onClick={() => setMenuIsOpen(true)}
+          />
+          <div className="xxs:flex-grow md:grow-0 flex flex-row gap-2 w-auto items-center xxs:mr-3">
             <PiPlantLight
               strokeWidth={4}
-              className="text-green-500 xxs:w-6 sm:w-10 lg:w-12 xl:w-14 h-auto"
+              className="text-primary xxs:hidden md:block xxs:w-6 sm:w-10 lg:w-14 h-auto"
             />
-            <h3>رژیم سبز</h3>
+            <h3>رژیم پایدار</h3>
           </div>
           <div
             ref={menuRef}
@@ -51,7 +55,7 @@ const Header = () => {
                 onClick={() => setMenuIsOpen(false)}
               />
             </div>
-            <ul className="flex flex-col h-screen md:flex-row md:h-auto md:w-full xs:justify-between md:justify-center xs:py-28 md:p-0 text-center md:gap-6 lg:gap-10 xl:gap-12 2xl:gap-14 duration-500 xs:text-green-100 md:text-emerald-400">
+            <ul className="flex flex-col h-screen md:flex-row md:h-auto md:w-full xs:justify-between md:justify-center xs:py-28 md:p-0 text-center md:gap-6 lg:gap-10 xl:gap-12 2xl:gap-14 duration-500 xs:text-green-100 md:text-primary-darker opacity-75">
               {navLinks.map((link) => (
                 <li
                   key={link.id}
@@ -60,46 +64,38 @@ const Header = () => {
                     setMenuIsOpen(false);
                   }}
                 >
-                  <h6>
-                    <NavLink
-                      to={link.id === "home" ? "/" : link.id}
-                      className={({ isActive }) =>
-                        `text-[#003a16] duration-300 ${
-                          isActive
-                            ? "opacity-100"
-                            : "opacity-60 hover:opacity-100"
-                        }`
-                      }
-                    >
-                      {link.title}
-                    </NavLink>
-                  </h6>
+                  <NavLink
+                    to={link.id === "home" ? "/" : link.id}
+                    className={({ isActive }) =>
+                      `duration-300 font-bold lg:text-xs ${
+                        isActive
+                          ? "opacity-100"
+                          : "opacity-60 hover:opacity-100"
+                      }`
+                    }
+                  >
+                    {link.title}
+                  </NavLink>
                 </li>
               ))}
             </ul>
           </div>
-          <div className="flex flex-row items-center gap-4">
-            <div className="flex flex-row gap-2">
-              {(!token || token === "") && (
-                <>
-                  <Link to="/auth/login">
-                    <Button
-                      classes="btn btn-primary"
-                      title="ورود"
-                      icon={<LuUserRound strokeWidth={3} />}
-                      iconClasses="text-lg font-extrabold"
-                      itemsGap={40}
-                    />
-                  </Link>
-                </>
-              )}
+          <div className="flex flex-row gap-2">
+            {(!token || token === "") && (
+              <>
+                <Link to="/auth/login">
+                  <Button
+                    classes="btn btn-primary"
+                    title="ورود"
+                    icon={<PiUserBold strokeWidth={4} />}
+                    iconClasses="xxs:text-lg lg:text-2xl font-extrabold"
+                    itemsGap={40}
+                  />
+                </Link>
+              </>
+            )}
 
-              {!!token && <Dropdown />}
-            </div>
-            <FaBars
-              className="text-black xs:text-xs sm:text-sm md:hidden"
-              onClick={() => setMenuIsOpen(true)}
-            />
+            {!!token && <Dropdown />}
           </div>
         </nav>
       </header>
