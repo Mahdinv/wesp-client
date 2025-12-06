@@ -67,7 +67,7 @@ const Header = () => {
                   <NavLink
                     to={link.id === "home" ? "/" : link.id}
                     className={({ isActive }) =>
-                      `duration-300 font-bold lg:text-xs ${
+                      `duration-300 font-bold lg:text-base ${
                         isActive
                           ? "opacity-100"
                           : "opacity-60 hover:opacity-100"
