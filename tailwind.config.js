@@ -26,6 +26,7 @@ export default {
         ['white']: '#FCFCFC',
         ['text-field']: '#F3F3F5',
         ['normal-yellow']: '#F2C94C',
+        ['default-gray']: '#CDCCD0',
 
       },
       fontFamily: {

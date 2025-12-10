@@ -71,7 +71,6 @@ const PreferredFood = () => {
               classes="btn w-full"
               title="بشقاب قبلی"
               icon={<FaArrowRightLong />}
-              itemsGap={7}
               iconFirst
               onClick={() => setStep((prev) => (prev !== 4 ? prev + 1 : 1))}
             />
@@ -79,7 +78,6 @@ const PreferredFood = () => {
               classes="btn btn-primary w-full"
               title="بشقاب بعدی"
               icon={<FaArrowLeftLong />}
-              itemsGap={7}
               onClick={() => setStep((prev) => (prev !== 4 ? prev + 1 : 1))}
             />
           </div>

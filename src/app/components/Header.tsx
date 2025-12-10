@@ -2,7 +2,7 @@ import { useContext, useRef, useState } from "react";
 import { FaXmark } from "react-icons/fa6";
 import Button from "../../base/inputs/Button";
 import UserProgressContext from "../../store/userProgressContext";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { PiPlantLight, PiUserBold } from "react-icons/pi";
 import Dropdown from "../../base/inputs/Dropdown";
 import { RxHamburgerMenu } from "react-icons/rx";
@@ -15,6 +15,7 @@ const navLinks = [
 ];
 
 const Header = () => {
+  const navigate = useNavigate();
   const { token } = useContext(UserProgressContext);
   const [menuIsOpen, setMenuIsOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement | null>(null);
@@ -80,18 +81,16 @@ const Header = () => {
               ))}
             </ul>
           </div>
-          <div className="flex flex-row gap-2">
+          <div className="xxs:w-5/12 xs:w-[28%] sm:w-3/12 md:w-2/12 lg:w-[14%] xl:w-[12%] 2xl:w-1/12 flex flex-row gap-2">
             {(!token || token === "") && (
               <>
-                <Link to="/auth/login">
-                  <Button
-                    classes="btn btn-primary"
-                    title="ورود"
-                    icon={<PiUserBold strokeWidth={4} />}
-                    iconClasses="xxs:text-lg lg:text-2xl font-extrabold"
-                    itemsGap={40}
-                  />
-                </Link>
+                <Button
+                  classes="w-full btn btn-primary"
+                  title="ورود"
+                  icon={<PiUserBold strokeWidth={4} />}
+                  iconClasses="xxs:text-lg lg:text-2xl font-extrabold"
+                  onClick={() => navigate("/auth/login")}
+                />
               </>
             )}
 

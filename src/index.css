@@ -82,7 +82,7 @@ input:-webkit-autofill {
 
 html,
 body {
-  @apply h-full overflow-x-hidden bg-green-50 font-yekan;
+  @apply h-full overflow-x-hidden bg-back-page font-yekan;
 }
 
 h1 {
@@ -110,7 +110,7 @@ h6 {
 }
 
 p {
-  @apply text-xs tracking-normal text-primary-darker font-peyda font-medium text-pretty;
+  @apply text-[10px] tracking-normal text-primary-darker font-peyda font-medium text-pretty;
 }
 
 label {
@@ -145,7 +145,7 @@ small {
     @apply text-xs;
   }
   label {
-    @apply text-xs;
+    @apply text-xxs;
   }
   small {
     @apply text-[10px];
@@ -155,6 +155,9 @@ small {
   /*sm*/
   h3 {
     @apply text-2xl;
+  }
+  h4 {
+    @apply text-xxs;
   }
   h6 {
     @apply text-xs;
@@ -172,7 +175,7 @@ small {
     @apply text-xl;
   }
   h4 {
-    @apply text-xs;
+    @apply text-sm;
   }
   h5 {
     @apply text-xs;
@@ -257,9 +260,17 @@ small {
 }
 
 .btn.btn-outline {
-  @apply bg-white hover:bg-primary hover:text-white border-primary;
+  @apply bg-transparent hover:text-primary border-primary;
 }
 
 .modal::backdrop {
   @apply bg-black opacity-70 fixed;
+}
+
+.swiper-slide {
+  padding: 0 !important;
+}
+
+.swiper-pagination-bullet-active {
+  @apply !bg-primary;
 }
