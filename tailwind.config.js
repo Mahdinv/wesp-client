@@ -45,6 +45,7 @@ export default {
         '3xl': ['28px', { lineHeight: '1.8' }],
         '4xl': ['32px', { lineHeight: '1' }],
         '5xl': ['36px', { lineHeight: '1.2' }],
+        '6xl': ['46px', { lineHeight: '1.2' }],
       },
     },
   },

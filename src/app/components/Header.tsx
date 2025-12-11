@@ -38,7 +38,7 @@ const Header = () => {
           <div className="xxs:flex-grow md:grow-0 flex flex-row gap-2 w-auto items-center xxs:mr-3">
             <PiPlantLight
               strokeWidth={4}
-              className="text-primary xxs:hidden md:block xxs:w-6 sm:w-10 lg:w-14 h-auto"
+              className="text-primary xxs:hidden md:block xxs:w-6 sm:w-10 lg:w-14 2xl:w-20 h-auto"
             />
             <h3>رژیم پایدار</h3>
           </div>
@@ -68,7 +68,7 @@ const Header = () => {
                   <NavLink
                     to={link.id === "home" ? "/" : link.id}
                     className={({ isActive }) =>
-                      `duration-300 font-bold lg:text-base ${
+                      `duration-300 font-bold lg:text-base 2xl:text-lg ${
                         isActive
                           ? "opacity-100"
                           : "opacity-60 hover:opacity-100"

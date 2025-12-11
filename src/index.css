@@ -250,6 +250,36 @@ small {
     @apply text-xs;
   }
 }
+@media (min-width: 1536px) {
+  /*xl*/
+  h1 {
+    @apply text-6xl;
+  }
+  h2 {
+    @apply text-4xl;
+  }
+  h3 {
+    @apply text-4xl;
+  }
+  h4 {
+    @apply text-xl;
+  }
+  h5 {
+    @apply text-lg;
+  }
+  h6 {
+    @apply text-base;
+  }
+  p {
+    @apply text-base;
+  }
+  label {
+    @apply text-lg;
+  }
+  small {
+    @apply text-xs;
+  }
+}
 
 .btn {
   @apply font-peyda font-bold text-base border-2 border-primary rounded-lg text-primary hover:shadow-lg;

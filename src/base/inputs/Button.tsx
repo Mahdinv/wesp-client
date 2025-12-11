@@ -18,7 +18,7 @@ const Button: React.FC<{
     <>
       <button
         type={props.type}
-        className={`${props.classes} xxs:text-xs sm:text-base md:text-lg duration-300 py-2 outline-none`}
+        className={`${props.classes} xxs:text-xs sm:text-base md:text-lg 2xl:text-xl duration-300 xxs:py-2 2xl:py-1 outline-none`}
         onClick={props.onClick}
         disabled={props.disable}
         name={props.name}

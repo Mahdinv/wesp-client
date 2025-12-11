@@ -8,10 +8,13 @@ const HeroSection = () => {
     <section className="w-full xxs:h-auto lg:h-[calc(100vh-88.39px)] flex xxs:flex-col md:flex-row bg-white">
       <div className="relative xxs:w-3/4 md:w-1/2 self-center pt-12">
         <div className="absolute top-1/2 right-1/2 w-2/12 translate-x-1/2 -translate-y-1/2 aspect-square bg-primary blur-3xl xxs:opacity-90 sm:opacity-40 md:opacity-30"></div>
-        <div className="flex flex-col xxs:items-center md:items-start justify-center xxs:gap-4 lg:gap-6 md:px-10 lg:px-16 xl:px-28">
+        <div className="flex flex-col xxs:items-center md:items-start justify-center xxs:gap-4 lg:gap-6 2xl:gap-8 md:px-10 lg:px-16 xl:px-28">
           <div className="flex flex-row items-center gap-2 bg-light-primary border-2 border-dark-light-primary rounded-full px-4 py-2">
-            <HiOutlineSparkles className="lg:text-2xl" strokeWidth={1} />
-            <small className="text-xxs font-peyda">
+            <HiOutlineSparkles
+              className="lg:text-2xl 2xl:text-4xl"
+              strokeWidth={1}
+            />
+            <small className="xxs:text-xxs 2xl:text-xs font-peyda">
               پلتفرم هوشمند بر پایه هوش مصنوعی
             </small>
           </div>
