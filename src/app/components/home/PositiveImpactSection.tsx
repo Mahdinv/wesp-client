@@ -28,7 +28,7 @@ const PositiveImpactSection = () => {
             </h4>
           </div>
           <div className="bg-white absolute bottom-[10%] xxs:right-1/3 2xl:right-[36%] z-10 flex flex-row items-center rounded-lg shadow-md gap-2 py-1 px-2">
-            <LuBicepsFlexed className="scale-x-[-1] -rotate-3 lg:text-2xl xl:text-3xl" />
+            <LuBicepsFlexed className="scale-x-[-1] -rotate-3 lg:text-2xl xl:text-3xl 2xl:text-4xl" />
             <small className="font-bold">High Protein</small>
           </div>
           <img

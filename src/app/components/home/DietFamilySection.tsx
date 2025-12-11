@@ -78,8 +78,10 @@ const DietFamilySection = () => {
               className="xxs:w-1/3 sm:w-2/4 xl:w-3/5 rounded-full border border-primary mx-auto relative z-10"
             />
             <div className="relative z-0 flex flex-col items-center sm:justify-self-center gap-1 bg-dark-light-primary rounded-xl xxs:mx-12 sm:mx-0 pt-6 pb-4 xxs:px-10 md:px-2 md:w-full -translate-y-[20%]">
-              <h6 className="text-black">{member.name}</h6>
-              <small className="font-bold">{member.title}</small>
+              <h6 className="text-black !font-yekan !font-extrabold">
+                {member.name}
+              </h6>
+              <small>{member.title}</small>
             </div>
           </SwiperSlide>
         ))}

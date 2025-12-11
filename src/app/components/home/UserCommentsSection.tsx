@@ -81,7 +81,7 @@ const UserCommentsSection: React.FC<{ isMd: boolean }> = (props) => {
         <div className="grid grid-cols-3 items-center xxs:px-4 sm:px-10 md:px-16 lg:px-24 gap-4 w-full h-auto">
           {userComments.map((userComment) => (
             <div className="bg-white relative rounded-xl h-full">
-              <span className="absolute top-0 left-0 w-28 aspect-square z-0">
+              <span className="absolute top-0 left-0 xxs:w-28 2xl:w-40 aspect-square z-0">
                 <BiSolidQuoteLeft className="text-light-primary w-full h-full" />
               </span>
               <div className="h-full flex flex-col items-start justify-between xxs:py-4 xxs:px-4 space-y-8 relative z-10">

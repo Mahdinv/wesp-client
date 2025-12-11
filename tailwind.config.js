@@ -12,7 +12,7 @@ export default {
       md: "768px",
       lg: "1024px",
       xl: "1280px",
-      "2xl": "1536px",
+      "2xl": "1600px",
     },
     extend: {
       colors: {
@@ -39,11 +39,11 @@ export default {
         xs: ['14px', { lineHeight: '1.4' }],
         sm: ['16px', { lineHeight: '1.4' }],
         base: ['18px', { lineHeight: '1.8' }],
-        lg: ['20px', { lineHeight: '1' }],
+        lg: ['20px', { lineHeight: '1.8' }],
         xl: ['22px', { lineHeight: '1.8' }],
         '2xl': ['24px', { lineHeight: '1.8' }],
         '3xl': ['28px', { lineHeight: '1.8' }],
-        '4xl': ['32px', { lineHeight: '1' }],
+        '4xl': ['32px', { lineHeight: '1.2' }],
         '5xl': ['36px', { lineHeight: '1.2' }],
         '6xl': ['46px', { lineHeight: '1.2' }],
       },

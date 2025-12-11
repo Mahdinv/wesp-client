@@ -12,7 +12,7 @@ const Footer = () => {
           <div className="flex flex-row self-start items-center xxs:justify-center sm:justify-start gap-1 w-full">
             <PiPlantLight
               strokeWidth={5}
-              className="xxs:w-[40px] sm:w-[56px] h-auto text-emerald-50"
+              className="xxs:w-[40px] sm:w-[56px] 2xl:w-[70px] h-auto text-emerald-50"
             />
             <h2 className="text-emerald-50 font-bold font-peyda">
               رژیم پایدار

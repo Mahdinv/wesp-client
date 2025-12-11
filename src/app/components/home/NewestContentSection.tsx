@@ -57,7 +57,7 @@ const NewestContentSection: React.FC<{ isMd: boolean }> = (props) => {
           </p>
         </div>
         <Button
-          classes="xxs:hidden md:block btn btn-outline md:w-1/3 lg:w-1/4 xl:w-1/6 md:!text-sm"
+          classes="xxs:hidden md:block btn btn-outline md:w-1/3 lg:w-1/4 xl:w-1/6 md:!text-sm 2xl:!text-base"
           icon={<FaArrowLeftLong />}
           iconClasses="text-lg"
           title="مشاهده آرشیو"
