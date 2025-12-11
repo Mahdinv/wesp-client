@@ -109,9 +109,9 @@ const NewestContentSection: React.FC<{ isMd: boolean }> = (props) => {
                 src={`/images/newest-content/${newestContent.imageName}.jpg`}
                 alt={newestContent.title}
                 loading="lazy"
-                className="flex-1 w-full h-[65%] object-cover rounded-2xl"
+                className="flex-1 w-full h-[70%] object-cover rounded-2xl"
               />
-              <div className="flex-1 w-full h-full flex flex-col">
+              <div className="w-full h-full flex flex-col">
                 <h3 className="text-black xxs:text-xl font-bold">
                   {newestContent.title}
                 </h3>
