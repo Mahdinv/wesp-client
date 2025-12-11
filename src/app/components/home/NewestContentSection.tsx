@@ -101,20 +101,23 @@ const NewestContentSection: React.FC<{ isMd: boolean }> = (props) => {
           className="w-full h-auto xxs:flex xxs:flex-row xxs:gap-8 xxs:px-4 md:px-0 md:grid md:grid-cols-3 md:items-start"
         >
           {newestContents.map((newestContent) => (
-            <div className="w-[100%] h-full flex flex-col items-center gap-2">
+            <div className="relative w-[100%] h-full flex flex-col items-center justify-center gap-2">
+              <div className="bg-white absolute top-4 right-6 rounded-full py-1 px-4 font-semibold">
+                {newestContent.categoryName}
+              </div>
               <img
                 src={`/images/newest-content/${newestContent.imageName}.jpg`}
                 alt={newestContent.title}
                 loading="lazy"
-                className="w-full h-[65%] object-cover rounded-2xl"
+                className="flex-1 w-full h-[65%] object-cover rounded-2xl"
               />
-              <div className="w-full h-full flex-grow flex flex-col justify-between">
+              <div className="flex-1 w-full h-full flex flex-col">
                 <h3 className="text-black xxs:text-xl font-bold">
                   {newestContent.title}
                 </h3>
                 <Link
                   to={""}
-                  className="text-primary underline underline-offset-[6px] decoration-[3px] duration-300 hover:text-primary-darker"
+                  className="text-primary underline underline-offset-[6px] decoration-[3px] duration-300 hover:text-primary-darker mt-auto"
                 >
                   ادامه مطلب
                 </Link>

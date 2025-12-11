@@ -18,7 +18,7 @@ const HeroSection = () => {
           <h1 className="xxs:text-center md:text-justify leading-tight">
             یک سفر بازی‌وار برای رسیدن به رژیم واقعیِ بدنِ تو
           </h1>
-          <label className="font-bold xxs:text-center md:text-justify">
+          <label className="xxs:text-center md:text-justify font-medium">
             با چند بازی ساده و سریع، به شخصـی‌ترین رژیم زندگیت می‌رسی.
           </label>
           <Button
