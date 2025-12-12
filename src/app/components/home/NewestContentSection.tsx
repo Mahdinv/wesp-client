@@ -101,26 +101,34 @@ const NewestContentSection: React.FC<{ isMd: boolean }> = (props) => {
           className="w-full h-auto xxs:flex xxs:flex-row xxs:gap-8 xxs:px-4 md:px-0 md:grid md:grid-cols-3 md:items-start"
         >
           {newestContents.map((newestContent) => (
-            <div className="relative w-[100%] h-full flex flex-col items-center justify-center gap-2">
-              <div className="bg-white absolute top-4 right-6 rounded-full py-1 px-4 font-semibold">
-                {newestContent.categoryName}
+            <div
+              key={newestContent.id}
+              className="relative w-[100%] xxs:min-h-[200px] md:min-h-[300px] lg:min-h-[500px] flex flex-col bg-gray-50 rounded-2xl overflow-hidden shadow-lg"
+            >
+              <div className="relative w-full md:h-[200px] lg:h-[300px] flex-shrink-0">
+                <img
+                  src={`/images/newest-content/${newestContent.imageName}.jpg`}
+                  alt={newestContent.title}
+                  loading="lazy"
+                  className="w-full h-full object-cover"
+                />
+                <div className="bg-white absolute top-4 right-6 rounded-full py-1 px-4 font-semibold z-10">
+                  {newestContent.categoryName}
+                </div>
               </div>
-              <img
-                src={`/images/newest-content/${newestContent.imageName}.jpg`}
-                alt={newestContent.title}
-                loading="lazy"
-                className="flex-1 w-full h-[70%] object-cover rounded-2xl"
-              />
-              <div className="w-full h-full flex flex-col">
-                <h3 className="text-black xxs:text-xl font-bold">
+
+              <div className="flex-1 flex flex-col xxs:p-6 md:p-2 lg:p-6">
+                <h3 className="text-black xxs:text-xl font-bold mb-4 line-clamp-2 min-h-[3.5rem]">
                   {newestContent.title}
                 </h3>
-                <Link
-                  to={""}
-                  className="text-primary underline underline-offset-[6px] decoration-[3px] duration-300 hover:text-primary-darker mt-auto"
-                >
-                  ادامه مطلب
-                </Link>
+                <div className="mt-auto pt-4 border-t border-gray-200">
+                  <Link
+                    to={""}
+                    className="text-primary underline underline-offset-[6px] decoration-[3px] duration-300 hover:text-primary-darker font-medium inline-block"
+                  >
+                    ادامه مطلب
+                  </Link>
+                </div>
               </div>
             </div>
           ))}
