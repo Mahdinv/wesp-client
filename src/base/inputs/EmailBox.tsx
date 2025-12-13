@@ -1,4 +1,4 @@
-import { FaEnvelope } from "react-icons/fa6";
+import { FiMail } from "react-icons/fi";
 
 const EmailBox: React.FC<{
   label?: string;
@@ -8,24 +8,27 @@ const EmailBox: React.FC<{
   name: string;
 }> = (props) => {
   return (
-    <div className="flex flex-col items-center">
+    <div className="w-full flex flex-col items-center">
       {props.label && (
-        <label className="xs:text-xs sm:text-sm font-lalezar self-start mr-1 text-[#004B1C] mb-2">
+        <label className="xs:text-xs sm:text-sm font-lalezar self-start mr-1 text-black mb-1">
           {props.label}
         </label>
       )}
       <div
-        className={`${props.classes} flex flex-row items-center w-full justify-between rounded-xl border-2 border-gray-300 group focus-within:border-gray-400`}
+        className={`${props.classes} py-4 flex flex-row items-center w-full h-full justify-between rounded-2xl border-2 border-[#E5E7EB] group focus-within:border-gray-300`}
       >
         {props.hasIcon && (
-          <span className="px-2 pr-3">
-            <FaEnvelope className="opacity-60" />
+          <span className="px-1 pr-3">
+            <FiMail
+              className="text-xl 2xl:text-2xl text-[#BFBFBF]"
+              strokeWidth={2}
+            />
           </span>
         )}
         <input
           type="email"
           placeholder={props.placeHolder}
-          className={`flex-1 w-full px-2 py-3 rounded-xl bg-transparent font-noto outline-none text-[16px]`}
+          className={`flex-1 w-full px-2 rounded-2xl bg-transparent text-gray-600 font-peyda outline-none xxs:text-xs xl:text-sm`}
           name={props.name}
         />
       </div>

@@ -1,77 +1,41 @@
-import { Outlet, useLocation, useNavigate } from "react-router-dom";
-import Modal, { ModalContentConfig } from "../../../base/Modal";
-import { useEffect, useState } from "react";
-
-const loginModalConfig: ModalContentConfig = {
-  imageUrl: "/images/login-image.png",
-  headline: "خوش اومدی",
-  title: "با ورودت، سفرت به دنیای سلامت و محیط‌زیست آغاز می‌شه.",
-  footerText: "حساب کاربری نداری؟",
-  footerActionText: "ثبت‌نام",
-};
-
-const registerModalConfig: ModalContentConfig = {
-  imageUrl: "/images/register-image.png",
-  headline: "ایجاد حساب کاربری",
-  title: "یک حساب‌کاربری، یک قدم بزرگ برای سلامتی و سیاره.",
-  footerText: "قبلا ثبت‌نام کردی؟",
-  footerActionText: "وارد شو",
-};
-
-const resetPasswordModalConfig: ModalContentConfig = {
-  imageUrl: "/images/login-image.png",
-  headline: "تغییر رمز عبور",
-  title: "ببینم بلدی یه رمزی بذاری که فراموش نکنی :)",
-  footerText: "رمزعبور یادت اومد؟",
-  footerActionText: "ورود",
-};
+import { Suspense } from "react";
+import { Outlet, useLocation } from "react-router-dom";
 
 const Authentication = () => {
-  const [open, setOpen] = useState(false);
-  const navigate = useNavigate();
-  const location = useLocation();
-
-  const isAuthRoute =
-    location.pathname.includes("login") ||
-    location.pathname.includes("register") ||
-    location.pathname.includes("reset-password");
-
-  useEffect(() => {
-    setOpen(isAuthRoute);
-  }, [isAuthRoute]);
-
-  const activeConfig = location.pathname.includes("login")
-    ? loginModalConfig
-    : location.pathname.includes("register")
-      ? registerModalConfig
-      : location.pathname.includes("reset-password")
-        ? resetPasswordModalConfig
-        : loginModalConfig;
-
-  function handleFooterActionClick() {
-    navigate(
-      `/auth/${location.pathname.includes("register") || location.pathname.includes("reset-password") ? "login" : "register"}`
-    );
-  }
-
-  function handleClose() {
-    setOpen(false);
-    setTimeout(() => {
-      navigate("/");
-    }, 200);
-  }
+  const loc = useLocation();
+  const pathName = loc.pathname.includes("login")
+    ? "login"
+    : loc.pathname.includes("register")
+    ? "register"
+    : loc.pathname.includes("reset-password")
+    ? "reset-password"
+    : "login";
 
   return (
-    <Modal
-      open={open}
-      onClose={handleClose}
-      config={{
-        ...activeConfig,
-        onFooterActionTextClick: handleFooterActionClick,
-      }}
-    >
-      <Outlet />
-    </Modal>
+    <Suspense fallback={<p>در حال بارگذاری...</p>}>
+      <div className="w-full min-h-screen flex items-center justify-center xxs:px-3 xs:px-6 md:px-0">
+        <div className="xxs:w-full sm:w-10/12 md:w-11/12 2xl:w-10/12 min-h-[60vh] bg-white flex md:flex-row rounded-2xl shadow-lg">
+          <div className="w-full md:w-1/2 flex md:flex-row">
+            <Outlet />
+          </div>
+          <div className="xxs:hidden md:block relative z-0 w-1/2 overflow-hidden rounded-2xl">
+            <h1
+              className={`${
+                pathName === "reset-password" ? "hidden" : "block"
+              } absolute text-nowrap !font-yekan z-10 text-primary-darker top-[13%] right-1/2 translate-x-1/2`}
+            >
+              برای انسان، برای طبیعت
+            </h1>
+            <img
+              src={`/images/authentication/${pathName}-image.jpg`}
+              alt={`diet-${pathName}-image`}
+              loading="lazy"
+              className="absolute inset-0 object-cover w-full h-full xl:scale-105 2xl:scale-110"
+            />
+          </div>
+        </div>
+      </div>
+    </Suspense>
   );
 };
 

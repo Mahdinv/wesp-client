@@ -46,7 +46,10 @@ const UserCommentsSection: React.FC<{ isMd: boolean }> = (props) => {
           loop={false}
         >
           {userComments.map((userComment) => (
-            <SwiperSlide className="bg-white relative -z-10 rounded-xl">
+            <SwiperSlide
+              key={userComment.id}
+              className="bg-white relative -z-10 rounded-xl"
+            >
               <span className="absolute top-0 left-0 w-28 aspect-square z-0">
                 <BiSolidQuoteLeft className="text-light-primary w-full h-full" />
               </span>
@@ -80,7 +83,10 @@ const UserCommentsSection: React.FC<{ isMd: boolean }> = (props) => {
       {props.isMd && (
         <div className="grid grid-cols-3 items-center xxs:px-4 sm:px-10 md:px-16 lg:px-24 gap-4 w-full h-auto">
           {userComments.map((userComment) => (
-            <div className="bg-white relative rounded-xl h-full">
+            <div
+              key={userComment.id}
+              className="bg-white relative rounded-xl h-full"
+            >
               <span className="absolute top-0 left-0 xxs:w-28 2xl:w-40 aspect-square z-0">
                 <BiSolidQuoteLeft className="text-light-primary w-full h-full" />
               </span>

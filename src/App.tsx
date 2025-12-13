@@ -1,8 +1,12 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {
+  createBrowserRouter,
+  Navigate,
+  RouterProvider,
+} from "react-router-dom";
 import "./App.css";
 import Index from "./app/Index";
 import { UserProgressContextProvider } from "./store/userProgressContext";
-import { lazy, Suspense } from "react";
+import { lazy } from "react";
 
 const Home = lazy(() => import("./app/components/home/Index"));
 const Podcasts = lazy(() => import("./app/components/podcasts/Index"));
@@ -44,36 +48,6 @@ const router = createBrowserRouter([
       { path: "/articles", element: <Articles /> },
       { path: "/about-us", element: <AboutUs /> },
       {
-        path: "/auth",
-        element: <Authentication />,
-        children: [
-          {
-            path: "login",
-            element: (
-              <Suspense fallback={<p>در حال بارگذاری...</p>}>
-                <Login />
-              </Suspense>
-            ),
-          },
-          {
-            path: "register",
-            element: (
-              <Suspense fallback={<p>در حال بارگذاری...</p>}>
-                <Register />
-              </Suspense>
-            ),
-          },
-          {
-            path: "reset-password",
-            element: (
-              <Suspense fallback={<p>در حال بارگذاری...</p>}>
-                <ResetPassword />
-              </Suspense>
-            ),
-          },
-        ],
-      },
-      {
         path: "/game-workflow",
         element: <GameWorkflowRoot />,
         children: [
@@ -88,6 +62,16 @@ const router = createBrowserRouter([
         ],
       },
       { path: "*", element: <Error /> },
+    ],
+  },
+  {
+    path: "/auth",
+    element: <Authentication />,
+    children: [
+      { index: true, element: <Navigate to={"login"} replace /> },
+      { path: "login", element: <Login /> },
+      { path: "register", element: <Register /> },
+      { path: "reset-password", element: <ResetPassword /> },
     ],
   },
 ]);
