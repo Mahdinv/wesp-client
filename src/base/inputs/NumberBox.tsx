@@ -11,7 +11,7 @@ const NumberBox: React.FC<{
   return (
     <div className="flex flex-col items-center">
       {props.label && (
-        <label className="xs:text-xs sm:text-sm self-start mr-1 text-[#004B1C] mb-2 text-nowrap">
+        <label className="xs:text-xs sm:text-sm font-peyda self-start mr-1 text-[#004B1C] mb-2 text-nowrap">
           {props.label}
         </label>
       )}

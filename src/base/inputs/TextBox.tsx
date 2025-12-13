@@ -12,20 +12,26 @@ const TextBox: React.FC<{
   return (
     <div className="flex flex-col items-center">
       {props.label && (
-        <label className="xs:text-xs sm:text-sm font-lalezar self-start mr-1 text-[#004B1C] mb-2">
+        <label
+          htmlFor={props.name}
+          className="xs:text-xs sm:text-sm font-peyda self-start mr-1 text-black mb-1"
+        >
           {props.label}
         </label>
       )}
       <div
-        className={`${props.classes} flex flex-row items-center w-full justify-between rounded-xl border-2 border-gray-300 group focus-within:border-gray-400`}
+        className={`${props.classes} h-12 2xl:h-14 flex flex-row w-full items-center justify-between rounded-2xl border-2 border-gray-200 group focus-within:border-gray-300`}
       >
         {props.icon && (
-          <span className="opacity-60 px-2 pr-3">{props.icon}</span>
+          <span className="px-1 pr-3 text-xl 2xl:text-2xl text-[#BFBFBF]">
+            {props.icon}
+          </span>
         )}
         <input
+          id={props.name}
           type="text"
           placeholder={props.placeHolder}
-          className={`flex-1 w-full px-2 py-3 bg-transparent rounded-xl font-noto outline-none xl:text-[16px]`}
+          className="flex-1 w-full h-full px-2 bg-transparent text-gray-600 rounded-2xl font-peyda outline-none xxs:text-xs xl:text-sm"
           name={props.name}
           onChange={props.onChange}
           defaultValue={props.defaultValue}

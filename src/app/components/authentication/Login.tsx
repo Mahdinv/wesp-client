@@ -14,14 +14,14 @@ const Login = () => {
       <div className="w-full flex flex-col items-center">
         <div className="w-full space-y-4">
           <EmailBox
-            classes="!bg-[#F3F3F5] xxs:!py-2 xl:!py-3 2xl:!py-4"
+            classes="!bg-[#F3F3F5]"
             label="ایمیل"
             placeHolder="ایمیل خود را وارد کنید"
             hasIcon
             name="email"
           />
           <PasswordBox
-            classes="!bg-[#F3F3F5] xxs:!py-2 xl:!py-3 2xl:!py-4"
+            classes="!bg-[#F3F3F5]"
             label="رمز‌عبور"
             placeHolder="رمز‌عبور خود را وارد کنید"
             hasIcon

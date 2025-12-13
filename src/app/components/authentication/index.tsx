@@ -30,7 +30,7 @@ const Authentication = () => {
               src={`/images/authentication/${pathName}-image.jpg`}
               alt={`diet-${pathName}-image`}
               loading="lazy"
-              className="absolute inset-0 object-cover w-full h-full xl:scale-105 2xl:scale-110"
+              className="absolute inset-0 object-cover w-full h-full"
             />
           </div>
         </div>

@@ -14,12 +14,15 @@ const PasswordBox: React.FC<{
   return (
     <div className="w-full flex flex-col items-center">
       {props.label && (
-        <label className="xxs:text-sm 2xl:text-base mr-1 self-start text-black mb-1">
+        <label
+          htmlFor={props.name}
+          className="xs:text-xs sm:text-sm font-peyda mr-1 self-start text-black mb-1"
+        >
           {props.label}
         </label>
       )}
       <div
-        className={`${props.classes} py-4 flex flex-row items-center w-full justify-between rounded-2xl border-2 border-[#E5E7EB] group focus-within:border-gray-300`}
+        className={`${props.classes} h-12 2xl:h-14 flex flex-row items-center w-full justify-between rounded-2xl border-2 border-gray-200 group focus-within:border-gray-300`}
       >
         {props.hasIcon && (
           <span className="px-1 pr-3">
@@ -30,9 +33,10 @@ const PasswordBox: React.FC<{
           </span>
         )}
         <input
+          id={props.name}
           type={type}
           placeholder={props.placeHolder}
-          className="flex-1 w-full px-2 bg-transparent text-gray-600 rounded-s-2xl font-peyda outline-none xxs:text-xs xl:text-sm"
+          className="flex-1 w-full h-full px-2 bg-transparent text-gray-600 rounded-s-2xl font-peyda outline-none xxs:text-xs xl:text-sm"
           name={props.name}
         />
         <span className="px-2 pl-3 text-[#BFBFBF]">
