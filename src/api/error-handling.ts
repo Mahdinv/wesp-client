@@ -28,7 +28,7 @@ export default function handleAxiosError(error: unknown) {
       return {
         success: false,
         message:
-          "ایمیل وارد شده قبلاً ثبت شده است. لطفاً ایمیل دیگری را وارد کنید",
+          "ایمیل وارد شده قبلاً ثبت‌نام شده است. لطفاً ایمیل دیگری را وارد کنید",
       };
     }
     if (

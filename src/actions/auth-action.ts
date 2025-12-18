@@ -1,6 +1,6 @@
 import { type ActionFunctionArgs } from "react-router-dom";
 import api from "../api/axios";
-import handleAxiosError from "../api/axios-error-handler";
+import handleAxiosError from "../api/error-handling";
 import isEmpty, { isNotEqual } from "../utils/validation";
 import User from "../models/user.model";
 

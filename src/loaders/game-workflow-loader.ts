@@ -1,5 +1,5 @@
 import api from "../api/axios";
-import handleAxiosError from "../api/axios-error-handler";
+import handleAxiosError from "../api/error-handling";
 
 export async function loader() {
   try {

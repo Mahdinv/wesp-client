@@ -2,7 +2,7 @@ import type { ActionFunctionArgs } from "react-router-dom";
 import qs from "qs";
 import TablemateModel from "../models/tablemate.model";
 import isEmpty from "../utils/validation";
-import handleAxiosError from "../api/axios-error-handler";
+import handleAxiosError from "../api/error-handling";
 import api from "../api/axios";
 
 export async function action({ request }: ActionFunctionArgs) {

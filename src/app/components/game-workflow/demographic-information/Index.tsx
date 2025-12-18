@@ -31,7 +31,7 @@ import isEmpty from "../../../../utils/validation";
 import api from "../../../../api/axios";
 import Intro from "../../../../base/Intro";
 import DemographicInformationModel from "../../../../models/demographic-information.model";
-import handleAxiosError from "../../../../api/axios-error-handler";
+import handleAxiosError from "../../../../api/error-handling";
 import { useNavigate } from "react-router-dom";
 
 const genderOptions = [
