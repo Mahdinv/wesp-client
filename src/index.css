@@ -282,15 +282,15 @@ small {
 }
 
 .btn {
-  @apply font-peyda font-bold text-base border-2 border-primary rounded-lg text-primary hover:shadow-lg;
+  @apply font-peyda font-bold text-base rounded-lg hover:shadow-lg;
 }
 
 .btn.btn-primary {
-  @apply bg-primary text-white hover:border-primary hover:bg-white hover:text-primary;
+  @apply bg-primary text-white hover:border-primary hover:bg-hover disabled:bg-text-input disabled:text-primary-darker disabled:hover:shadow-none;
 }
 
 .btn.btn-outline {
-  @apply bg-transparent hover:text-primary border-primary;
+  @apply bg-transparent text-primary border-2 border-primary hover:text-primary;
 }
 
 .modal::backdrop {

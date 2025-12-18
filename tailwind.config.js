@@ -22,12 +22,13 @@ export default {
         ['primary']: '#00A63E',
         ['primary-dark']: '#008532',
         ['primary-darker']: '#004331',
+        ['hover']: '#004331',
         ['black']: '#001F17',
         ['white']: '#FCFCFC',
         ['text-field']: '#F3F3F5',
         ['normal-yellow']: '#F2C94C',
+        ['text-input']: '#BFBFBF',
         ['default-gray']: '#CDCCD0',
-
       },
       fontFamily: {
         peyda: ['Peyda', 'sans-serif'],
