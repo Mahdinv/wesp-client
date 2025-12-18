@@ -7,11 +7,12 @@ const NumberBox: React.FC<{
   placeHolder?: string;
   name: string;
   defaultValue?: number | string;
+  error?: string;
 }> = (props) => {
   return (
     <div className="flex flex-col items-center">
       {props.label && (
-        <label className="xs:text-xs sm:text-sm font-peyda self-start mr-1 text-[#004B1C] mb-2 text-nowrap">
+        <label className="xs:text-xs sm:text-sm font-peyda self-start mr-2 text-[#004B1C] mb-2 text-nowrap">
           {props.label}
         </label>
       )}
@@ -27,6 +28,9 @@ const NumberBox: React.FC<{
           defaultValue={props.defaultValue}
         />
       </div>
+      <small className="text-red-500 self-start font-peyda mr-2 mt-1">
+        {props.error}
+      </small>
     </div>
   );
 };
