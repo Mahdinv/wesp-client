@@ -14,7 +14,7 @@ const Authentication = () => {
   return (
     <Suspense fallback={<p>در حال بارگذاری...</p>}>
       <div className="w-full min-h-screen flex items-center justify-center xxs:px-3 xs:px-6 md:px-0">
-        <div className="xxs:w-full sm:w-10/12 md:w-11/12 2xl:w-10/12 min-h-[60vh] bg-white flex md:flex-row rounded-2xl shadow-lg">
+        <div className="xxs:w-full sm:w-10/12 md:w-11/12 2xl:w-10/12 xxs:h-[75vh] md:h-[90vh] max-h-[750px] min-h-[520px] bg-white flex md:flex-row rounded-2xl shadow-lg">
           <div className="w-full md:w-1/2 flex md:flex-row">
             <Outlet />
           </div>

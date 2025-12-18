@@ -4,9 +4,10 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import "./App.css";
+import { Toaster } from "sonner";
 import Index from "./app/Index";
-import { UserProgressContextProvider } from "./store/userProgressContext";
 import { lazy } from "react";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const Home = lazy(() => import("./app/components/home/Index"));
 const Podcasts = lazy(() => import("./app/components/podcasts/Index"));
@@ -76,12 +77,24 @@ const router = createBrowserRouter([
   },
 ]);
 
+const queryClient = new QueryClient();
+
 function App() {
   return (
     <>
-      <UserProgressContextProvider>
+      <Toaster
+        position="top-center"
+        toastOptions={{
+          style: {
+            fontFamily: "Peyda, sans-serif",
+            fontSize: "14px",
+          },
+        }}
+        richColors
+      />
+      <QueryClientProvider client={queryClient}>
         <RouterProvider router={router} />
-      </UserProgressContextProvider>
+      </QueryClientProvider>
     </>
   );
 }

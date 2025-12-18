@@ -1,24 +1,24 @@
 import { BaseModel } from "./base.model";
 
-export default class User extends BaseModel {
+export default class UserModel extends BaseModel {
   id!: number;
-  firstName = "";
-  lastName = "";
+  fullName = "";
   age!: number;
   height!: number;
   weight!: number;
   gender!: "male" | "female" | "other";
   email = "";
   password = "";
+  rePassword = "";
   newPassword = "";
   otp!: number;
-  mode: string = "register";
+  mode: "register" | "login" | "reset-password" | "forget-password" =
+    "register";
 
   getData() {
     if (this.mode === "register") {
       return {
-        firstName: this.firstName,
-        lastName: this.lastName,
+        fullName: this.fullName,
         email: this.email,
         password: this.password,
       };
@@ -29,7 +29,7 @@ export default class User extends BaseModel {
         password: this.password,
       };
     }
-    if (this.mode === "forgot-password") {
+    if (this.mode === "forget-password") {
       return {
         email: this.email,
       };
