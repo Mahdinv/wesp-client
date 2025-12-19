@@ -1,19 +1,20 @@
+import { IUser } from "../types-interfaces/user.interface";
+import { Gender, Mode } from "../types-interfaces/user.type";
 import { BaseModel } from "./base.model";
 
-export default class UserModel extends BaseModel {
+export default class UserModel extends BaseModel implements IUser {
   id!: number;
   fullName = "";
   age!: number;
   height!: number;
   weight!: number;
-  gender!: "male" | "female" | "other";
+  gender!: Gender;
   email = "";
   password = "";
   rePassword = "";
   newPassword = "";
   otp!: number;
-  mode: "register" | "login" | "reset-password" | "forget-password" =
-    "register";
+  mode: Mode = "register";
 
   getData() {
     if (this.mode === "register") {

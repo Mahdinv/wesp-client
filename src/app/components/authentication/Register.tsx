@@ -15,9 +15,11 @@ import { useMutation } from "@tanstack/react-query";
 import { authRegister } from "../../../http/authentication";
 import { toast } from "sonner";
 import handleAxiosError from "../../../api/error-handling";
+import { useUserStore } from "../../../store/user-store";
 
 const Register = () => {
   const navigate = useNavigate();
+  const setAccessToken = useUserStore((state) => state.setAccessToken);
   const {
     register,
     handleSubmit,
@@ -29,9 +31,10 @@ const Register = () => {
   const { mutate, isPending } = useMutation({
     mutationFn: authRegister,
     onSuccess: (res) => {
-      toast.success("عملیات‌ ثبتنام شما با موفقیت انجام شد");
+      toast.success("عملیات‌ ثبت‌نام شما با موفقیت انجام شد");
       localStorage.setItem("access", res.data.access);
       localStorage.setItem("refresh", res.data.refresh);
+      setAccessToken(res.data.access);
       navigate("/");
     },
     onError: (error) => {
@@ -39,13 +42,13 @@ const Register = () => {
     },
   });
 
-  const onRegisterFormHandle: SubmitHandler<RegisterForm> = (data) => {
+  const onRegisterFormHandler: SubmitHandler<RegisterForm> = (data) => {
     mutate(data);
   };
 
   return (
     <form
-      onSubmit={handleSubmit(onRegisterFormHandle)}
+      onSubmit={handleSubmit(onRegisterFormHandler)}
       className="xxs:w-full md:w-9/12 mx-auto flex flex-col justify-center gap-6 xxs:py-8 md:py-10 xxs:px-4 sm:px-8 md:px-0"
     >
       <div className="relative md:py-2 lg:py-6">

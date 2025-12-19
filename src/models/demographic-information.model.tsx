@@ -1,4 +1,4 @@
-import type { ProvinceValue } from "../types/province.type";
+import type { ProvinceValue } from "../types-interfaces/province.type";
 import { BaseModel } from "./base.model";
 
 export default class DemographicInformationModel extends BaseModel {

@@ -1,11 +1,11 @@
-import { useContext, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { FaXmark } from "react-icons/fa6";
 import Button from "../../base/inputs/Button";
-import UserProgressContext from "../../store/userProgressContext";
 import { NavLink, useNavigate } from "react-router-dom";
 import { PiPlantLight, PiUserBold } from "react-icons/pi";
 import Dropdown from "../../base/inputs/Dropdown";
 import { RxHamburgerMenu } from "react-icons/rx";
+import { useUserStore } from "../../store/user-store";
 
 const navLinks = [
   { id: "home", title: "خانه" },
@@ -16,7 +16,7 @@ const navLinks = [
 
 const Header = () => {
   const navigate = useNavigate();
-  const { token } = useContext(UserProgressContext);
+  const token = useUserStore((state) => state.accessToken);
   const [menuIsOpen, setMenuIsOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement | null>(null);
   if (menuIsOpen) {

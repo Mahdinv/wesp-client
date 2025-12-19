@@ -1,31 +1,72 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import EmailBox from "../../../base/inputs/EmailBox";
 import PasswordBox from "../../../base/inputs/PasswordBox";
 import Button from "../../../base/inputs/Button";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import { FcGoogle } from "react-icons/fc";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { LoginForm, loginFormSchema } from "../../../schemas/login-form";
+import { useMutation } from "@tanstack/react-query";
+import { authLogin } from "../../../http/authentication";
+import { toast } from "sonner";
+import handleAxiosError from "../../../api/error-handling";
+import { useUserStore } from "../../../store/user-store";
 
 const Login = () => {
+  const navigate = useNavigate();
+  const setAccessToken = useUserStore((state) => state.setAccessToken);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<LoginForm>({
+    resolver: zodResolver(loginFormSchema),
+  });
+
+  const { mutate, isPending } = useMutation({
+    mutationFn: authLogin,
+    onSuccess: (res) => {
+      toast.success("ورود شما با موفقیت انجام شد. خوش آمدید");
+      localStorage.setItem("access", res.data.access);
+      localStorage.setItem("refresh", res.data.refresh);
+      setAccessToken(res.data.access);
+      navigate("/");
+    },
+    onError: (error) => {
+      toast.error(handleAxiosError(error).message);
+    },
+  });
+
+  const onLoginFormHandler: SubmitHandler<LoginForm> = (data) => {
+    mutate(data);
+  };
+
   return (
-    <div className="xxs:w-full md:w-9/12 mx-auto flex flex-col justify-center gap-6 md:py-10 xxs:px-4 sm:px-8 md:px-0">
+    <form
+      onSubmit={handleSubmit(onLoginFormHandler)}
+      className="xxs:w-full md:w-9/12 mx-auto flex flex-col justify-center xxs:gap-6 md:gap-10 md:py-10 xxs:px-4 sm:px-8 md:px-0"
+    >
       <h2 className="!font-peyda font-bold text-center md:pt-6">
         ورود به حساب کاربری
       </h2>
       <div className="w-full flex flex-col items-center">
-        <div className="w-full space-y-4">
+        <div className="w-full xxs:space-y-4 md:space-y-6">
           <EmailBox
             classes="!bg-[#F3F3F5]"
             label="ایمیل"
             placeHolder="ایمیل خود را وارد کنید"
             hasIcon
-            name="email"
+            {...register("email")}
+            error={errors.email?.message}
           />
           <PasswordBox
             classes="!bg-[#F3F3F5]"
             label="رمز‌عبور"
             placeHolder="رمز‌عبور خود را وارد کنید"
             hasIcon
-            name="password"
+            {...register("password")}
+            error={errors.password?.message}
           />
         </div>
         <Link
@@ -38,16 +79,19 @@ const Login = () => {
       <div className="w-full flex flex-col items-center xxs:gap-3 md:gap-2 2xl:gap-4">
         <Button
           classes="btn btn-primary w-full !rounded-2xl xxs:!py-2 sm:!py-0"
-          title="ورود"
+          title={isPending ? "در حال ورود..." : "ورود"}
           icon={<FaArrowLeftLong />}
           itemsGap={20}
+          disable={isPending}
         />
         <Button
+          type="button"
           classes="btn btn-outline w-full !border !rounded-2xl xxs:!py-2 sm:!py-0"
           title="ورود با حساب گوگل"
           icon={<FcGoogle />}
           iconClasses="xxs:text-xl md:text-3xl"
           itemsGap={15}
+          disable={isPending}
         />
         <small>
           حساب کاربری ندارید؟{" "}
@@ -59,7 +103,7 @@ const Login = () => {
           </Link>
         </small>
       </div>
-    </div>
+    </form>
   );
 };
 
