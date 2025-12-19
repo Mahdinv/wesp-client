@@ -1,4 +1,4 @@
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import { Suspense, useContext, useEffect } from "react";
@@ -6,6 +6,7 @@ import logout, { checkTokenExpiration, getAccessToken } from "../utils/auth";
 import UserProgressContext from "../store/userProgressContext";
 
 const Index = () => {
+  const location = useLocation();
   const navigate = useNavigate();
   const { token, setAccessToken, setProgress } =
     useContext(UserProgressContext);
@@ -32,7 +33,10 @@ const Index = () => {
     <div className="index-container xxs:h-[100vh] md:min-h-screen flex flex-col overflow-y-auto overflow-x-hidden">
       <Header />
       <div className="flex-grow">
-        <Suspense fallback={<p>در حال بارگذاری...</p>}>
+        <Suspense
+          key={location.pathname}
+          fallback={<h4>در حال بارگذاری...</h4>}
+        >
           <Outlet />
         </Suspense>
       </div>
