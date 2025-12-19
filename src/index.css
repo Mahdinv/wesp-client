@@ -282,7 +282,7 @@ small {
 }
 
 .btn {
-  @apply font-peyda font-bold text-base rounded-lg hover:shadow-lg;
+  @apply font-peyda font-bold text-base rounded-lg;
 }
 
 .btn.btn-primary {
@@ -290,7 +290,7 @@ small {
 }
 
 .btn.btn-outline {
-  @apply bg-transparent text-primary border-2 border-primary hover:text-primary;
+  @apply bg-transparent text-primary border-2 border-primary hover:border-hover hover:text-hover disabled:border-text-input disabled:text-text-input disabled:hover:shadow-none;
 }
 
 .modal::backdrop {
