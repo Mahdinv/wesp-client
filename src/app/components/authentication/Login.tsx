@@ -15,7 +15,7 @@ import { useUserStore } from "../../../store/user-store";
 
 const Login = () => {
   const navigate = useNavigate();
-  const setAccessToken = useUserStore((state) => state.setAccessToken);
+  const setToken = useUserStore((state) => state.setToken);
   const {
     register,
     handleSubmit,
@@ -30,7 +30,7 @@ const Login = () => {
       toast.success("ورود شما با موفقیت انجام شد. خوش آمدید");
       localStorage.setItem("access", res.data.access);
       localStorage.setItem("refresh", res.data.refresh);
-      setAccessToken(res.data.access);
+      setToken(res.data.access, res.data.refresh);
       navigate("/");
     },
     onError: (error) => {

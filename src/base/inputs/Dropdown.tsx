@@ -7,7 +7,7 @@ import { PiSpeedometer, PiUserCircleLight } from "react-icons/pi";
 import UserProgressContext from "../../store/userProgressContext";
 import logout from "../../utils/auth";
 
-const Dropdown = () => {
+const Dropdown: React.FC<{ onClick: () => void }> = (props) => {
   const { setAccessToken } = useContext(UserProgressContext);
   const [showDropdown, setShowDropdown] = useState(false);
   const ref = useRef<HTMLDivElement | null>(null);
@@ -30,7 +30,7 @@ const Dropdown = () => {
         className="w-full flex flex-row xxs:gap-9 sm:gap-12 xl:gap-16 bg-primary text-white xxs:py-2 xl:py-3 xxs:px-3 sm:px-2 md:px-3 rounded-lg duration-300 hover:bg-primary-dark"
         onClick={() => setShowDropdown((prev) => !prev)}
       >
-        <h5 className="text-white">سید مهدی نوردی</h5>
+        <h6 className="text-white font-medium">سید مهدی نوردی</h6>
         <motion.span
           initial={{ rotate: 0 }}
           animate={{ rotate: showDropdown ? 180 : 0 }}
@@ -90,10 +90,7 @@ const Dropdown = () => {
               </li>
               <li
                 className="w-full flex flex-row items-center gap-2 xxs:px-2 xxs:py-2 md:px-2 md:py-2 duration-300 bg-[#F3F3F5] hover:bg-[#D8D8D8] text-red-800 rounded-b-lg"
-                onClick={() => {
-                  setAccessToken("");
-                  logout();
-                }}
+                onClick={props.onClick}
               >
                 <IoIosLogOut
                   className="xxs:text-base sm:text-lg md:text-xl lg:text-2xl"

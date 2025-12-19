@@ -1,11 +1,15 @@
 import { useRef, useState } from "react";
 import { FaXmark } from "react-icons/fa6";
 import Button from "../../base/inputs/Button";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { PiPlantLight, PiUserBold } from "react-icons/pi";
 import Dropdown from "../../base/inputs/Dropdown";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { useUserStore } from "../../store/user-store";
+import { useMutation } from "@tanstack/react-query";
+import { authLogout } from "../../http/authentication";
+import { toast } from "sonner";
+import handleAxiosError from "../../api/error-handling";
 
 const navLinks = [
   { id: "home", title: "خانه" },
@@ -16,7 +20,23 @@ const navLinks = [
 
 const Header = () => {
   const navigate = useNavigate();
-  const token = useUserStore((state) => state.accessToken);
+  const location = useLocation();
+  const { token, setToken } = useUserStore((state) => state);
+  const { mutate } = useMutation({
+    mutationFn: authLogout,
+    onSuccess: () => {
+      setToken("", "");
+      localStorage.removeItem("access");
+      localStorage.removeItem("refresh");
+      if (location.pathname !== "/") {
+        navigate("/");
+      }
+    },
+    onError: (error) => {
+      toast.error(handleAxiosError(error).message);
+    },
+  });
+
   const [menuIsOpen, setMenuIsOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement | null>(null);
   if (menuIsOpen) {
@@ -25,6 +45,10 @@ const Header = () => {
   } else {
     menuRef.current?.classList.remove("translate-x-0");
     menuRef.current?.classList.add("-translate-x-[102%]");
+  }
+
+  function onLogoutHandler() {
+    mutate(token.refresh);
   }
 
   return (
@@ -81,8 +105,14 @@ const Header = () => {
               ))}
             </ul>
           </div>
-          <div className="xxs:w-5/12 xs:w-[28%] sm:w-3/12 md:w-2/12 lg:w-[14%] xl:w-[12%] 2xl:w-1/12 flex flex-row gap-2">
-            {(!token || token === "") && (
+          <div
+            className={`${
+              !token.access || token.access === ""
+                ? "xxs:w-5/12 xs:w-[28%] sm:w-3/12 md:w-2/12 lg:w-[14%] xl:w-[12%] 2xl:w-1/12"
+                : undefined
+            } flex flex-row gap-2`}
+          >
+            {(!token.access || token.access === "") && (
               <>
                 <Button
                   classes="w-full btn btn-primary"
@@ -94,7 +124,7 @@ const Header = () => {
               </>
             )}
 
-            {!!token && <Dropdown />}
+            {!!token.access && <Dropdown onClick={onLogoutHandler} />}
           </div>
         </nav>
       </header>

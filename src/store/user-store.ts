@@ -2,16 +2,21 @@ import { create } from "zustand";
 import { IUser } from "../types-interfaces/user.interface";
 
 type UserStore = {
-  accessToken: string;
-  setAccessToken: (accessToken: string) => void;
+  token: { access: string; refresh: string };
+  setToken: (accessToken: string, refreshToken: string) => void;
   user: IUser | null;
   setUser: (user: IUser) => void;
 };
 
 export const useUserStore = create<UserStore>((set) => ({
-  accessToken: "",
-  setAccessToken: (accessToken: string) => {
-    set({ accessToken });
+  token: { access: "", refresh: "" },
+  setToken: (accessToken: string, refreshToken: string) => {
+    set({
+      token: {
+        access: accessToken,
+        refresh: refreshToken,
+      },
+    });
   },
   user: null,
   setUser: (user: IUser) => {

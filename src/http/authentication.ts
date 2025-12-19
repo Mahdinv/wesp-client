@@ -18,3 +18,8 @@ export async function authLogin(formData: LoginForm) {
   const response = await api.post("/auth/login/", model.toServer());
   return response;
 }
+
+export async function authLogout(refreshToken: string) {
+  const response = await api.post("/auth/logout/", { refresh: refreshToken });
+  return response;
+}

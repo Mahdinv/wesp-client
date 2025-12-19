@@ -19,7 +19,7 @@ import { useUserStore } from "../../../store/user-store";
 
 const Register = () => {
   const navigate = useNavigate();
-  const setAccessToken = useUserStore((state) => state.setAccessToken);
+  const setToken = useUserStore((state) => state.setToken);
   const {
     register,
     handleSubmit,
@@ -34,7 +34,7 @@ const Register = () => {
       toast.success("عملیات‌ ثبت‌نام شما با موفقیت انجام شد");
       localStorage.setItem("access", res.data.access);
       localStorage.setItem("refresh", res.data.refresh);
-      setAccessToken(res.data.access);
+      setToken(res.data.access, res.data.refresh);
       navigate("/");
     },
     onError: (error) => {
