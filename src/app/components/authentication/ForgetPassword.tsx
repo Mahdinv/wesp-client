@@ -13,6 +13,7 @@ import { toast } from "sonner";
 import handleAxiosError from "../../../api/error-handling";
 import { useState } from "react";
 import VerifyOtp from "./VerifyOtp";
+import { motion } from "framer-motion";
 
 const ForgetPassword = () => {
   const [email, setEmail] = useState("");
@@ -45,7 +46,10 @@ const ForgetPassword = () => {
   return (
     <>
       {!otpIsSent && (
-        <form
+        <motion.form
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.5, ease: "easeInOut" }}
           onSubmit={handleSubmit(onForgetPasswordFormHandler)}
           className="xxs:w-full md:w-9/12 mx-auto flex flex-col justify-center xxs:gap-6 md:gap-10 md:py-10 xxs:px-4 sm:px-8 md:px-0"
         >
@@ -67,8 +71,9 @@ const ForgetPassword = () => {
             itemsGap={20}
             disable={isPending}
           />
-        </form>
+        </motion.form>
       )}
+
       {otpIsSent && (
         <VerifyOtp onBackClick={() => setOtpIsSent(false)} email={email} />
       )}

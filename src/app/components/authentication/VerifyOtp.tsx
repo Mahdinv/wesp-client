@@ -18,6 +18,7 @@ import TextBox from "../../../base/inputs/TextBox";
 import { TbPassword } from "react-icons/tb";
 import React, { useState } from "react";
 import Timer from "../../../base/Timer";
+import { motion } from "framer-motion";
 
 const VerifyOtp: React.FC<{ onBackClick: () => void; email: string }> = (
   props
@@ -29,17 +30,6 @@ const VerifyOtp: React.FC<{ onBackClick: () => void; email: string }> = (
     handleSubmit,
     formState: { errors },
   } = useForm({ resolver: zodResolver(verifyOtpFormSchema) });
-
-  const { mutate: verifyOtpMutate, isPending: verifyOtpPending } = useMutation({
-    mutationFn: authVerifyOtp,
-    onSuccess: () => {
-      toast.success("اعتبارسنجی با موفقیت انجام شد");
-      navigate("/auth/reset-password");
-    },
-    onError: (error) => {
-      toast.error(handleAxiosError(error).message);
-    },
-  });
 
   const { mutate: forgetPasswordMutate, isPending: forgetPasswordPending } =
     useMutation({
@@ -53,16 +43,32 @@ const VerifyOtp: React.FC<{ onBackClick: () => void; email: string }> = (
       },
     });
 
+  const { mutate: verifyOtpMutate, isPending: verifyOtpPending } = useMutation({
+    mutationFn: authVerifyOtp,
+    onSuccess: () => {
+      toast.success("اعتبارسنجی با موفقیت انجام شد");
+      navigate("/auth/reset-password", { state: { email: props.email } });
+    },
+    onError: (error) => {
+      toast.error(handleAxiosError(error).message);
+    },
+  });
+
   const onVerifyOtpFormHandler: SubmitHandler<VerifyOtpForm> = (data) =>
     verifyOtpMutate({ email: props.email, otp: data.otp });
 
   return (
-    <form
+    <motion.form
+      initial={{ opacity: 0, x: -20 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ duration: 0.5, ease: "easeInOut" }}
       onSubmit={handleSubmit(onVerifyOtpFormHandler)}
       className="xxs:w-full md:w-9/12 mx-auto flex flex-col justify-center xxs:gap-6 md:gap-10 md:py-10 xxs:px-4 sm:px-8 md:px-0"
     >
       <div className="relative md:py-2 lg:py-6">
-        <h2 className="!font-peyda font-bold text-center">بازیابی رمز عبور</h2>
+        <h2 className="!font-peyda font-bold text-center">
+          اعتبارسنجی کد امنیتی
+        </h2>
         <span
           className={`absolute top-1/2 right-0 -translate-y-1/2 border ${
             timer ? "border-text-input" : "border-primary hover:scale-90"
@@ -86,7 +92,9 @@ const VerifyOtp: React.FC<{ onBackClick: () => void; email: string }> = (
           {...register("otp")}
           error={errors.otp?.message}
         />
-        {!!timer && <Timer initialTime={5} onFinish={() => setTimer(false)} />}
+        {!!timer && (
+          <Timer initialTime={120} onFinish={() => setTimer(false)} />
+        )}
         {!timer && (
           <span
             className={`text-xs self-end mt-1 !font-peyda duration-300 ${
@@ -113,7 +121,7 @@ const VerifyOtp: React.FC<{ onBackClick: () => void; email: string }> = (
         itemsGap={20}
         disable={verifyOtpPending || forgetPasswordPending}
       />
-    </form>
+    </motion.form>
   );
 };
 
