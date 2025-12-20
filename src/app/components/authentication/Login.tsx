@@ -71,7 +71,7 @@ const Login = () => {
         </div>
         <Link
           className="text-primary text-xs self-end mt-1 !font-peyda duration-300 hover:text-primary-dark"
-          to={"/auth/reset-password"}
+          to={"/auth/forget-password"}
         >
           فراموشی رمزعبور
         </Link>

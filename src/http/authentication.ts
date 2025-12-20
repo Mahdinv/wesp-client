@@ -19,6 +19,20 @@ export async function authLogin(formData: LoginForm) {
   return response;
 }
 
+export async function authForgetPassword(email: string) {
+  const response = await api.post("/auth/forgot-password/", { email });
+  return response;
+}
+
+export async function authVerifyOtp(data: { email: string; otp: string }) {
+  await new Promise((resolve) => setTimeout(resolve, 1000));
+  const response = await api.post("/auth/verify-otp/", {
+    email: data.email,
+    otp: data.otp,
+  });
+  return response;
+}
+
 export async function authLogout(refreshToken: string) {
   const response = await api.post("/auth/logout/", { refresh: refreshToken });
   return response;

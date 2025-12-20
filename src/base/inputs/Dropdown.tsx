@@ -1,14 +1,11 @@
 import { AnimatePresence, motion } from "framer-motion";
-import { useContext, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { FaAngleUp } from "react-icons/fa6";
 import { IoIosLogOut } from "react-icons/io";
 import { IoSettingsOutline } from "react-icons/io5";
 import { PiSpeedometer, PiUserCircleLight } from "react-icons/pi";
-import UserProgressContext from "../../store/userProgressContext";
-import logout from "../../utils/auth";
 
 const Dropdown: React.FC<{ onClick: () => void }> = (props) => {
-  const { setAccessToken } = useContext(UserProgressContext);
   const [showDropdown, setShowDropdown] = useState(false);
   const ref = useRef<HTMLDivElement | null>(null);
 

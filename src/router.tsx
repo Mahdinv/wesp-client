@@ -12,6 +12,9 @@ const Register = lazy(() => import("./app/components/authentication/Register"));
 const ResetPassword = lazy(
   () => import("./app/components/authentication/ResetPassword")
 );
+const ForgetPassword = lazy(
+  () => import("./app/components/authentication/ForgetPassword")
+);
 const GameWorkflowRoot = lazy(
   () => import("./app/components/game-workflow/Index")
 );
@@ -69,6 +72,7 @@ export const router = createBrowserRouter([
       { path: "login", element: <Login /> },
       { path: "register", element: <Register /> },
       { path: "reset-password", element: <ResetPassword /> },
+      { path: "forget-password", element: <ForgetPassword /> },
     ],
   },
 ]);

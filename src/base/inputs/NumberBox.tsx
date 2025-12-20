@@ -1,36 +1,60 @@
-import type { ReactNode } from "react";
+import type { InputHTMLAttributes, ReactNode } from "react";
 
-const NumberBox: React.FC<{
+type NumberBoxProps = {
   label?: string;
   icon?: ReactNode;
   classes?: string;
   placeHolder?: string;
-  name: string;
-  defaultValue?: number | string;
   error?: string;
-}> = (props) => {
+} & InputHTMLAttributes<HTMLInputElement>;
+
+const NumberBox: React.FC<NumberBoxProps> = ({
+  label,
+  icon,
+  classes,
+  placeHolder,
+  error,
+  ...props
+}) => {
   return (
     <div className="flex flex-col items-center">
-      {props.label && (
-        <label className="xs:text-xs sm:text-sm font-peyda self-start mr-2 text-[#004B1C] mb-2 text-nowrap">
-          {props.label}
-        </label>
+      {label && (
+        <div className="flex flex-row items-center w-full mr-2 mb-1 justify-between gap-1">
+          <label
+            htmlFor={props.name}
+            className="flex-shrink-0 xs:text-xs sm:text-sm font-peyda self-start text-black"
+          >
+            {label}
+          </label>
+
+          {error && (
+            <small className="text-red-500 font-peyda font-medium ml-2">
+              {error}
+            </small>
+          )}
+        </div>
       )}
       <div
-        className={`${props.classes} flex flex-row items-center w-full justify-between rounded-xl border-2 border-gray-300 group focus-within:border-gray-400`}
+        className={`${classes} h-12 2xl:h-14 flex flex-row items-center w-full justify-between rounded-2xl border-2 border-gray-200 group focus-within:border-gray-300`}
       >
-        {props.icon && <span className="opacity-60">{props.icon}</span>}
+        {icon && (
+          <span className="px-1 pr-3 text-xl 2xl:text-2xl text-text-input">
+            {icon}
+          </span>
+        )}
         <input
+          id={props.name}
           type="number"
-          placeholder={props.placeHolder}
-          className={`flex-1 w-full px-2 py-3 bg-transparent rounded-xl font-noto outline-none xl:text-[16px]`}
-          name={props.name}
-          defaultValue={props.defaultValue}
+          placeholder={placeHolder}
+          className={`flex-1 w-full px-2 bg-transparent text-gray-600 rounded-2xl font-peyda outline-none xxs:text-xs xl:text-sm`}
+          {...props}
         />
       </div>
-      <small className="text-red-500 self-start font-peyda mr-2 mt-1">
-        {props.error}
-      </small>
+      {!label && error && (
+        <small className="text-red-500 self-start font-peyda mr-2 mt-1">
+          {error}
+        </small>
+      )}
     </div>
   );
 };
