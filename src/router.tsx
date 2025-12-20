@@ -6,12 +6,12 @@ const Home = lazy(() => import("./app/components/home/Index"));
 const Podcasts = lazy(() => import("./app/components/podcasts/Index"));
 const Articles = lazy(() => import("./app/components/articles/Index"));
 const AboutUs = lazy(() => import("./app/components/about-us/Index"));
-const Authentication = lazy(() => import("./app/components/authentication"));
+const Authentication = lazy(
+  () => import("./app/components/authentication/Index")
+);
 const Login = lazy(() => import("./app/components/authentication/Login"));
 const Register = lazy(() => import("./app/components/authentication/Register"));
-const ResetPassword = lazy(
-  () => import("./app/components/authentication/ResetPassword")
-);
+
 const ForgetPassword = lazy(
   () => import("./app/components/authentication/ForgetPassword")
 );
@@ -71,7 +71,6 @@ export const router = createBrowserRouter([
       { index: true, element: <Navigate to={"login"} replace /> },
       { path: "login", element: <Login /> },
       { path: "register", element: <Register /> },
-      { path: "reset-password", element: <ResetPassword /> },
       { path: "forget-password", element: <ForgetPassword /> },
     ],
   },

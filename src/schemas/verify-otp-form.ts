@@ -1,6 +1,7 @@
-import z, { string } from "zod";
+import z, { email, string } from "zod";
 
 export const verifyOtpFormSchema = z.object({
+  email: email(),
   otp: string()
     .nonempty("لطفا کد امنیتی را وارد کنید")
     .max(6, "کد امنیتی نمی‌تواند بیشتر از 6 رقم باشد"),

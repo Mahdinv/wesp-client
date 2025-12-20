@@ -14,10 +14,13 @@ import handleAxiosError from "../../../api/error-handling";
 import { useState } from "react";
 import VerifyOtp from "./VerifyOtp";
 import { motion } from "framer-motion";
+import ResetPassword from "./ResetPassword";
 
 const ForgetPassword = () => {
   const [email, setEmail] = useState("");
-  const [otpIsSent, setOtpIsSent] = useState(false);
+  const [mode, setMode] = useState<
+    "forget-password" | "verify-otp" | "reset-password"
+  >("forget-password");
   const {
     register,
     handleSubmit,
@@ -29,7 +32,7 @@ const ForgetPassword = () => {
     mutationFn: authForgetPassword,
     onSuccess: () => {
       toast.success("کد امنیتی به ایمیل شما ارسال شد");
-      setOtpIsSent(true);
+      setMode("verify-otp");
     },
     onError: (error) => {
       toast.error(handleAxiosError(error).message);
@@ -45,7 +48,7 @@ const ForgetPassword = () => {
 
   return (
     <>
-      {!otpIsSent && (
+      {mode === "forget-password" && (
         <motion.form
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
@@ -74,9 +77,15 @@ const ForgetPassword = () => {
         </motion.form>
       )}
 
-      {otpIsSent && (
-        <VerifyOtp onBackClick={() => setOtpIsSent(false)} email={email} />
+      {mode === "verify-otp" && (
+        <VerifyOtp
+          onBackClick={() => setMode("forget-password")}
+          onChangeMode={() => setMode("reset-password")}
+          email={email}
+        />
       )}
+
+      {mode === "reset-password" && <ResetPassword email={email} />}
     </>
   );
 };

@@ -2,6 +2,8 @@ import { RegisterForm } from "../schemas/register-form";
 import UserModel from "../models/user.model";
 import api from "../api/axios";
 import { LoginForm } from "../schemas/login-form";
+import { ResetPasswordForm } from "../schemas/reset-password-form";
+import { VerifyOtpForm } from "../schemas/verify-otp-form";
 
 export async function authRegister(formData: RegisterForm) {
   const model = new UserModel().deserialize(formData || {});
@@ -24,12 +26,19 @@ export async function authForgetPassword(email: string) {
   return response;
 }
 
-export async function authVerifyOtp(data: { email: string; otp: string }) {
-  await new Promise((resolve) => setTimeout(resolve, 1000));
-  const response = await api.post("/auth/verify-otp/", {
-    email: data.email,
-    otp: data.otp,
-  });
+export async function authVerifyOtp(formData: VerifyOtpForm) {
+  const model = new UserModel().deserialize(formData || {});
+  model.mode = "verify-otp";
+
+  const response = await api.post("/auth/verify-otp/", model.toServer());
+  return response;
+}
+
+export async function authResetPassword(formData: ResetPasswordForm) {
+  const model = new UserModel().deserialize(formData || {});
+  model.mode = "reset-password";
+
+  const response = await api.post("/auth/reset-password/", model.toServer());
   return response;
 }
 

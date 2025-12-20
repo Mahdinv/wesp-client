@@ -13,23 +13,26 @@ import {
 } from "../../../http/authentication";
 import { toast } from "sonner";
 import handleAxiosError from "../../../api/error-handling";
-import { useNavigate } from "react-router-dom";
 import TextBox from "../../../base/inputs/TextBox";
 import { TbPassword } from "react-icons/tb";
 import React, { useState } from "react";
 import Timer from "../../../base/Timer";
 import { motion } from "framer-motion";
 
-const VerifyOtp: React.FC<{ onBackClick: () => void; email: string }> = (
-  props
-) => {
-  const navigate = useNavigate();
+const VerifyOtp: React.FC<{
+  onBackClick: () => void;
+  onChangeMode: () => void;
+  email: string;
+}> = (props) => {
   const [timer, setTimer] = useState(true);
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({ resolver: zodResolver(verifyOtpFormSchema) });
+  } = useForm<VerifyOtpForm>({
+    defaultValues: { email: props.email },
+    resolver: zodResolver(verifyOtpFormSchema),
+  });
 
   const { mutate: forgetPasswordMutate, isPending: forgetPasswordPending } =
     useMutation({
@@ -47,7 +50,7 @@ const VerifyOtp: React.FC<{ onBackClick: () => void; email: string }> = (
     mutationFn: authVerifyOtp,
     onSuccess: () => {
       toast.success("اعتبارسنجی با موفقیت انجام شد");
-      navigate("/auth/reset-password", { state: { email: props.email } });
+      props.onChangeMode();
     },
     onError: (error) => {
       toast.error(handleAxiosError(error).message);
@@ -55,7 +58,7 @@ const VerifyOtp: React.FC<{ onBackClick: () => void; email: string }> = (
   });
 
   const onVerifyOtpFormHandler: SubmitHandler<VerifyOtpForm> = (data) =>
-    verifyOtpMutate({ email: props.email, otp: data.otp });
+    verifyOtpMutate(data);
 
   return (
     <motion.form

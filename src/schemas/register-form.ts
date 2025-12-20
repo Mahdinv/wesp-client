@@ -10,7 +10,7 @@ export const registerFormSchema = z
     password: z
       .string()
       .nonempty("لطفا رمزعبور را وارد کنید")
-      .min(8, "رمزعبور حداقل 8 کلمه است"),
+      .min(8, "رمزعبور نمیتواند کمتر از 8 رقم باشد"),
     rePassword: z.string().nonempty("لطفا تکرار رمزعبور را وارد کنید"),
   })
   .refine((data) => data.password === data.rePassword, {
