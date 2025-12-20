@@ -16,6 +16,7 @@ import { authRegister } from "../../../http/authentication";
 import { toast } from "sonner";
 import handleAxiosError from "../../../api/error-handling";
 import { useUserStore } from "../../../store/user-store";
+import { motion } from "framer-motion";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -42,12 +43,14 @@ const Register = () => {
     },
   });
 
-  const onRegisterFormHandler: SubmitHandler<RegisterForm> = (data) => {
+  const onRegisterFormHandler: SubmitHandler<RegisterForm> = (data) =>
     mutate(data);
-  };
 
   return (
-    <form
+    <motion.form
+      initial={{ opacity: 0, x: -20 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ duration: 0.5, ease: "easeInOut" }}
       onSubmit={handleSubmit(onRegisterFormHandler)}
       className="xxs:w-full md:w-9/12 mx-auto flex flex-col justify-center gap-6 xxs:py-8 md:py-10 xxs:px-4 sm:px-8 md:px-0"
     >
@@ -117,7 +120,7 @@ const Register = () => {
           </Link>
         </small>
       </div>
-    </form>
+    </motion.form>
   );
 };
 

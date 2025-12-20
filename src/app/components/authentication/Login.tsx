@@ -12,6 +12,7 @@ import { authLogin } from "../../../http/authentication";
 import { toast } from "sonner";
 import handleAxiosError from "../../../api/error-handling";
 import { useUserStore } from "../../../store/user-store";
+import { motion } from "framer-motion";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -38,12 +39,13 @@ const Login = () => {
     },
   });
 
-  const onLoginFormHandler: SubmitHandler<LoginForm> = (data) => {
-    mutate(data);
-  };
+  const onLoginFormHandler: SubmitHandler<LoginForm> = (data) => mutate(data);
 
   return (
-    <form
+    <motion.form
+      initial={{ opacity: 0, x: -20 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ duration: 0.5, ease: "easeInOut" }}
       onSubmit={handleSubmit(onLoginFormHandler)}
       className="xxs:w-full md:w-9/12 mx-auto flex flex-col justify-center xxs:gap-6 md:gap-10 md:py-10 xxs:px-4 sm:px-8 md:px-0"
     >
@@ -91,7 +93,7 @@ const Login = () => {
           icon={<FcGoogle />}
           iconClasses="xxs:text-xl md:text-3xl"
           itemsGap={15}
-          disable={isPending}
+          disable
         />
         <small>
           حساب کاربری ندارید؟{" "}
@@ -103,7 +105,7 @@ const Login = () => {
           </Link>
         </small>
       </div>
-    </form>
+    </motion.form>
   );
 };
 
