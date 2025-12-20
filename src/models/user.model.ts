@@ -30,11 +30,6 @@ export default class UserModel extends BaseModel implements IUser {
         password: this.password,
       };
     }
-    if (this.mode === "forget-password") {
-      return {
-        email: this.email,
-      };
-    }
     if (this.mode === "reset-password") {
       return {
         email: this.email,
