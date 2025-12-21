@@ -15,13 +15,11 @@ import { useMutation } from "@tanstack/react-query";
 import { authRegister } from "../../../http/authentication";
 import { toast } from "sonner";
 import handleAxiosError from "../../../api/error-handling";
-import { useUserStore } from "../../../store/user-store";
 import { motion } from "framer-motion";
 import { setLocalStorageTokens } from "../../../utils/token";
 
 const Register = () => {
   const navigate = useNavigate();
-  const setToken = useUserStore((state) => state.setToken);
   const {
     register,
     handleSubmit,
@@ -35,7 +33,6 @@ const Register = () => {
     onSuccess: (res) => {
       toast.success("عملیات‌ ثبت‌نام شما با موفقیت انجام شد");
       setLocalStorageTokens(res.data.access, res.data.refresh);
-      setToken(res.data.access, res.data.refresh);
       navigate("/");
     },
     onError: (error) => {

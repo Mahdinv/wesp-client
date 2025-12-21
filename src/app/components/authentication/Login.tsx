@@ -11,13 +11,11 @@ import { useMutation } from "@tanstack/react-query";
 import { authLogin } from "../../../http/authentication";
 import { toast } from "sonner";
 import handleAxiosError from "../../../api/error-handling";
-import { useUserStore } from "../../../store/user-store";
 import { motion } from "framer-motion";
 import { setLocalStorageTokens } from "../../../utils/token";
 
 const Login = () => {
   const navigate = useNavigate();
-  const setToken = useUserStore((state) => state.setToken);
   const {
     register,
     handleSubmit,
@@ -31,7 +29,6 @@ const Login = () => {
     onSuccess: (res) => {
       toast.success("ورود شما با موفقیت انجام شد. خوش آمدید");
       setLocalStorageTokens(res.data.access, res.data.refresh);
-      setToken(res.data.access, res.data.refresh);
       navigate("/");
     },
     onError: (error) => {
