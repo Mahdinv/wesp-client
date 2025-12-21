@@ -10,6 +10,7 @@ import { useMutation } from "@tanstack/react-query";
 import { authLogout } from "../../http/authentication";
 import { toast } from "sonner";
 import handleAxiosError from "../../api/error-handling";
+import { clearLocalStorageTokens } from "../../utils/token";
 
 const navLinks = [
   { id: "home", title: "خانه" },
@@ -26,8 +27,7 @@ const Header = () => {
     mutationFn: authLogout,
     onSuccess: () => {
       setToken("", "");
-      localStorage.removeItem("access");
-      localStorage.removeItem("refresh");
+      clearLocalStorageTokens();
       if (location.pathname !== "/") {
         navigate("/");
       }

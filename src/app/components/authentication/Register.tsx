@@ -17,6 +17,7 @@ import { toast } from "sonner";
 import handleAxiosError from "../../../api/error-handling";
 import { useUserStore } from "../../../store/user-store";
 import { motion } from "framer-motion";
+import { setLocalStorageTokens } from "../../../utils/token";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -33,8 +34,7 @@ const Register = () => {
     mutationFn: authRegister,
     onSuccess: (res) => {
       toast.success("عملیات‌ ثبت‌نام شما با موفقیت انجام شد");
-      localStorage.setItem("access", res.data.access);
-      localStorage.setItem("refresh", res.data.refresh);
+      setLocalStorageTokens(res.data.access, res.data.refresh);
       setToken(res.data.access, res.data.refresh);
       navigate("/");
     },

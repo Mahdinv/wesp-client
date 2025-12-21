@@ -1,33 +1,31 @@
-import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import { Suspense, useContext, useEffect } from "react";
-import logout, { checkTokenExpiration, getAccessToken } from "../utils/auth";
-import UserProgressContext from "../store/userProgressContext";
+import { Suspense } from "react";
 
 const Index = () => {
   const location = useLocation();
-  const navigate = useNavigate();
-  const { token, setAccessToken, setProgress } =
-    useContext(UserProgressContext);
+  // const navigate = useNavigate();
+  // const { token, setAccessToken, setProgress } =
+  //   useContext(UserProgressContext);
 
-  useEffect(() => {
-    if (!token || token === "") return;
-    const tokenExpiration: string | number = checkTokenExpiration();
-    if (tokenExpiration === "EXPIRED") {
-      logout();
-    } else {
-      const token = getAccessToken();
-      if (!token || token === "") return;
-      setAccessToken(token);
-      setTimeout(() => {
-        logout();
-        setAccessToken("");
-        setProgress("login");
-        navigate("?mode=login");
-      }, Number(tokenExpiration));
-    }
-  }, [token, setAccessToken, navigate, setProgress]);
+  // useEffect(() => {
+  //   if (!token || token === "") return;
+  //   const tokenExpiration: string | number = checkTokenExpiration();
+  //   if (tokenExpiration === "EXPIRED") {
+  //     logout();
+  //   } else {
+  //     const token = getAccessToken();
+  //     if (!token || token === "") return;
+  //     setAccessToken(token);
+  //     setTimeout(() => {
+  //       logout();
+  //       setAccessToken("");
+  //       setProgress("login");
+  //       navigate("?mode=login");
+  //     }, Number(tokenExpiration));
+  //   }
+  // }, [token, setAccessToken, navigate, setProgress]);
 
   return (
     <div className="index-container xxs:h-[100vh] md:min-h-screen flex flex-col overflow-y-auto overflow-x-hidden">

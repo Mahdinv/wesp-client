@@ -3,7 +3,7 @@ import qs from "qs";
 import TablemateModel from "../models/tablemate.model";
 import isEmpty from "../utils/validation";
 import handleAxiosError from "../api/error-handling";
-import api from "../api/axios";
+import api from "../api/axios-config";
 
 export async function action({ request }: ActionFunctionArgs) {
   const fd = await request.text();

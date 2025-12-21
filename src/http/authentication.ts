@@ -1,6 +1,6 @@
 import { RegisterForm } from "../schemas/register-form";
 import UserModel from "../models/user.model";
-import api from "../api/axios";
+import api from "../api/axios-config";
 import { LoginForm } from "../schemas/login-form";
 import { ResetPasswordForm } from "../schemas/reset-password-form";
 import { VerifyOtpForm } from "../schemas/verify-otp-form";

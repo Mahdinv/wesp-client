@@ -13,6 +13,7 @@ import { toast } from "sonner";
 import handleAxiosError from "../../../api/error-handling";
 import { useUserStore } from "../../../store/user-store";
 import { motion } from "framer-motion";
+import { setLocalStorageTokens } from "../../../utils/token";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -29,8 +30,7 @@ const Login = () => {
     mutationFn: authLogin,
     onSuccess: (res) => {
       toast.success("ورود شما با موفقیت انجام شد. خوش آمدید");
-      localStorage.setItem("access", res.data.access);
-      localStorage.setItem("refresh", res.data.refresh);
+      setLocalStorageTokens(res.data.access, res.data.refresh);
       setToken(res.data.access, res.data.refresh);
       navigate("/");
     },

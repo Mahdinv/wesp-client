@@ -28,7 +28,7 @@ import NumberBox from "../../../../base/inputs/NumberBox";
 import { BsPercent } from "react-icons/bs";
 import { IoHomeOutline } from "react-icons/io5";
 import isEmpty from "../../../../utils/validation";
-import api from "../../../../api/axios";
+import api from "../../../../api/axios-config";
 import Intro from "../../../../base/Intro";
 import DemographicInformationModel from "../../../../models/demographic-information.model";
 import handleAxiosError from "../../../../api/error-handling";

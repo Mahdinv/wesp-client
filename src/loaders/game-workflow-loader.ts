@@ -1,4 +1,4 @@
-import api from "../api/axios";
+import api from "../api/axios-config";
 import handleAxiosError from "../api/error-handling";
 
 export async function loader() {
