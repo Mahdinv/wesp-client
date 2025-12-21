@@ -2,9 +2,9 @@ import axios, { AxiosError, InternalAxiosRequestConfig } from "axios";
 import {
   clearLocalStorageTokens,
   getLocalStorageAccessToken,
-  getLocalStorageRefreshToken,
   setLocalStorageTokens,
 } from "../utils/token";
+import { refreshTokenRequest } from "./auth-service";
 
 const api = axios.create({
   baseURL: "http://127.0.0.1:8000/api",
@@ -64,9 +64,7 @@ api.interceptors.response.use(
       isRefreshing = true;
 
       try {
-        const response = await api.post("/auth/token/refresh/", {
-          refresh: getLocalStorageRefreshToken(),
-        });
+        const response = await refreshTokenRequest();
 
         const newAccessToken = response.data.accessToken;
         const newRefreshToken = response.data.refreshToken;
