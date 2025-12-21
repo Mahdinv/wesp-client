@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { FaXmark } from "react-icons/fa6";
 import Button from "../../base/inputs/Button";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
@@ -10,7 +10,14 @@ import { useMutation } from "@tanstack/react-query";
 import { authLogout } from "../../http/authentication";
 import { toast } from "sonner";
 import handleAxiosError from "../../api/error-handling";
-import { clearLocalStorageTokens } from "../../utils/token";
+import {
+  clearLocalStorageTokens,
+  getLocalStorageAccessToken,
+  getLocalStorageRefreshToken,
+} from "../../utils/token";
+import { jwtDecode } from "jwt-decode";
+import api from "../../api/axios-config";
+import UserModel from "../../models/user.model";
 
 const navLinks = [
   { id: "home", title: "خانه" },
@@ -22,7 +29,8 @@ const navLinks = [
 const Header = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { token, setToken } = useUserStore((state) => state);
+  const [userDataFetching, setUserDataFetching] = useState(false);
+  const { token, user, setToken, setUser } = useUserStore((state) => state);
   const { mutate } = useMutation({
     mutationFn: authLogout,
     onSuccess: () => {
@@ -36,6 +44,46 @@ const Header = () => {
       toast.error(handleAxiosError(error).message);
     },
   });
+
+  useEffect(() => {
+    const checkAuth = async () => {
+      const accessToken = getLocalStorageAccessToken();
+      const refreshToken = getLocalStorageRefreshToken();
+      if (!accessToken || !refreshToken) return;
+      const decodedAccessToken = jwtDecode(accessToken);
+      const decodedRefreshToken = jwtDecode(refreshToken);
+
+      const isAccessExpired =
+        decodedAccessToken.exp && decodedAccessToken.exp * 1000 < Date.now();
+      const isRefreshExpired =
+        decodedRefreshToken.exp && decodedRefreshToken.exp * 1000 < Date.now();
+
+      if (isAccessExpired && isRefreshExpired) {
+        clearLocalStorageTokens();
+        setToken("", "");
+        if (location.pathname !== "/") {
+          navigate("/");
+        }
+        return;
+      }
+
+      try {
+        setToken(accessToken, refreshToken);
+        setUserDataFetching(true);
+        const response = await api.get("/auth/me/");
+        setUserDataFetching(false);
+        setUser(new UserModel().deserialize(response.data));
+      } catch (error) {
+        toast.error(handleAxiosError(error).message);
+        setToken("", "");
+        clearLocalStorageTokens();
+        navigate("/");
+      }
+    };
+    if (!user?.id) {
+      checkAuth();
+    }
+  }, [setToken, setUser, navigate, location, user]);
 
   const [menuIsOpen, setMenuIsOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement | null>(null);
@@ -124,7 +172,14 @@ const Header = () => {
               </>
             )}
 
-            {!!token.access && <Dropdown onClick={onLogoutHandler} />}
+            {!!token.access && (
+              <Dropdown
+                fullName={user?.fullName}
+                email={user?.email}
+                isFetchingData={userDataFetching}
+                onClick={onLogoutHandler}
+              />
+            )}
           </div>
         </nav>
       </header>

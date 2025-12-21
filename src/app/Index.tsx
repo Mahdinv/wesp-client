@@ -5,27 +5,6 @@ import { Suspense } from "react";
 
 const Index = () => {
   const location = useLocation();
-  // const navigate = useNavigate();
-  // const { token, setAccessToken, setProgress } =
-  //   useContext(UserProgressContext);
-
-  // useEffect(() => {
-  //   if (!token || token === "") return;
-  //   const tokenExpiration: string | number = checkTokenExpiration();
-  //   if (tokenExpiration === "EXPIRED") {
-  //     logout();
-  //   } else {
-  //     const token = getAccessToken();
-  //     if (!token || token === "") return;
-  //     setAccessToken(token);
-  //     setTimeout(() => {
-  //       logout();
-  //       setAccessToken("");
-  //       setProgress("login");
-  //       navigate("?mode=login");
-  //     }, Number(tokenExpiration));
-  //   }
-  // }, [token, setAccessToken, navigate, setProgress]);
 
   return (
     <div className="index-container xxs:h-[100vh] md:min-h-screen flex flex-col overflow-y-auto overflow-x-hidden">
