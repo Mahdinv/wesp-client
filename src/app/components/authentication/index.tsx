@@ -1,8 +1,28 @@
-import { Suspense } from "react";
-import { Outlet, useLocation } from "react-router-dom";
+import { Suspense, useEffect } from "react";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import { useUserStore } from "../../../store/user-store";
+import {
+  getLocalStorageAccessToken,
+  getLocalStorageRefreshToken,
+} from "../../../utils/token";
 
 const Authentication = () => {
+  const navigate = useNavigate();
   const location = useLocation();
+  const token = useUserStore((state) => state.token);
+  const userIsLoggedIn =
+    token.access ||
+    token.refresh ||
+    getLocalStorageAccessToken() ||
+    getLocalStorageRefreshToken();
+  useEffect(() => {
+    if (userIsLoggedIn) {
+      navigate("/");
+    }
+  }, [userIsLoggedIn, navigate]);
+
+  if (userIsLoggedIn) return null;
+
   const pathName = location.pathname.includes("login")
     ? "login"
     : location.pathname.includes("register")
