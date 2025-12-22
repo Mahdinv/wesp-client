@@ -18,7 +18,7 @@ import {
   PiUsers,
   PiUsersFourLight,
 } from "react-icons/pi";
-import { useActionState, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { motion } from "framer-motion";
 import Radio from "../../../../base/inputs/Radio";
 import { TbGenderBigender } from "react-icons/tb";
@@ -27,12 +27,7 @@ import RangeInput from "../../../../base/inputs/RangeInput";
 import NumberBox from "../../../../base/inputs/NumberBox";
 import { BsPercent } from "react-icons/bs";
 import { IoHomeOutline } from "react-icons/io5";
-import isEmpty from "../../../../utils/validation";
-import api from "../../../../api/axios-config";
 import Intro from "../../../../base/Intro";
-import DemographicInformationModel from "../../../../models/demographic-information.model";
-import handleAxiosError from "../../../../api/error-handling";
-import { useNavigate } from "react-router-dom";
 
 const genderOptions = [
   { title: "مرد", value: "male" },
@@ -114,7 +109,6 @@ const provinceOptions = [
 ];
 
 const DemographicInformation = () => {
-  const navigate = useNavigate();
   const [step, setStep] = useState<number>(1);
   const progressValue = Math.round((100 * step) / 3);
 
@@ -141,56 +135,6 @@ const DemographicInformation = () => {
     }
   }
 
-  function handleNextStep() {
-    handleScrollToTop();
-    setStep((prev) => prev + 1);
-  }
-
-  async function demographicInformationAction(
-    formState: any,
-    formData: FormData
-  ) {
-    const entries = Object.fromEntries(formData.entries());
-    const model = new DemographicInformationModel().deserialize(entries || {});
-
-    if (step < 3) {
-      if (isEmpty(model.name)) {
-        // toast.error("لطفا اسم بازیکن را وارد کنید");
-        return model.getData();
-      }
-      if (isEmpty(model.age)) {
-        // toast.error("لطفا سن بازیکن را وارد کنید");
-        return model.getData();
-      }
-      if (isEmpty(model.gender)) {
-        // toast.error("لطفا جنسیت بازیکن را وارد کنید");
-        return model.getData();
-      }
-      handleNextStep();
-      return model.getData();
-    }
-
-    if (step === 3) {
-      try {
-        const response = await api.post(`/forms/form1/`, model.toServer());
-        if (response.status === 201) {
-          // toast.success("فرم پرسشنامه با موفقیت تکمیل شد");
-          navigate("/game-workflow");
-        }
-      } catch (error) {
-        // const errorRes = handleAxiosError(error);
-        handleAxiosError(error);
-        // toast.error(errorRes.message);
-        return model.getData();
-      }
-    }
-  }
-
-  const [formState, formAction, pending] = useActionState(
-    demographicInformationAction,
-    null
-  );
-
   return (
     <>
       <Intro
@@ -206,7 +150,7 @@ const DemographicInformation = () => {
           step={step}
           maxStep={3}
         />
-        <form action={formAction} className="flex flex-col gap-4 bggr">
+        <form className="flex flex-col gap-4">
           <motion.div
             initial="hidden"
             animate={step === 1 ? "visible" : "hidden"}
@@ -220,7 +164,6 @@ const DemographicInformation = () => {
                 classes="bg-[#F3F3F5] !border-gray-200 !rounded-2xl !px-4"
                 placeHolder="اینجا بنویس"
                 name="name"
-                defaultValue={formState?.name}
               />
             </QuestionCard>
             <QuestionCard
@@ -232,7 +175,6 @@ const DemographicInformation = () => {
                 classes="bg-[#F3F3F5] !border-gray-200 !rounded-2xl !px-4"
                 placeHolder="اینجا بنویس"
                 name="age"
-                defaultValue={formState?.age}
               />
             </QuestionCard>
             <QuestionCard
@@ -245,7 +187,6 @@ const DemographicInformation = () => {
                   gridColClasses="grid-cols-3"
                   options={genderOptions}
                   name="gender"
-                  defaultValue={formState?.gender}
                 />
               </div>
             </QuestionCard>
@@ -254,7 +195,6 @@ const DemographicInformation = () => {
                 classes="bg-[#F3F3F5] !border-gray-200 !rounded-2xl !px-4"
                 placeHolder="اینجا بنویس"
                 name="heightCm"
-                defaultValue={formState?.heightCm}
               />
             </QuestionCard>
             <QuestionCard icon={<LuWeight />} label="وزن" title="اختیاری">
@@ -262,7 +202,6 @@ const DemographicInformation = () => {
                 classes="bg-[#F3F3F5] !border-gray-200 !rounded-2xl !px-4"
                 placeHolder="اینجا بنویس"
                 name="weightKg"
-                defaultValue={formState?.weightKg}
               />
             </QuestionCard>
           </motion.div>
@@ -321,7 +260,6 @@ const DemographicInformation = () => {
                 <NumberBox
                   classes="bg-[#F3F3F5] !border-gray-200 !rounded-2xl !px-4"
                   name="dietIncomePercent"
-                  defaultValue={formState?.dietIncomePercent}
                 />
                 <span className="text-xl">
                   <BsPercent />
@@ -404,20 +342,8 @@ const DemographicInformation = () => {
             <Button
               type="submit"
               classes="btn btn-primary !rounded-2xl !w-full"
-              title={`${
-                step !== 3
-                  ? "مرحله بعد"
-                  : step === 3 && !pending
-                  ? "تکمیل پرسشنامه"
-                  : "درحال ارسال فرم..."
-              }`}
-              icon={
-                step !== 3 ? (
-                  <FaArrowLeftLong />
-                ) : step === 3 && !pending ? (
-                  <FaRegSquareCheck />
-                ) : undefined
-              }
+              title={`${step !== 3 ? "مرحله بعد" : "تکمیل پرسشنامه"}`}
+              icon={step !== 3 ? <FaArrowLeftLong /> : <FaRegSquareCheck />}
               iconClasses="pt-1"
               itemsGap={15}
             />

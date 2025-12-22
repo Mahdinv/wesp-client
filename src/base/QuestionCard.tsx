@@ -13,9 +13,11 @@ const QuestionCard: React.FC<{
         <div className="bg-[#e6f6ec] text-[#1f7e5a] text-xl p-4 rounded-full">
           {props.icon}
         </div>
-        <h6 className="text-[#515151] font-bold">{props.label}</h6>
+        <h6 className="text-black font-bold">{props.label}</h6>
         {props.title && (
-          <small className="text-[#a5b3ab] font-bold">{props.title}</small>
+          <small className="text-black opacity-60 font-bold !font-peyda">
+            {props.title}
+          </small>
         )}
       </div>
       {props.children}
