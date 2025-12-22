@@ -15,9 +15,9 @@ import {
   getLocalStorageAccessToken,
   getLocalStorageRefreshToken,
 } from "../../utils/token";
-import { jwtDecode } from "jwt-decode";
 import api from "../../api/axios-config";
 import UserModel from "../../models/user.model";
+import { safeJwtDecode } from "../../helpers/safe-jwt-decode";
 
 const navLinks = [
   { id: "home", title: "خانه" },
@@ -50,13 +50,19 @@ const Header = () => {
       const accessToken = getLocalStorageAccessToken();
       const refreshToken = getLocalStorageRefreshToken();
       if (!accessToken || !refreshToken) return;
-      const decodedAccessToken = jwtDecode(accessToken);
-      const decodedRefreshToken = jwtDecode(refreshToken);
 
-      const isAccessExpired =
-        decodedAccessToken.exp && decodedAccessToken.exp * 1000 < Date.now();
-      const isRefreshExpired =
-        decodedRefreshToken.exp && decodedRefreshToken.exp * 1000 < Date.now();
+      const decodedAccessToken = safeJwtDecode<{ exp: number }>(accessToken);
+      const decodedRefreshToken = safeJwtDecode<{ exp: number }>(refreshToken);
+      if (!decodedAccessToken || !decodedRefreshToken) {
+        clearLocalStorageTokens();
+        if (location.pathname !== "/") {
+          navigate("/");
+        }
+        return;
+      }
+
+      const isAccessExpired = decodedAccessToken.exp * 1000 < Date.now();
+      const isRefreshExpired = decodedRefreshToken.exp * 1000 < Date.now();
 
       if (isAccessExpired && isRefreshExpired) {
         clearLocalStorageTokens();
