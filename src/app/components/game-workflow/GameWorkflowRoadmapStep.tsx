@@ -9,6 +9,7 @@ const GameWorkflowRoadmapStep: React.FC<{
   imageName: string;
   title: string;
   disable: boolean;
+  onStartGameClick: () => void;
 }> = (props) => {
   return (
     <div className="relative my-9">
@@ -92,6 +93,7 @@ const GameWorkflowRoadmapStep: React.FC<{
           <Button
             classes="btn btn-primary xxs:w-full sm:w-2/3 md:w-full lg:w-2/3 xxs:!py-[2px] md:!py-1 lg:!py-2 xl:!py-1 xxs:!text-xxs sm:!text-xs lg:!text-sm xl:!text-base 2xl:!text-lg !rounded-full relative z-10"
             title="شروع کن"
+            onClick={props.onStartGameClick}
           />
         )}
       </div>

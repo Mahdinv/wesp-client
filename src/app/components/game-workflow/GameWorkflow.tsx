@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import Intro from "../../../base/Intro";
 import { toPersianDigits } from "../../../utils/public";
 import GameWorkflowRoadmapStep from "./GameWorkflowRoadmapStep";
@@ -23,6 +24,7 @@ const formsCatalog = [
 ];
 
 const GameWorkflow = () => {
+  const navigate = useNavigate();
   return (
     <>
       <Intro
@@ -41,6 +43,9 @@ const GameWorkflow = () => {
               counter={index + 1}
               imageName={fc.imageName}
               title={fc.title}
+              onStartGameClick={() => {
+                navigate("/game-workflow/demographic-information");
+              }}
               disable={fc.disable}
             />
           );
