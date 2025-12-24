@@ -5,7 +5,7 @@ type UserStore = {
   token: { access: string; refresh: string };
   setToken: (accessToken: string, refreshToken: string) => void;
   user: IUser | null;
-  setUser: (user: IUser) => void;
+  setUser: (user: Partial<IUser>) => void;
 };
 
 export const useUserStore = create<UserStore>((set) => ({
@@ -19,7 +19,15 @@ export const useUserStore = create<UserStore>((set) => ({
     });
   },
   user: null,
-  setUser: (user: IUser) => {
-    set({ user });
+  setUser: (user: Partial<IUser>) => {
+    set((state) => ({
+      user:
+        state.user?.id !== undefined
+          ? {
+              ...state.user,
+              ...user,
+            }
+          : (user as IUser),
+    }));
   },
 }));

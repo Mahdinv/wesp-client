@@ -122,7 +122,7 @@ const provinceOptions = [
 
 const DemographicInformation = () => {
   const navigate = useNavigate();
-  const user = useUserStore((state) => state.user);
+  const { user, setUser } = useUserStore((state) => state);
   const [step, setStep] = useState<number>(1);
   const progressValue = Math.round((100 * step) / 3);
   const elementRef = useRef<HTMLDivElement | null>(null);
@@ -154,10 +154,11 @@ const DemographicInformation = () => {
     resolver: zodResolver(demographicInformationFormSchema),
   });
 
-  const { mutate } = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationFn: updateUserProfile,
-    onSuccess: () => {
+    onSuccess: (res) => {
       toast.success("مرحله اول با موفقیت به اتمام رسید");
+      setUser({ fullName: res.data.full_name });
       navigate("/game-workflow");
     },
     onError: (error) => {
@@ -463,16 +464,30 @@ const DemographicInformation = () => {
                   handleScrollToTop();
                   setStep((prev) => prev - 1);
                 }}
+                disable={isPending}
               />
             )}
 
             <Button
               type="submit"
               classes="btn btn-primary !rounded-2xl !w-full"
-              title={`${step !== 3 ? "مرحله بعد" : "تکمیل پرسشنامه"}`}
-              icon={step !== 3 ? <FaArrowLeftLong /> : <FaRegSquareCheck />}
+              title={`${
+                step === 3 && isPending
+                  ? "در حال ارسال..."
+                  : step === 3 && !isPending
+                  ? "تکمیل پرسشنامه"
+                  : "مرحله بعد"
+              }`}
+              icon={
+                step !== 3 ? (
+                  <FaArrowLeftLong />
+                ) : step === 3 && !isPending ? (
+                  <FaRegSquareCheck />
+                ) : undefined
+              }
               iconClasses="pt-1"
               itemsGap={15}
+              disable={isPending}
             />
           </div>
         </form>
