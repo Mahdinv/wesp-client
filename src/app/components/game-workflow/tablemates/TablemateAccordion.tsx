@@ -5,6 +5,8 @@ import Radio from "../../../../base/inputs/Radio";
 import React, { memo, useEffect, useState } from "react";
 import { AnimatePresence, easeInOut, motion } from "framer-motion";
 import ComboBox from "../../../../base/inputs/ComboBox";
+import { Controller, useFormContext } from "react-hook-form";
+import { TablematesForm } from "../../../../schemas/tablemates-form";
 
 const sharedMealsCount = [
   { title: "یک وعده", value: 1 },
@@ -35,6 +37,12 @@ const TablemateAccordion: React.FC<{
   tablematesNumber?: number;
   onRemoveClick: () => void;
 }> = (props) => {
+  const {
+    register,
+    control,
+    formState: { errors },
+  } = useFormContext<TablematesForm>();
+
   const [open, setOpen] = useState(props.isOpen);
   const titles = [
     "اول",
@@ -53,8 +61,18 @@ const TablemateAccordion: React.FC<{
     : "";
 
   useEffect(() => {
-    setOpen(props.isOpen);
-  }, [props.isOpen]);
+    if (
+      !!errors.tablemates &&
+      Array.isArray(errors.tablemates) &&
+      errors.tablemates?.length > 0 &&
+      !!errors.tablemates?.[props.index]
+    ) {
+      setOpen(true);
+    }
+    if (!errors.tablemates) {
+      setOpen(props.isOpen);
+    }
+  }, [errors.tablemates, props.index, props.isOpen]);
 
   return (
     <div className="flex flex-col justify-center rounded-xl bg-gray-50 border border-gray-300 px-4 py-3 gap-4">
@@ -97,30 +115,61 @@ const TablemateAccordion: React.FC<{
           className="flex flex-col gap-8 overflow-hidden origin-top"
         >
           <TextBox
-            classes="bg-[#F3F3F5] !border-gray-200 !rounded-2xl !px-4"
+            classes="bg-[#F3F3F5] !rounded-full !px-2 !h-11"
             label="نام"
             placeHolder="اینجا بنویس"
-            name={`tablemates[${props.index}][name]`}
+            {...register(`tablemates.${props.index}.name`)}
+            error={errors.tablemates?.[props.index]?.name?.message}
           />
           <div className="w-2/5">
-            <ComboBox
-              label="تعداد وعده‌های مشترک"
-              placeholder="لطفا انتخاب کنید"
-              name={`tablemates[${props.index}][sharedMealsCount]`}
-              options={sharedMealsCount}
+            <Controller
+              name={`tablemates.${props.index}.sharedMealsCount`}
+              control={control}
+              render={({ field }) => (
+                <ComboBox
+                  label="تعداد وعده‌های مشترک"
+                  placeholder="لطفا انتخاب کنید"
+                  options={sharedMealsCount}
+                  value={field.value}
+                  onChange={field.onChange}
+                  error={
+                    errors.tablemates?.[props.index]?.sharedMealsCount?.message
+                  }
+                />
+              )}
             />
           </div>
-          <Radio
-            label="سطح ارتباط"
-            gridColClasses="xs:grid-cols-2 md:grid-cols-3 gap-4 xl:grid-cols-4 2xl:grid-cols-5"
-            options={relationshipLevel}
-            name={`tablemates[${props.index}][relationshipLevel]`}
+          <Controller
+            name={`tablemates.${props.index}.relationshipLevel`}
+            control={control}
+            render={({ field }) => (
+              <Radio
+                label="سطح ارتباط"
+                gridColClasses="xs:grid-cols-2 md:grid-cols-3 gap-4 xl:grid-cols-4 2xl:grid-cols-5"
+                options={relationshipLevel}
+                value={field.value}
+                onChange={field.onChange}
+                error={
+                  errors.tablemates?.[props.index]?.relationshipLevel?.message
+                }
+              />
+            )}
           />
-          <Radio
-            label="به نظر شما، این فرد چقدر بر روی رژیم شما تاثیر می‌گذارد"
-            gridColClasses="xs:grid-cols-2 md:grid-cols-3 gap-4 xl:grid-cols-4 2xl:grid-cols-5"
-            options={influenceLevel}
-            name={`tablemates[${props.index}][influenceLevel]`}
+          <Controller
+            name={`tablemates.${props.index}.influenceLevel`}
+            control={control}
+            render={({ field }) => (
+              <Radio
+                label="به نظر شما، این فرد چقدر بر روی رژیم شما تاثیر می‌گذارد"
+                gridColClasses="xs:grid-cols-2 md:grid-cols-3 gap-4 xl:grid-cols-4 2xl:grid-cols-5"
+                options={influenceLevel}
+                value={field.value}
+                onChange={field.onChange}
+                error={
+                  errors.tablemates?.[props.index]?.influenceLevel?.message
+                }
+              />
+            )}
           />
         </motion.div>
       </AnimatePresence>
