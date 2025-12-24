@@ -28,10 +28,15 @@ export abstract class BaseModel {
 
   private camelizeKeys(obj: any): any {
     if (!obj || typeof obj !== "object") return obj;
+
+    if (Array.isArray(obj)) {
+      return obj.map((v) => this.camelizeKeys(v));
+    }
+
     const result: any = {};
     for (const key in obj) {
       const camelKey = key.replace(/_([a-z])/g, (_, c) => c.toUpperCase());
-      result[camelKey] = obj[key];
+      result[camelKey] = this.camelizeKeys(obj[key]);
     }
     return result;
   }

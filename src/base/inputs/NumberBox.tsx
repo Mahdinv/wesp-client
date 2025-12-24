@@ -46,7 +46,7 @@ const NumberBox: React.FC<NumberBoxProps> = ({
           id={props.name}
           type="number"
           placeholder={placeHolder}
-          className={`flex-1 w-full px-2 bg-transparent text-gray-600 rounded-2xl font-peyda outline-none xxs:text-xs xl:text-sm`}
+          className={`flex-1 w-full h-full px-2 bg-transparent text-gray-600 rounded-2xl font-peyda outline-none xxs:text-xs xl:text-sm`}
           {...props}
         />
       </div>
