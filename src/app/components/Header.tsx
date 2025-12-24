@@ -35,6 +35,7 @@ const Header = () => {
     mutationFn: authLogout,
     onSuccess: () => {
       setToken("", "");
+      setUser(new UserModel());
       clearLocalStorageTokens();
       if (location.pathname !== "/") {
         navigate("/");
@@ -67,6 +68,7 @@ const Header = () => {
       if (isAccessExpired && isRefreshExpired) {
         clearLocalStorageTokens();
         setToken("", "");
+        setUser(new UserModel());
         if (location.pathname !== "/") {
           navigate("/");
         }
@@ -82,6 +84,7 @@ const Header = () => {
       } catch (error) {
         toast.error(handleAxiosError(error).message);
         setToken("", "");
+        setUser(new UserModel());
         clearLocalStorageTokens();
         navigate("/");
       }
