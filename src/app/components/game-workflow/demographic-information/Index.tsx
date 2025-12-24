@@ -28,6 +28,18 @@ import NumberBox from "../../../../base/inputs/NumberBox";
 import { BsPercent } from "react-icons/bs";
 import { IoHomeOutline } from "react-icons/io5";
 import Intro from "../../../../base/Intro";
+import { Controller, SubmitHandler, useForm } from "react-hook-form";
+import {
+  DemographicInformationForm,
+  demographicInformationFormSchema,
+} from "../../../../schemas/demographic-information-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation } from "@tanstack/react-query";
+import { updateUserProfile } from "../../../../http/demographic-information";
+import { useUserStore } from "../../../../store/user-store";
+import { toast } from "sonner";
+import handleAxiosError from "../../../../api/error-handling";
+import { useNavigate } from "react-router-dom";
 
 const genderOptions = [
   { title: "مرد", value: "male" },
@@ -109,15 +121,49 @@ const provinceOptions = [
 ];
 
 const DemographicInformation = () => {
+  const navigate = useNavigate();
+  const user = useUserStore((state) => state.user);
   const [step, setStep] = useState<number>(1);
   const progressValue = Math.round((100 * step) / 3);
-
   const elementRef = useRef<HTMLDivElement | null>(null);
 
-  const variants = {
-    visible: { opacity: 1, y: 0, pointerEvents: "auto", height: "auto" },
-    hidden: { opacity: 0, y: 5, pointerEvents: "none", height: 0 },
-  };
+  const {
+    register,
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      email: user?.email,
+      fullName: user?.fullName,
+      age: "",
+      gender: "",
+      properties: {
+        heightCm: undefined,
+        weightKg: undefined,
+        education: "",
+        jobState: "",
+        incomeBracket: "10-30",
+        dietIncomePercent: undefined,
+        province: "",
+        maritalStatus: "",
+        familyMembers: undefined,
+        sportDaysPerWeek: "",
+      },
+    },
+    resolver: zodResolver(demographicInformationFormSchema),
+  });
+
+  const { mutate } = useMutation({
+    mutationFn: updateUserProfile,
+    onSuccess: () => {
+      toast.success("مرحله اول با موفقیت به اتمام رسید");
+      navigate("/game-workflow");
+    },
+    onError: (error) => {
+      toast.error(handleAxiosError(error).message);
+    },
+  });
 
   function handleScrollToTop() {
     if (elementRef.current) {
@@ -135,6 +181,17 @@ const DemographicInformation = () => {
     }
   }
 
+  const onDemographicInformationFormHandler: SubmitHandler<
+    DemographicInformationForm
+  > = (data) => {
+    if (step < 3) {
+      handleScrollToTop();
+      setStep((prev) => prev + 1);
+      return;
+    }
+    mutate(data);
+  };
+
   return (
     <>
       <Intro
@@ -150,183 +207,253 @@ const DemographicInformation = () => {
           step={step}
           maxStep={3}
         />
-        <form className="flex flex-col gap-4">
-          <motion.div
-            initial="hidden"
-            animate={step === 1 ? "visible" : "hidden"}
-            variants={variants}
-            transition={{ duration: 0.5 }}
-            className="space-y-4 overflow-hidden"
-          >
-            {/* ------------ STEP 1 ---------- */}
-            <QuestionCard icon={<LuUserRound />} label="اسم بازیکن">
-              <TextBox
-                classes="bg-[#F3F3F5] !border-gray-200 !rounded-2xl !px-4"
-                placeHolder="اینجا بنویس"
-                name="name"
-              />
-            </QuestionCard>
-            <QuestionCard
-              icon={<RiCandleLine />}
-              label="سن بازیکن"
-              title="واجب برای شناخت نیازهای اولیه مواد مغذی بدنت"
+        <form
+          onSubmit={handleSubmit(onDemographicInformationFormHandler)}
+          className="flex flex-col gap-4"
+          noValidate
+        >
+          {step === 1 && (
+            <motion.div
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, ease: "easeInOut" }}
+              className="space-y-4"
             >
-              <TextBox
-                classes="bg-[#F3F3F5] !border-gray-200 !rounded-2xl !px-4"
-                placeHolder="اینجا بنویس"
-                name="age"
-              />
-            </QuestionCard>
-            <QuestionCard
-              icon={<TbGenderBigender />}
-              label="جنسیت بازیکن"
-              title="واجب برای شناخت نیازهای اولیه مواد مغذی بدنت"
-            >
-              <div className="w-full mx-auto">
-                <Radio
-                  gridColClasses="grid-cols-3"
-                  options={genderOptions}
-                  name="gender"
+              {/* ------------ STEP 1 ---------- */}
+              <QuestionCard icon={<LuUserRound />} label="اسم بازیکن">
+                <TextBox
+                  classes="bg-[#F3F3F5] !rounded-full !px-2 !h-11"
+                  placeHolder="اینجا بنویس"
+                  {...register("fullName")}
+                  error={errors.fullName?.message}
                 />
-              </div>
-            </QuestionCard>
-            <QuestionCard icon={<PiRuler />} label="قد" title="اختیاری">
-              <TextBox
-                classes="bg-[#F3F3F5] !border-gray-200 !rounded-2xl !px-4"
-                placeHolder="اینجا بنویس"
-                name="heightCm"
-              />
-            </QuestionCard>
-            <QuestionCard icon={<LuWeight />} label="وزن" title="اختیاری">
-              <TextBox
-                classes="bg-[#F3F3F5] !border-gray-200 !rounded-2xl !px-4"
-                placeHolder="اینجا بنویس"
-                name="weightKg"
-              />
-            </QuestionCard>
-          </motion.div>
-          <motion.div
-            initial="hidden"
-            animate={step === 2 ? "visible" : "hidden"}
-            variants={variants}
-            transition={{ duration: 0.5 }}
-            className="space-y-4 overflow-hidden"
-          >
-            {/* ------------ STEP 2 ---------- */}
-            <QuestionCard
-              icon={<PiGraduationCap />}
-              label="تحصیلات"
-              title="اختیاری"
-            >
-              <ComboBox
-                name="education"
-                placeholder="لطفا انتخاب کنید"
-                options={educationOptions}
-              />
-            </QuestionCard>
-            <QuestionCard
-              icon={<PiBuildings />}
-              label="وضعیت شغلی"
-              title="اختیاری"
-            >
-              <div className="w-full mx-auto">
-                <Radio
-                  gridColClasses="grid-cols-3"
-                  name="jobState"
-                  options={jobStateOptions}
-                />
-              </div>
-            </QuestionCard>
-            <QuestionCard
-              icon={<PiCoins />}
-              label="وضعیت درآمد (تومان)"
-              title="اختیاری"
-            >
-              <RangeInput
-                name="incomeBracket"
-                rangeTitles={incomeBrackets}
-                min={0}
-                max={incomeBrackets.length - 1}
-                step={1}
-                initialValue={2}
-              />
-            </QuestionCard>
-            <QuestionCard
-              icon={<LuUtensils />}
-              label="درصد هزینه‌ای که به خوراک خود اختصاص می‌دهید"
-              title="اختیاری"
-            >
-              <div className="flex flex-row items-center gap-4 xs:w-2/3 sm:w-1/3 md:w-1/4">
+              </QuestionCard>
+              <QuestionCard
+                icon={<RiCandleLine />}
+                label="سن بازیکن"
+                title="واجب برای شناخت نیازهای اولیه مواد مغذی بدنت"
+              >
                 <NumberBox
-                  classes="bg-[#F3F3F5] !border-gray-200 !rounded-2xl !px-4"
-                  name="dietIncomePercent"
+                  classes="bg-[#F3F3F5] !rounded-full !px-2 !h-11"
+                  placeHolder="اینجا بنویس"
+                  {...register("age")}
+                  error={errors.age?.message}
                 />
-                <span className="text-xl">
-                  <BsPercent />
-                </span>
-              </div>
-            </QuestionCard>
-          </motion.div>
+              </QuestionCard>
+              <QuestionCard
+                icon={<TbGenderBigender />}
+                label="جنسیت بازیکن"
+                title="واجب برای شناخت نیازهای اولیه مواد مغذی بدنت"
+              >
+                <Controller
+                  name="gender"
+                  control={control}
+                  render={({ field }) => (
+                    <Radio
+                      gridColClasses="grid-cols-3"
+                      options={genderOptions}
+                      value={field.value ?? ""}
+                      onChange={field.onChange}
+                      error={errors.gender?.message}
+                    />
+                  )}
+                />
+              </QuestionCard>
+              <QuestionCard icon={<PiRuler />} label="قد" title="اختیاری">
+                <NumberBox
+                  classes="bg-[#F3F3F5] !rounded-full !px-2 !h-11"
+                  placeHolder="اینجا بنویس"
+                  {...register("properties.heightCm", { valueAsNumber: true })}
+                  error={errors.properties?.heightCm?.message}
+                />
+              </QuestionCard>
+              <QuestionCard icon={<LuWeight />} label="وزن" title="اختیاری">
+                <NumberBox
+                  classes="bg-[#F3F3F5] !rounded-full !px-2 !h-11"
+                  placeHolder="اینجا بنویس"
+                  {...register("properties.weightKg", { valueAsNumber: true })}
+                  error={errors.properties?.weightKg?.message}
+                />
+              </QuestionCard>
+            </motion.div>
+          )}
+          {step === 2 && (
+            <motion.div
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, ease: "easeInOut" }}
+              className="space-y-4"
+            >
+              {/* ------------ STEP 2 ---------- */}
+              <QuestionCard
+                icon={<PiGraduationCap />}
+                label="تحصیلات"
+                title="اختیاری"
+              >
+                <Controller
+                  name="properties.education"
+                  control={control}
+                  render={({ field }) => (
+                    <ComboBox
+                      placeholder="لطفا انتخاب کنید"
+                      options={educationOptions}
+                      value={field.value ?? ""}
+                      onChange={field.onChange}
+                      error={errors.properties?.education?.message}
+                    />
+                  )}
+                />
+              </QuestionCard>
+              <QuestionCard
+                icon={<PiBuildings />}
+                label="وضعیت شغلی"
+                title="اختیاری"
+              >
+                <Controller
+                  name="properties.jobState"
+                  control={control}
+                  render={({ field }) => (
+                    <Radio
+                      gridColClasses="grid-cols-3"
+                      options={jobStateOptions}
+                      value={field.value ?? ""}
+                      onChange={field.onChange}
+                      error={errors.properties?.jobState?.message}
+                    />
+                  )}
+                />
+              </QuestionCard>
+              <QuestionCard
+                icon={<PiCoins />}
+                label="وضعیت درآمد (تومان)"
+                title="اختیاری"
+              >
+                <Controller
+                  name="properties.incomeBracket"
+                  control={control}
+                  render={({ field }) => (
+                    <RangeInput
+                      options={incomeBrackets}
+                      min={0}
+                      max={incomeBrackets.length - 1}
+                      step={1}
+                      initialValue={2}
+                      value={field.value ?? ""}
+                      onChange={field.onChange}
+                      error={errors.properties?.incomeBracket?.message}
+                    />
+                  )}
+                />
+              </QuestionCard>
+              <QuestionCard
+                icon={<LuUtensils />}
+                label="درصد هزینه‌ای که به خوراک خود اختصاص می‌دهید"
+                title="اختیاری"
+              >
+                <div className="flex flex-row items-center gap-4 xs:w-2/3 sm:w-1/3 md:w-1/4">
+                  <NumberBox
+                    classes="bg-[#F3F3F5] !rounded-full !px-2 !h-11"
+                    {...register("properties.dietIncomePercent", {
+                      valueAsNumber: true,
+                    })}
+                    error={errors.properties?.dietIncomePercent?.message}
+                  />
+                  <span className="text-xl">
+                    <BsPercent />
+                  </span>
+                </div>
+              </QuestionCard>
+            </motion.div>
+          )}
+          {step === 3 && (
+            <motion.div
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, ease: "easeInOut" }}
+              className="space-y-4"
+            >
+              {/* ------------ STEP 3 ---------- */}
+              <QuestionCard
+                icon={<IoHomeOutline />}
+                label="استان محل سکونت"
+                title="اختیاری"
+              >
+                <Controller
+                  name="properties.province"
+                  control={control}
+                  render={({ field }) => (
+                    <ComboBox
+                      options={provinceOptions}
+                      placeholder="لطفا انتخاب کنید"
+                      searchable
+                      value={field.value ?? ""}
+                      onChange={field.onChange}
+                      error={errors.properties?.province?.message}
+                    />
+                  )}
+                />
+              </QuestionCard>
+              <QuestionCard
+                icon={<PiUsers />}
+                label="وضعیت تاهل"
+                title="اختیاری"
+              >
+                <Controller
+                  name="properties.maritalStatus"
+                  control={control}
+                  render={({ field }) => (
+                    <Radio
+                      options={maritalStatusOptions}
+                      gridColClasses="grid-cols-2"
+                      value={field.value ?? ""}
+                      onChange={field.onChange}
+                      error={errors.properties?.maritalStatus?.message}
+                    />
+                  )}
+                />
+              </QuestionCard>
+              <QuestionCard
+                icon={<PiUsersFourLight />}
+                label="تعداد اعضای خانواده"
+                title="اختیاری"
+              >
+                <NumberBox
+                  classes="bg-[#F3F3F5] !rounded-full !px-2 !h-11"
+                  placeHolder="اینجا بنویس"
+                  {...register("properties.familyMembers", {
+                    valueAsNumber: true,
+                  })}
+                  error={errors.properties?.familyMembers?.message}
+                />
+              </QuestionCard>
+              <QuestionCard
+                icon={<PiPersonSimpleRun />}
+                label="تعداد روزهای ورزش در هفته"
+                title="اختیاری"
+              >
+                <Controller
+                  name="properties.sportDaysPerWeek"
+                  control={control}
+                  render={({ field }) => (
+                    <ComboBox
+                      options={sportDaysPerWeekOptions}
+                      placeholder="لطفا انتخاب کنید"
+                      searchable
+                      value={field.value ?? ""}
+                      onChange={field.onChange}
+                      error={errors.properties?.sportDaysPerWeek?.message}
+                    />
+                  )}
+                />
+              </QuestionCard>
+            </motion.div>
+          )}
 
-          <motion.div
-            initial="hidden"
-            animate={step === 3 ? "visible" : "hidden"}
-            variants={variants}
-            transition={{ duration: 0.5 }}
-            className="space-y-4 overflow-hidden"
-          >
-            {/* ------------ STEP 3 ---------- */}
-            <QuestionCard
-              icon={<IoHomeOutline />}
-              label="استان محل سکونت"
-              title="اختیاری"
-            >
-              <ComboBox
-                options={provinceOptions}
-                name="province"
-                placeholder="لطفا انتخاب کنید"
-                searchable
-              />
-            </QuestionCard>
-            <QuestionCard icon={<PiUsers />} label="وضعیت تاهل" title="اختیاری">
-              <Radio
-                options={maritalStatusOptions}
-                name="maritalStatus"
-                gridColClasses="grid-cols-2"
-              />
-            </QuestionCard>
-            <QuestionCard
-              icon={<PiUsersFourLight />}
-              label="تعداد اعضای خانواده"
-              title="اختیاری"
-            >
-              <TextBox
-                classes="bg-[#F3F3F5] !border-gray-200 !rounded-2xl !px-4"
-                name="familyMembers"
-                placeHolder="اینجا بنویس"
-              />
-            </QuestionCard>
-            <QuestionCard
-              icon={<PiPersonSimpleRun />}
-              label="تعداد روزهای ورزش در هفته"
-              title="اختیاری"
-            >
-              <Radio
-                options={sportDaysPerWeekOptions}
-                name="sportDaysPerWeek"
-                gridColClasses="xs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-5"
-              />
-            </QuestionCard>
-          </motion.div>
-
-          <div
-            className="flex flex-row gap-2 items-center justify-center w-full"
-            style={{ marginTop: step === 3 ? "20px" : undefined }}
-          >
+          <div className="flex flex-row gap-2 items-center justify-center w-full mt-4">
             {step > 1 && (
               <Button
                 type="button"
-                classes="btn !rounded-2xl !w-full"
+                classes="btn btn-outline !rounded-2xl !w-full"
                 title="مرحله قبل"
                 icon={<FaArrowRightLong />}
                 iconClasses="pt-1"

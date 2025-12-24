@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import { memo, type ReactNode } from "react";
 import type React from "react";
 
 const QuestionCard: React.FC<{
@@ -25,4 +25,4 @@ const QuestionCard: React.FC<{
   );
 };
 
-export default QuestionCard;
+export default memo(QuestionCard);
