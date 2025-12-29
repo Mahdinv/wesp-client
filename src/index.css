@@ -157,7 +157,7 @@ small {
     @apply text-2xl;
   }
   h4 {
-    @apply text-xxs;
+    @apply text-sm;
   }
   h6 {
     @apply text-xs;
@@ -175,7 +175,7 @@ small {
     @apply text-xl;
   }
   h4 {
-    @apply text-sm;
+    @apply text-base;
   }
   h5 {
     @apply text-xs;
@@ -251,7 +251,7 @@ small {
   }
 }
 @media (min-width: 1600px) {
-  /*xl*/
+  /*2xl*/
   h1 {
     @apply text-6xl;
   }
