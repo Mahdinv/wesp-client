@@ -11,6 +11,7 @@ import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
 import handleAxiosError from "../../../../api/error-handling";
 import { addPastWeekIntake } from "../../../../http/past-week-intake";
+import { FaRegSquareCheck } from "react-icons/fa6";
 
 const DUMMYDATA = [
   {
@@ -27,26 +28,35 @@ const DUMMYDATA = [
       {
         id: 1,
         code: 108,
-        imageName: "sweet",
         title: "شیرینی",
         categoryId: 1,
-        properties: { weeklyConsumptionOption: [100, 200, 300, 400] },
+        properties: {
+          description: "",
+          weeklyConsumptionOption: [100, 200, 300, 400],
+          imageName: "sweet",
+        },
       },
       {
         id: 2,
         code: 117,
-        imageName: "caffeines-chocolates",
         title: "قهوه، چای، شکلات",
         categoryId: 1,
-        properties: { weeklyConsumptionOption: [40, 80, 100, 160] },
+        properties: {
+          description: "(چای، قهوه و ...)",
+          weeklyConsumptionOption: [40, 80, 100, 160],
+          imageName: "caffeines-chocolates",
+        },
       },
       {
         id: 3,
         code: 105,
-        imageName: "honey",
         title: "عسل",
         categoryId: 1,
-        properties: { weeklyConsumptionOption: [100, 200, 300, 400] },
+        properties: {
+          description: "(شیرین کننده طبیعی)",
+          weeklyConsumptionOption: [100, 200, 300, 400],
+          imageName: "honey",
+        },
       },
     ],
   },
@@ -64,26 +74,35 @@ const DUMMYDATA = [
       {
         id: 4,
         code: 111,
-        imageName: "olive-oil",
         title: "زیتون",
         categoryId: 2,
-        properties: { weeklyConsumptionOption: [20, 40, 60, 100] },
+        properties: {
+          description: "",
+          weeklyConsumptionOption: [20, 40, 60, 100],
+          imageName: "olive-oil",
+        },
       },
       {
         id: 5,
         code: 110,
-        imageName: "herbal-oil",
         title: "گیاهی",
         categoryId: 2,
-        properties: { weeklyConsumptionOption: [20, 40, 60, 100] },
+        properties: {
+          description: "",
+          weeklyConsumptionOption: [20, 40, 60, 100],
+          imageName: "herbal-oil",
+        },
       },
       {
         id: 6,
         code: 109,
-        imageName: "sesame-nuts-oil",
         title: "(کنجد، میوه‌ها، مغزها)",
         categoryId: 2,
-        properties: { weeklyConsumptionOption: [20, 40, 60, 100] },
+        properties: {
+          description: "(بادام، کنجد و ...)",
+          weeklyConsumptionOption: [20, 40, 60, 100],
+          imageName: "sesame-nuts-oil",
+        },
       },
     ],
   },
@@ -101,26 +120,35 @@ const DUMMYDATA = [
       {
         id: 7,
         code: 116,
-        imageName: "potato",
         title: "سیب‌زمینی",
         categoryId: 3,
-        properties: { weeklyConsumptionOption: [400, 800, 1200, 1600] },
+        properties: {
+          description: "",
+          weeklyConsumptionOption: [400, 800, 1200, 1600],
+          imageName: "potato",
+        },
       },
       {
         id: 8,
         code: 118,
-        imageName: "rice",
         title: "برنج",
         categoryId: 3,
-        properties: { weeklyConsumptionOption: [400, 800, 1200, 1600] },
+        properties: {
+          description: "",
+          weeklyConsumptionOption: [400, 800, 1200, 1600],
+          imageName: "rice",
+        },
       },
       {
         id: 9,
         code: 120,
-        imageName: "bread",
         title: "نان",
         categoryId: 3,
-        properties: { weeklyConsumptionOption: [400, 800, 1200, 1600] },
+        properties: {
+          description: "",
+          weeklyConsumptionOption: [400, 800, 1200, 1600],
+          imageName: "bread",
+        },
       },
     ],
   },
@@ -138,42 +166,57 @@ const DUMMYDATA = [
       {
         id: 10,
         code: 106,
-        imageName: "fish",
         title: "ماهی",
         categoryId: 4,
-        properties: { weeklyConsumptionOption: [200, 400, 600, 800] },
+        properties: {
+          description: "",
+          weeklyConsumptionOption: [200, 400, 600, 800],
+          imageName: "fish",
+        },
       },
       {
         id: 11,
         code: 103,
-        imageName: "meat",
         title: "گوشت قرمز",
         categoryId: 4,
-        properties: { weeklyConsumptionOption: [130, 260, 390, 520] },
+        properties: {
+          description: "",
+          weeklyConsumptionOption: [130, 260, 390, 520],
+          imageName: "meat",
+        },
       },
       {
         id: 12,
         code: 104,
-        imageName: "chicken",
         title: "گوشت مرغ",
         categoryId: 4,
-        properties: { weeklyConsumptionOption: [160, 320, 480, 700] },
+        properties: {
+          description: "",
+          weeklyConsumptionOption: [160, 320, 480, 700],
+          imageName: "chicken",
+        },
       },
       {
         id: 13,
         code: 101,
-        imageName: "egg",
         title: "تخم‌مرغ",
         categoryId: 4,
-        properties: { weeklyConsumptionOption: [240, 480, 720, 1000] },
+        properties: {
+          description: "",
+          weeklyConsumptionOption: [240, 480, 720, 1000],
+          imageName: "egg",
+        },
       },
       {
         id: 14,
         code: 102,
-        imageName: "dairy",
         title: "لبنیات",
         categoryId: 4,
-        properties: { weeklyConsumptionOption: [500, 1000, 1500, 2000] },
+        properties: {
+          description: "",
+          weeklyConsumptionOption: [500, 1000, 1500, 2000],
+          imageName: "dairy",
+        },
       },
     ],
   },
@@ -191,26 +234,35 @@ const DUMMYDATA = [
       {
         id: 15,
         code: 113,
-        imageName: "vegetable",
         title: "سبزیجات",
         categoryId: 5,
-        properties: { weeklyConsumptionOption: [150, 300, 450, 600] },
+        properties: {
+          description: "",
+          weeklyConsumptionOption: [150, 300, 450, 600],
+          imageName: "vegetable",
+        },
       },
       {
         id: 16,
         code: 107,
-        imageName: "olive-dates",
         title: "خرما و زیتون",
         categoryId: 5,
-        properties: { weeklyConsumptionOption: [50, 100, 200, 400] },
+        properties: {
+          description: "",
+          weeklyConsumptionOption: [50, 100, 200, 400],
+          imageName: "olive-dates",
+        },
       },
       {
         id: 17,
         code: 112,
-        imageName: "fruits",
         title: "میوه‌ها",
         categoryId: 5,
-        properties: { weeklyConsumptionOption: [300, 600, 900, 1200] },
+        properties: {
+          description: "",
+          weeklyConsumptionOption: [300, 600, 900, 1200],
+          imageName: "fruits",
+        },
       },
     ],
   },
@@ -228,26 +280,35 @@ const DUMMYDATA = [
       {
         id: 18,
         code: 114,
-        imageName: "nuts",
         title: "آجیل‌ها",
         categoryId: 6,
-        properties: { weeklyConsumptionOption: [60, 120, 180, 240] },
+        properties: {
+          description: "",
+          weeklyConsumptionOption: [60, 120, 180, 240],
+          imageName: "nuts",
+        },
       },
       {
         id: 19,
         code: 115,
-        imageName: "beans",
         title: "حبوبات",
         categoryId: 6,
-        properties: { weeklyConsumptionOption: [300, 600, 900, 1200] },
+        properties: {
+          description: "",
+          weeklyConsumptionOption: [300, 600, 900, 1200],
+          imageName: "beans",
+        },
       },
       {
         id: 20,
         code: 119,
-        imageName: "cereals",
         title: "غلات",
         categoryId: 6,
-        properties: { weeklyConsumptionOption: [300, 600, 900, 1200] },
+        properties: {
+          description: "(جو، ذرت و ...)",
+          weeklyConsumptionOption: [300, 600, 900, 1200],
+          imageName: "cereals",
+        },
       },
     ],
   },
@@ -406,11 +467,7 @@ const PastWeekIntake = () => {
       <div className="xxs:w-full sm:w-[90%] md:w-10/12 lg:w-9/12 xl:w-8/12 2xl:w-7/12 sm:mx-auto xxs:px-2 mt-7">
         <FoodFrequencyHelpBar />
       </div>
-      <form
-        onSubmit={handleSubmit(onPastWeekIntakeHandler)}
-        noValidate
-        className="flex xxs:flex-col lg:flex-row items-stretch xxs:gap-8 lg:gap-10 w-full mt-12 md:px-10 2xl:px-28"
-      >
+      <div className="flex xxs:flex-col lg:flex-row items-stretch xxs:gap-8 lg:gap-10 w-full mt-12 md:px-10 2xl:px-28">
         <div className="flex flex-col gap-4 xxs:w-full lg:w-7/12 xl:w-8/12 xxs:px-4 sm:px-6 md:px-0">
           {DUMMYDATA.map((card) => (
             <FoodGroupCard
@@ -443,29 +500,28 @@ const PastWeekIntake = () => {
               </div>
             </FoodGroupCard>
           ))}
-          <Button
-            classes="xxs:hidden lg:block btn btn-primary mt-6"
-            title={isPending ? "در حال ارسال..." : "ثبت"}
-            disable={isPending || !fields.find((field) => field.value > 0)}
-          />
         </div>
-        <div className="lg:w-5/12 xl:w-4/12 xxs:px-4 sm:px-6 md:px-0">
-          <div className="lg:sticky top-28 bg-white flex flex-col items-center xxs:gap-6 lg:gap-4 xl:gap-6 2xl:gap-8 xxs:py-8 lg:py-4 xl:py-6 2xl:py-8 rounded-3xl shadow-md">
-            <h4 className="font-medium">نمودار کلی مصرف</h4>
-            <PieChart chartData={chartData} />
-            <small className="bg-[#B0E3C3] text-black rounded-lg py-4 px-3 font-normal !font-peyda">
-              با انتخاب دایره‌ها، نمودار به‌صورت خودکار به‌روز می‌شود.
-            </small>
+        <div className="flex flex-col lg:w-5/12 xl:w-4/12 xxs:px-4 sm:px-6 md:px-0">
+          <div className="lg:sticky top-28 ">
+            <div className="bg-white flex flex-col items-center xxs:gap-6 lg:gap-4 xl:gap-6 2xl:gap-8 xxs:py-8 lg:py-4 xl:py-6 2xl:py-8 rounded-3xl shadow-md">
+              <h4 className="font-medium">نمودار کلی مصرف</h4>
+              <PieChart chartData={chartData} />
+              <small className="bg-[#B0E3C3] text-black rounded-lg py-4 px-3 font-normal !font-peyda">
+                با انتخاب دایره‌ها، نمودار به‌صورت خودکار به‌روز می‌شود.
+              </small>
+            </div>
+            <form onSubmit={handleSubmit(onPastWeekIntakeHandler)} noValidate>
+              <Button
+                classes="!mt-6 w-full btn btn-primary"
+                title={isPending ? "در حال ارسال..." : "اتمام این مرحله"}
+                icon={<FaRegSquareCheck />}
+                itemsGap={10}
+                disable={isPending || !fields.find((field) => field.value > 0)}
+              />
+            </form>
           </div>
         </div>
-        <div className="xxs:block lg:hidden xxs:px-4 sm:px-6 md:px-0">
-          <Button
-            classes="w-full btn btn-primary"
-            title={isPending ? "در حال ارسال..." : "ثبت"}
-            disable={isPending || !fields.find((field) => field.value > 0)}
-          />
-        </div>
-      </form>
+      </div>
     </>
   );
 };
