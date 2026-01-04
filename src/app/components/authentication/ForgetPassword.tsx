@@ -68,7 +68,7 @@ const ForgetPassword = () => {
             error={errors.email?.message}
           />
           <Button
-            classes="btn btn-primary w-full !rounded-2xl xxs:!py-2 sm:!py-0"
+            classes="btn btn-primary w-full !rounded-2xl xxs:!py-2 sm:!py-2"
             title={isPending ? "در حال ارسال..." : "ارسال کد تایید"}
             icon={<FaArrowLeftLong />}
             itemsGap={20}

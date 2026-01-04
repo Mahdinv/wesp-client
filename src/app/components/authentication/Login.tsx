@@ -77,7 +77,7 @@ const Login = () => {
       </div>
       <div className="w-full flex flex-col items-center xxs:gap-3 md:gap-2 2xl:gap-4">
         <Button
-          classes="btn btn-primary w-full !rounded-2xl xxs:!py-2 sm:!py-0"
+          classes="btn btn-primary w-full !rounded-2xl xxs:!py-2 sm:!py-2"
           title={isPending ? "در حال ورود..." : "ورود"}
           icon={<FaArrowLeftLong />}
           itemsGap={20}
@@ -85,7 +85,7 @@ const Login = () => {
         />
         <Button
           type="button"
-          classes="btn btn-outline w-full !border !rounded-2xl xxs:!py-2 sm:!py-0"
+          classes="btn btn-outline w-full !border !rounded-2xl xxs:!py-2 sm:!py-2"
           title="ورود با حساب گوگل"
           icon={<FcGoogle />}
           iconClasses="xxs:text-xl md:text-3xl"
